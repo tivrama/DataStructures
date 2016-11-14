@@ -14,26 +14,32 @@ Linked List creates nodes that that are linked via a next property on each node.
 - deleteTail()
 - insertAfterValue(lookupValue, value)
 - insertAfterId(__id, value)
+
 #### Lookup
 - readValueAtId(__id)
 - containsValue(value)
 - containsId(__id)
 - indexOfValue(value)
 - indexOfId(__id)
+
 #### Update
 - updateValueAtId(__id, newValue)
 - reverseList()
+
 #### Delete
 - deleteHead()
 - deleteTail()
 - deleteNodeValue(value)
 - deleteNodeId(__id)
+
 #### Helper Methods
 - onEach(callback)
 - mapToArray(callback)
 - filterToArray(callbackPredicate)
+
 #### Diagnostic
 - hasCycle()
+
 #### Properties
 head
 tail
