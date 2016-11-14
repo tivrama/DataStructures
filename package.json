@@ -1,0 +1,27 @@
+{
+  "name": "DataStructures",
+  "version": "1.0.0",
+  "description": "Library of Data Structures",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./util/runTests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tivrama/DataStructures.git"
+  },
+  "author": "Joel Schoolnik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tivrama/DataStructures/issues"
+  },
+  "homepage": "https://github.com/htivrama/DataStructures#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "glob": "^7.0.3",
+    "mocha": "^2.4.5"
+  }
+}
