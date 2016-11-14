@@ -9,15 +9,16 @@ class LinkedList {
     this.allIds = [];
   }
 
+  // Considder making this in a proto object (this.proto.makId)
   makeId() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const makeString = () => {
       for (var i = 0; i < 20; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       }
       if (this.allIds.indexOf(text) !== -1) {
-        test = "";
+        text = "";
         makeString();
       }
     }
@@ -367,6 +368,7 @@ class LinkedList {
     sub2(temp.shift())
   }
 
+  // Considder making this in a proto object (this.proto.makId)
   hasCycle() {
     let counter = 0;
     let lastId;
