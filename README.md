@@ -4,14 +4,23 @@
 Writen in ES6.  Create instances of each data structure by importing only the class you want.  For example:
 ```import { LinkedList } from 'data-structures';```
 
+## Classes
+- LinkedList
+
+(coming soon)
+- Stack
+- Queue
+- BinaryTree
+- Tree
+- Set
+- Graph
+
 ## Linked List (Single)
-Linked List creates nodes that that are linked via a next property on each node.  When creating an instance of LinkedList, the instance will keep rack of the head, tail and length.  It will also create a unique ID for each node with methods that can CRUD by value or ID.  
+Linked List creates nodes that that are linked via a next property on each node.  When creating an instance of LinkedList, the instance will keep track of the head, tail and length.  It will also create a unique ID for each node with methods that can CRUD by value or ID.  
 ### Linked List Methods
 #### Create
 - addToHead(value)
 - addToTail(value)
-- deleteHead()
-- deleteTail()
 - insertAfterValue(lookupValue, value)
 - insertAfterId(__id, value)
 
@@ -24,7 +33,6 @@ Linked List creates nodes that that are linked via a next property on each node.
 
 #### Update
 - updateValueAtId(__id, newValue)
-- reverseList()
 
 #### Delete
 - deleteHead()
@@ -34,17 +42,21 @@ Linked List creates nodes that that are linked via a next property on each node.
 
 #### Helper Methods
 - onEach(callback)
-- mapToArray(callback)
+- mapToArray(optionalCallback)
 - filterToArray(callbackPredicate)
 
 #### Diagnostic
 - hasCycle()
+- reverseList()
+- sortList(optionalCallback.value)
+- lookupTime(optionalId)
+- removeDuplicates()
 
 #### Properties
-head
-tail
-length
-allIds
+- head
+- tail
+- length
+- allIds
 
-
+### Linked List test: run mocha
 

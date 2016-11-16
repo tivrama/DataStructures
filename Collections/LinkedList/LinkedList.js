@@ -14,6 +14,7 @@ class LinkedList {
     let text = "";
     let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const makeString = () => {
+      // string is 20 chars long.  Can change if desired
       for (var i = 0; i < 20; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       }
@@ -27,64 +28,8 @@ class LinkedList {
     return text;
   }
 
-  containsValue(val) { // Returns a boolean indicating whether the input value is present
-    const sub = (node) => {
-      if (node.value === val) {
-        return true;
-      }
-      if (!node.next) {
-        return false;
-      }
-      return sub(node.next)
-    }
-    return sub(this.head);
-  }
 
-  containsId(id) { // Returns a boolean indicating whether the input ID is present
-    const sub = (node) => {
-      if (node.__id === id) {
-        return true;
-      }
-      if (!node.next) {
-        return false;
-      }
-      return sub(node.next)
-    }
-    return sub(this.head);
-  }
-
-
-  indexOfValue(val) { // Returns the numerical order or "index" of the node with value. Returns -1 if not present
-    let index = 0;
-    const sub = (node) => {
-      if (node.value === val) {
-        return index;
-      }
-      if (!node.next) {
-        return -1;
-      }
-      index +=1;
-      return sub(node.next)
-    }
-    return sub(this.head);
-  }
-
-  indexOfId(id) { // Returns the numerical order or "index" of the node with ID. Returns -1 if not present
-    let index = 0;
-    const sub = (node) => {
-      if (node.__id === id) {
-        return index;
-      }
-      if (!node.next) {
-        return -1;
-      }
-      index +=1;
-      return sub(node.next)
-    }
-    return sub(this.head);
-  }
-
-
+//-- CREATE --------------------------------
   addToHead(val) { // Adds a node to head
     const makeNode = {
       value: val,
@@ -120,7 +65,6 @@ class LinkedList {
       this.length +=1;
     }
   }
-
 
   insertAfterValue(lookupVal, val) { 
     // Given a lookupVal and value, it acts similar to addToTail, except it creates a node after the input node
@@ -173,6 +117,97 @@ class LinkedList {
   }
 
 
+//-- LOOKUP --------------------------------
+
+  readValueAtId(id) { // Updated value at node with selected ID
+    const sub = (node) => {
+      if (node.__id === id) {
+        return node.value;
+      }
+      if (!node.next) {
+        console.log('ID not found: ', id);
+        return -1;
+      }
+      return sub(node.next)
+    }
+    return sub(this.head);
+  }
+
+  containsValue(val) { // Returns a boolean indicating whether the input value is present
+    const sub = (node) => {
+      if (node.value === val) {
+        return true;
+      }
+      if (!node.next) {
+        return false;
+      }
+      return sub(node.next)
+    }
+    return sub(this.head);
+  }
+
+  containsId(id) { // Returns a boolean indicating whether the input ID is present
+    const sub = (node) => {
+      if (node.__id === id) {
+        return true;
+      }
+      if (!node.next) {
+        return false;
+      }
+      return sub(node.next)
+    }
+    return sub(this.head);
+  }
+
+  indexOfValue(val) { // Returns the numerical order or "index" of the node with value. Returns -1 if not present
+    let index = 0;
+    const sub = (node) => {
+      if (node.value === val) {
+        return index;
+      }
+      if (!node.next) {
+        return -1;
+      }
+      index +=1;
+      return sub(node.next)
+    }
+    return sub(this.head);
+  }
+
+  indexOfId(id) { // Returns the numerical order or "index" of the node with ID. Returns -1 if not present
+    let index = 0;
+    const sub = (node) => {
+      if (node.__id === id) {
+        return index;
+      }
+      if (!node.next) {
+        return -1;
+      }
+      index +=1;
+      return sub(node.next)
+    }
+    return sub(this.head);
+  }
+
+
+//-- UPDATE --------------------------------
+  updateValueAtId(id, val) { // Updated value at node with selected ID
+    const sub = (node) => {
+      if (node.__id === id) {
+        node.value = val;
+        return node.value;
+      }
+      if (!node.next) {
+        console.log('ID not found: ', id);
+        return -1;
+      }
+      return sub(node.next)
+    }
+    return sub(this.head);
+  }
+
+
+//-- DELETE --------------------------------
   deleteHead() {
     if (!this.head) {
       return
@@ -252,7 +287,7 @@ class LinkedList {
       // node not found
       if (!node.next) {
         console.log('node not found: ', id);
-        return 'node not found';         
+        return;         
       }
       // if node is not head
       if (node.next.__id === id) {
@@ -271,6 +306,8 @@ class LinkedList {
     sub(this.head);
   }
 
+
+//-- HELPER --------------------------------
   onEach(cb) {
     if (!this.head) {
       return
@@ -324,6 +361,31 @@ class LinkedList {
   }
  
 
+//-- DIGNOSTIC -----------------------------
+  // Considder making this in a proto object (this.proto.hasCycle)
+  hasCycle() {
+    let counter = 0;
+    let lastId;
+    let testHead = this.head;
+    const sub = (node) => {
+      if (node.counter) {
+        testHead = {};
+        console.log('Node with circular ref at index: ', counter, ' Between ID ', lastId, ' and ID ', node.__id);
+        return true;
+      }
+      if (!node.counter || node.counter !== 0) {
+        if (!node.next) {
+          testHead = {};
+          return false;
+        }
+        node.counter = counter;
+        counter +=1;
+        lastId = node.__id
+        return sub(node.next);
+      }
+    }
+    return sub(testHead);
+  }
 
   reverseList() {
     if (!this.head || !this.head.next) {
@@ -368,64 +430,103 @@ class LinkedList {
     sub2(temp.shift())
   }
 
-  // Considder making this in a proto object (this.proto.makId)
-  hasCycle() {
-    let counter = 0;
-    let lastId;
-    let testHead = this.head;
+  sortList(callback) {
+    if (!this.head || !this.head.next) {
+      return
+    }
+    let temp = [];
     const sub = (node) => {
-      if (node.counter) {
-        testHead = {};
-        console.log('Node with circular ref at index: ', counter, ' Between ID ', lastId, ' and ID ', node.__id);
-        return true;
+      if (node) {
+        temp.push({value: node.value, __id: node.__id})
+        sub(node.next)
       }
-      if (!node.counter || node.counter !== 0) {
-        if (!node.next) {
-          testHead = {};
-          return false;
+      return
+    }
+    sub(this.head)
+
+    if (callback) {
+      temp.sort(callback);
+    } else {
+      temp.sort(function(a, b) {return a.value - b.value});
+    }
+    this.head = null;
+    this.tail = null;
+
+    const sub2 = (node) => {
+      const makeNode = {
+        value: node.value,
+        __id: node.__id,
+        next: this.head
+      }
+      if (!this.head) {
+        this.tail = makeNode;
+        this.head = makeNode;
+        this.length = 1;
+      } else {
+        let oldHead = this.head;
+        makeNode.next = oldHead;
+        this.head = makeNode;
+        this.length +=1;
+      }
+      if (temp.length) {
+        sub2(temp.pop())
+      } else {
+        return
+      }
+    }
+    sub2(temp.pop())
+
+  }
+
+  lookupTime(id) {
+    if (!this.head || !this.head.next) {
+      return '0ms';
+    }
+    if (!id) {
+      const start = new Date().getTime();
+      let count = 0;
+      const sub = (node) => {
+        if (count === this.length-1) {
+          const end = new Date().getTime();
+          return (end - start) + 'ms';
         }
-        node.counter = counter;
-        counter +=1;
-        lastId = node.__id
-        return sub(node.next);
+        count++;
+        return sub(node.next)
       }
+      return sub(this.head);
+    } else {
+      const start = new Date().getTime();
+      const sub = (node) => {
+        if (node.__id === id) {
+          const end = new Date().getTime();
+          return (end - start) + 'ms';
+        }
+        return sub(node.next)
+      }
+      return sub(this.head);
     }
-    return sub(testHead);
   }
 
-
-  updateValueAtId(id, val) { // Updated value at node with selected ID
+  removeDuplicates() {
+    if (!this.head || !this.head.next) {
+      return;
+    }
+    let cache = {};
     const sub = (node) => {
-      if (node.__id === id) {
-        node.value = val;
-        return node.value;
+      if (!cache[node.value]) {
+        cache[node.value] = node.__id;
+      } else {
+        this.deleteNodeId(node.__id);
       }
       if (!node.next) {
-        console.log('ID not found: ', id);
-        return -1;
+        return;
       }
-      return sub(node.next)
+      sub(node.next)
     }
-    return sub(this.head);
-  }
-
-  readValueAtId(id) { // Updated value at node with selected ID
-    const sub = (node) => {
-      if (node.__id === id) {
-        console.log('Value: ', node.value);
-        return node.value;
-      }
-      if (!node.next) {
-        console.log('ID not found: ', id);
-        return -1;
-      }
-      return sub(node.next)
-    }
-    return sub(this.head);
-  }
+    sub(this.head)
+  } 
 
 }
-
 
 
 module.exports = { LinkedList };
