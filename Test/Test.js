@@ -296,6 +296,74 @@ describe('LinkedList', () => {
 
   });
 
+  describe('LinkedList Diagnostic Methods', () => {
+
+    it('hasCycle should return true if there is a loop and false if not', () => {
+      const myList = new LinkedList();
+      for (let i = 0; i < 10; i++) {
+        myList.addToTail(i);
+      }
+      assert.isFalse(myList.hasCycle());
+      myList.head.next.next = myList.head;
+      assert.isTrue(myList.hasCycle());     
+    });
+
+    it('reverseList should reverse the order of the list', () => {
+      const myList = new LinkedList();
+      for (let i = 0; i < 10; i++) {
+        myList.addToTail(i);
+      }
+      const soln = [9,8,7,6,5,4,3,2,1,0];
+      myList.reverseList()
+      let current = myList.head;
+      for (let i = 0; i < soln.length; i++) {
+        assert.equal(current.value, soln[i], 'Should reverse list');
+        current = current.next;
+      }  
+    });
+
+    it('sortList should sort the list according to a callback', () => {
+      const myList = new LinkedList();
+      for (let i = 0; i < 10; i++) {
+        myList.addToTail(i);
+      }
+      const soln = [9,8,7,6,5,4,3,2,1,0];
+      myList.sortList((a, b) => b.value - a.value)
+      let current = myList.head;
+      for (let i = 0; i < soln.length; i++) {
+        assert.equal(current.value, soln[i], 'Should sort accoding to the callback');
+        current = current.next;
+      }  
+    });
+
+    it('removeDuplicates should remove all duplicates from the list', () => {
+      const myList = new LinkedList();
+      for (let i = 0; i < 10; i++) {
+        myList.addToTail(i);
+        myList.addToTail(i);
+      }
+      const soln = [0,1,2,3,4,5,6,7,8,9];
+      myList.removeDuplicates()
+      let current = myList.head;
+      for (let i = 0; i < soln.length; i++) {
+        assert.equal(current.value, soln[i], 'Should remove duplicate nodes');
+        current = current.next;
+      }  
+    });
+
+  });
+
+
+  describe('LinkedList Properties', () => {
+
+    it('properties length and allIds should match', () => {
+      const myList = new LinkedList();
+      for (let i = 0; i < 10; i++) {
+        myList.addToTail(i);
+      }
+ assert.equal(myList.length, myList.allIds.length, 'Should remove duplicate nodes'); 
+    });
+
+  });
+
 });
-
-

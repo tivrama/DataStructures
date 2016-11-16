@@ -362,7 +362,6 @@ class LinkedList {
  
 
 //-- DIGNOSTIC -----------------------------
-  // Considder making this in a proto object (this.proto.hasCycle)
   hasCycle() {
     let counter = 0;
     let lastId;
