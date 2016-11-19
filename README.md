@@ -4,6 +4,8 @@
 Writen in ES6.  Create instances of each data structure by importing only the class you want.  For example:
 ```import { LinkedList } from 'data-structures';```
 
+### test: run mocha
+
 ## Classes
 - LinkedList
 
@@ -58,5 +60,33 @@ Linked List creates nodes that that are linked via a next property on each node.
 - length
 - allIds
 
-### Linked List test: run mocha
 
+
+## Tree
+Tree begins with a root node.  Branches and leaves are added with the addChild method.  All methods can be invoked on the root or on any other node.  
+ 
+### Tree Methods
+#### Create
+- addChild(value)
+
+#### Lookup
+- contains(value)
+- countLeaves()
+- countNodes
+
+#### Update
+- updateValue(value)
+
+#### Delete
+- deleteLeaf(value)
+- deleteNode(value) (Promotes any children to node's parent)
+- deleteBranchWithChilden(value)
+- removeDuplicates() (coming soon)
+
+#### Helper Methods
+- onEach(callback)
+- mapToArray(optionalCallback)
+- filterToArray(callbackPredicate)
+
+#### Properties
+- children
