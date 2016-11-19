@@ -1,16 +1,19 @@
 'use strict';
 
-
 class Tree {
+
   constructor(val) {
     this.value = val;
     this.children = [];
   }
 
+//-- CREATE --------------------------------
   addChild(val) {
     return this.children.push(new Tree(val))
   }
 
+
+//-- LOOKUP --------------------------------
   contains(val) {
     if (this.value === val) {
       return true
@@ -24,6 +27,7 @@ class Tree {
     }
     return false
   }
+
 
   countLeaves() {
     let counter = 0;
@@ -39,6 +43,7 @@ class Tree {
     return counter;
   }
 
+
   countNodes() {
     let counter = 0;
     const sub = (node) => {
@@ -53,9 +58,11 @@ class Tree {
     return counter;
   }
 
+
+//-- UPDATE --------------------------------
   updateValue(val, newValue) {
     if(this.value === val) {
-      return this.value = newValue;
+      this.value = newValue;
     }
     if (this.children.length > 0) {
       for (var i = 0; i < this.children.length; i++) {
@@ -64,23 +71,10 @@ class Tree {
     }
   }
 
-  deleteLeaf(val, parent = null, index = 0) {
-    if (this.value === val && this.children.length === 0 && parent === null) {
-      return;
-    }
-    if (this.value === val && this.children.length === 0) {
-      return parent.children.splice(index, 1);
-    }
-    if (this.value !== val && this.children.length === 0) {
-      return;
-    }
-    for (var i = 0; i < this.children.length; i++) {
-      this.children[i].deleteLeaf(val, this, i);
-    }
-  }
 
+//-- DELETE --------------------------------
   deleteNode(val, parent = null, index = 0) {
-    if (this.value === val && this.children.length === 0 && parent === null) {
+    if (this.value === val && parent === null) {
       return;
     }
     if (this.value === val && this.children.length === 0) {
@@ -97,6 +91,23 @@ class Tree {
     }  
   }
 
+
+  deleteLeaf(val, parent = null, index = 0) {
+    if (this.value === val && this.children.length === 0 && parent === null) {
+      return;
+    }
+    if (this.value === val && this.children.length === 0) {
+      return parent.children.splice(index, 1);
+    }
+    if (this.value !== val && this.children.length === 0) {
+      return;
+    }
+    for (var i = 0; i < this.children.length; i++) {
+      this.children[i].deleteLeaf(val, this, i);
+    }
+  }
+
+
   deleteBranchWithChilden(val, parent = null, index = 0) {
     if (this.value === val && this.children.length === 0 && parent === null) {
       return;
@@ -109,28 +120,32 @@ class Tree {
     }
   }
 
+
   removeDuplicates() {
     let cache = {}
     const sub = (node, parent = null, index = 0) => {
-      if (cache[this.value] && this.children.length === 0 && parent === null) {
+      if (cache[node.value] && node.children.length === 0 && parent === null) {
         return;
       }
-      if (cache[this.value] && this.children.length === 0) {
+      if (cache[node.value] && node.children.length === 0) {
         return parent.children.splice(index, 1);
       }
-      if (cache[this.value] && this.children.length !== 0) {
-        for (var j = 0; j < this.children.length; j++) {
-          parent.children.push(this.children[j]);
+      if (cache[node.value] && node.children.length !== 0) {
+        for (var j = 0; j < node.children.length; j++) {
+          parent.children.push(node.children[j]);
         }
         return parent.children.splice(index, 1);; 
       }
-      for (var i = 0; i < this.children.length; i++) {
+      cache[node.value] = node.value;
+      for (var i = 0; i < node.children.length; i++) {
         sub(node.children[i], node, i);
       }
     }
-    sub(this);
+    return sub(this);
   }
 
+
+//-- HELPER --------------------------------
   onEach(cb) {
     this.value = cb(this.value);
     if (this.children.length > 0) {
@@ -139,6 +154,7 @@ class Tree {
       }
     }
   }
+
 
   mapToArray(cb) {
     let resultArray = [];
@@ -158,6 +174,7 @@ class Tree {
     return resultArray;
   }
 
+
   filterToArray(cb) {
     if (!cb) {
       return;
@@ -176,6 +193,7 @@ class Tree {
     sub(this);
     return resultArray;
   }
+
 
 };
 

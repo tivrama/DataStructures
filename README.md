@@ -78,10 +78,10 @@ Tree begins with a root node.  Branches and leaves are added with the addChild m
 - updateValue(value)
 
 #### Delete
-- deleteLeaf(value)
 - deleteNode(value) (Promotes any children to node's parent)
+- deleteLeaf(value)
 - deleteBranchWithChilden(value)
-- removeDuplicates() (coming soon)
+- removeDuplicates()
 
 #### Helper Methods
 - onEach(callback)

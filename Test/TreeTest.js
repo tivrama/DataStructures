@@ -67,6 +67,19 @@ describe('Tree', () => {
 
   });
 
+  describe('Tree Update', () => {  
+
+    it('updateValue should finve value and replace with new value', () => {
+      const myTree = new Tree(4);
+      myTree.addChild(5);
+      myTree.addChild(6);
+      myTree.children[1].addChild(7);
+      myTree.updateValue(7, 8);
+      assert.isFalse(myTree.contains(7));
+      assert.isTrue(myTree.contains(8));
+    });
+
+  });
 
   describe('Tree Delete', () => { 
 
@@ -94,29 +107,59 @@ describe('Tree', () => {
       assert.isTrue(myTree.contains(4));
     });
 
-    it('deleteBranch should find and delete a branch with input value', function(){
+    it('deleteBranchWithChilden should find and delete a branch with input value', function(){
       const myTree = new Tree(4);
       myTree.addChild(5);
       myTree.addChild(6);
       myTree.children[1].addChild(7);
-      myTree.deleteBranch(6);
+      myTree.deleteBranchWithChilden(6);
       assert.isFalse(myTree.contains(6));
       assert.isFalse(myTree.contains(7));
     });
 
-    it('deleteBranch should find and delete a leaf with input value', function(){
+    it('deleteNode should not delete the root', function(){
       const myTree = new Tree(4);
       myTree.addChild(5);
       myTree.addChild(6);
       myTree.children[1].addChild(7);
-      myTree.deleteBranch(7);
+      myTree.deleteNode(4);
+      assert.equal(myTree.value, 4);
+    });
+
+    it('deleteNode should find and delete a branch without deleting its children', function(){
+      const myTree = new Tree(4);
+      myTree.addChild(5);
+      myTree.addChild(6);
+      myTree.children[1].addChild(7);
+      myTree.deleteNode(6);
+      assert.isFalse(myTree.contains(6));
+      assert.isTrue(myTree.contains(7));
+    });
+
+    it('deleteBranchWithChilden should find and delete a leaf with input value', function(){
+      const myTree = new Tree(4);
+      myTree.addChild(5);
+      myTree.addChild(6);
+      myTree.children[1].addChild(7);
+      myTree.deleteBranchWithChilden(7);
       assert.isFalse(myTree.contains(7));
     });
 
-    it('deleteBranch should not delete the root', function(){
+    it('deleteBranchWithChilden should not delete the root', function(){
       const myTree = new Tree(4);
-      myTree.deleteBranch(4);
+      myTree.deleteBranchWithChilden(4);
       assert.isTrue(myTree.contains(4));
+    });
+
+    it('removeDuplicates should find and remove all duplicates from the tree', function(){
+      const myTree = new Tree(4);
+      myTree.addChild(14);
+      myTree.addChild(6);
+      myTree.children[1].addChild(7);
+      myTree.children[1].addChild(14);
+      assert.isTrue(myTree.children[1].contains(14));
+      myTree.removeDuplicates();
+      assert.isFalse(myTree.children[1].contains(14));
     });
 
   });
