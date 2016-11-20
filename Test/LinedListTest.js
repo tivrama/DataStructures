@@ -3,9 +3,9 @@
 const LinkedList = require('../Collections/LinkedList/LinkedList.js').LinkedList,
       assert = require('chai').assert;
 
-xdescribe('LinkedList', () => {
+describe('LinkedList', () => {
 
-  describe('LinkedList Create', () => {  
+  xdescribe('LinkedList Create', () => {  
 
     it('addToHead method should add values to head', () => {
       const myList = new LinkedList();
@@ -87,7 +87,7 @@ xdescribe('LinkedList', () => {
 
 
 
-  describe('LinkedList Lookup', () => {
+  xdescribe('LinkedList Lookup', () => {
 
     it('readValueAtId should read value at input ID', () => {
       let myID = '';
@@ -148,7 +148,7 @@ xdescribe('LinkedList', () => {
 
   });
 
-  describe('LinkedList Update', () => {
+  xdescribe('LinkedList Update', () => {
 
     it('updateValueAtId should replace value at input ID', () => {
       let myID = '';
@@ -288,6 +288,44 @@ xdescribe('LinkedList', () => {
       const soln = [0,2,4,6,8];
       const resultArray = myList.filterToArray((val) => val % 2 === 0)
       let current = myList.head;
+      for (let i = 0; i < soln.length; i++) {
+        assert.equal(resultArray[i], soln[i], 'Should return an array with the values from the Linked List');
+        current = current.next;
+      }
+    });
+
+    it('sortedListMerge should merge a different list into this list and sort if there is no callback', () => {
+      const myList1 = new LinkedList();
+      for (let i = 0; i < 10; i += 2) {
+        myList1.addToTail(i);
+      }
+      const myList2 = new LinkedList();
+      for (let i = 1; i < 10; i += 2) {
+        myList2.addToTail(i);
+      }
+      const soln = [0,1,2,3,4,5,6,7,8,9];
+      myList1.sortedListMerge(myList2)
+      let resultArray = myList1.mapToArray();
+      let current = myList1.head;
+      for (let i = 0; i < soln.length; i++) {
+        assert.equal(resultArray[i], soln[i], 'Should return an array with the values from the Linked List');
+        current = current.next;
+      }
+    });
+
+    it('sortedListMerge should merge a different list into this list and sort according to callback', () => {
+      const myList1 = new LinkedList();
+      for (let i = 0; i < 10; i += 2) {
+        myList1.addToTail(i);
+      }
+      const myList2 = new LinkedList();
+      for (let i = 1; i < 10; i += 2) {
+        myList2.addToTail(i);
+      }
+      const soln = [9,8,7,6,5,4,3,2,1,0];
+      myList1.sortedListMerge(myList2, (a, b) => b.value - a.value)
+      let resultArray = myList1.mapToArray();
+      let current = myList1.head;
       for (let i = 0; i < soln.length; i++) {
         assert.equal(resultArray[i], soln[i], 'Should return an array with the values from the Linked List');
         current = current.next;

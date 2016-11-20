@@ -46,6 +46,7 @@ Linked List creates nodes that that are linked via a next property on each node.
 - onEach(callback)
 - mapToArray(optionalCallback)
 - filterToArray(callbackPredicate)
+- sortedListMerge()
 
 #### Diagnostic
 - hasCycle()

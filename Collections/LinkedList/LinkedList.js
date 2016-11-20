@@ -360,6 +360,50 @@ class LinkedList {
     return resultsArray;
   }
  
+  sortedListMerge (newNode, cb) {
+    let mergedArray = [];
+    const sub = (node) => {
+      if (node) {
+        mergedArray.push({value: node.value, __id: node.__id})
+        sub(node.next)
+      }
+      return
+    }
+    sub(this.head);
+    sub(newNode.head);
+    if (cb) {
+      mergedArray.sort(cb);
+    } else {
+      mergedArray.sort(function(a, b) {return a.value - b.value});
+    }
+    this.head = null;
+    this.tail = null;
+
+    const sub2 = (node) => {
+      const makeNode = {
+        value: node.value,
+        __id: node.__id,
+        next: this.head
+      }
+      if (!this.head) {
+        this.tail = makeNode;
+        this.head = makeNode;
+        this.length = 1;
+      } else {
+        let oldHead = this.head;
+        makeNode.next = oldHead;
+        this.head = makeNode;
+        this.length +=1;
+      }
+      if (mergedArray.length) {
+        sub2(mergedArray.pop())
+      } else {
+        return
+      }
+    }
+    sub2(mergedArray.pop())
+  };
+
 
 //-- DIGNOSTIC -----------------------------
   hasCycle() {

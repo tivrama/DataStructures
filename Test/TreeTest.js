@@ -3,7 +3,7 @@
 const Tree = require('../Collections/Tree/Tree.js').Tree,
       assert = require('chai').assert;
 
-describe('Tree', () => {
+xdescribe('Tree', () => {
 
   describe('Tree Create', () => {  
 
@@ -16,6 +16,12 @@ describe('Tree', () => {
       const myTree = new Tree(4);
       myTree.addChild(5);
       assert.equal(myTree.children[0].value, 5);
+    });
+
+    it('should return the newly created child of the new tree', function() {
+      const myTree = new Tree(4);
+      const test = myTree.addChild(5);
+      assert.equal(test, myTree.children[0]);
     });
 
     it('should add grandchildren', function() {
@@ -69,7 +75,7 @@ describe('Tree', () => {
 
   describe('Tree Update', () => {  
 
-    it('updateValue should finve value and replace with new value', () => {
+    it('updateValue should find value and replace with new value', () => {
       const myTree = new Tree(4);
       myTree.addChild(5);
       myTree.addChild(6);
@@ -77,6 +83,16 @@ describe('Tree', () => {
       myTree.updateValue(7, 8);
       assert.isFalse(myTree.contains(7));
       assert.isTrue(myTree.contains(8));
+    });
+
+    it('updateValue should not do anything if value is not found', () => {
+      const myTree = new Tree(4);
+      myTree.addChild(5);
+      myTree.addChild(6);
+      myTree.children[1].addChild(7);
+      myTree.updateValue(10, 8);
+      assert.isTrue(myTree.contains(7));
+      assert.isFalse(myTree.contains(8));
     });
 
   });

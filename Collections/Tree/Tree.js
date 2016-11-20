@@ -9,7 +9,8 @@ class Tree {
 
 //-- CREATE --------------------------------
   addChild(val) {
-    return this.children.push(new Tree(val))
+    this.children.push(new Tree(val))
+    return this.children[this.children.length-1];
   }
 
 
