@@ -91,3 +91,25 @@ Tree begins with a root node.  Branches and leaves are added with the addChild m
 
 #### Properties
 - children
+
+
+## Binary Tree
+Binary Tree begins with a root node.  Branches and leaves are added with the addChild method.  All methods can be invoked on the root or on any other node.  
+ 
+### Binary Tree Methods
+#### Create
+- addChild(value)
+
+#### Lookup
+- contains(value)
+- countNodes
+
+#### Delete
+- deleteNode(value) (Promotes any children to node's parent)
+- deleteLeaf(value) // coming soon
+- deleteBranchWithChilden(value) // coming soon
+- removeDuplicates() // coming soon
+
+#### Helper Methods
+- mapToArray(optionalCallback)
+- filterToArray(callbackPredicate)
