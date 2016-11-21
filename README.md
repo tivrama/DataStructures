@@ -46,7 +46,7 @@ Linked List creates nodes that that are linked via a next property on each node.
 - onEach(callback)
 - mapToArray(optionalCallback)
 - filterToArray(callbackPredicate)
-- sortedListMerge()
+- sortedListMerge(LikedList, optionalCallback)
 
 #### Diagnostic
 - hasCycle()
@@ -76,7 +76,7 @@ Tree begins with a root node.  Branches and leaves are added with the addChild m
 - countNodes
 
 #### Update
-- updateValue(value)
+- updateValue(currentValue, replacementValue)
 
 #### Delete
 - deleteNode(value) (Promotes any children to node's parent)

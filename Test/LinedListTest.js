@@ -5,7 +5,7 @@ const LinkedList = require('../Collections/LinkedList/LinkedList.js').LinkedList
 
 describe('LinkedList', () => {
 
-  xdescribe('LinkedList Create', () => {  
+  describe('LinkedList Create', () => {  
 
     it('addToHead method should add values to head', () => {
       const myList = new LinkedList();
@@ -87,7 +87,7 @@ describe('LinkedList', () => {
 
 
 
-  xdescribe('LinkedList Lookup', () => {
+  describe('LinkedList Lookup', () => {
 
     it('readValueAtId should read value at input ID', () => {
       let myID = '';
@@ -148,7 +148,7 @@ describe('LinkedList', () => {
 
   });
 
-  xdescribe('LinkedList Update', () => {
+  describe('LinkedList Update', () => {
 
     it('updateValueAtId should replace value at input ID', () => {
       let myID = '';

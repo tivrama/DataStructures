@@ -9,7 +9,6 @@ class LinkedList {
     this.allIds = [];
   }
 
-  // Considder making this in a proto object (this.proto.makId)
   makeId() {
     let text = "";
     let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

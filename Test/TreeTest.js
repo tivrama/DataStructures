@@ -3,7 +3,7 @@
 const Tree = require('../Collections/Tree/Tree.js').Tree,
       assert = require('chai').assert;
 
-xdescribe('Tree', () => {
+describe('Tree', () => {
 
   describe('Tree Create', () => {  
 
@@ -184,29 +184,34 @@ xdescribe('Tree', () => {
   describe('Tree Helper Methods', () => { 
 
     it('onEach should invoke callback on each node', function(){
-      const myTree = new Tree(1);
-      myTree.addChild(2);
-      myTree.addChild(3);
-      myTree.addChild(4);
-      myTree.children[0].addChild(5);
-      myTree.children[0].addChild(6);
-      myTree.children[1].addChild(7);
-      myTree.children[1].addChild(8);
-      myTree.onEach((val) => ( val * 2 ));
-      assert.equal(myTree.value, 2);
-      assert.equal(myTree.children[1].children[1].value, 16);
+      const myTree2 = new Tree(1);
+      myTree2.addChild(2);
+      myTree2.addChild(3);
+      myTree2.addChild(4);
+      myTree2.children[0].addChild(5);
+      myTree2.children[0].addChild(6);
+      myTree2.children[1].addChild(7);
+      myTree2.children[1].addChild(8);
+      myTree2.onEach((val) => ( val * 2 ));
+      const soln = [2,4,6,8,10,12,14,16];
+      let resultArray = myTree2.mapToArray();
+      resultArray = resultArray.sort((a, b) => a - b );
+      for (let i = 0; i < soln.length; i++) {
+        assert.equal(resultArray[i], soln[i], 'Should invoke callback on every value in list');
+      }
     });
+
+    const myTree = new Tree(1);
+    myTree.addChild(2);
+    myTree.addChild(3);
+    myTree.addChild(4);
+    myTree.children[0].addChild(5);
+    myTree.children[0].addChild(6);
+    myTree.children[1].addChild(7);
+    myTree.children[1].addChild(8);
 
     it('mapToArray should invoke callback on each node and return as an array', function(){
       const soln = [2,4,6,8,10,12,14,16];
-      const myTree = new Tree(1);
-      myTree.addChild(2);
-      myTree.addChild(3);
-      myTree.addChild(4);
-      myTree.children[0].addChild(5);
-      myTree.children[0].addChild(6);
-      myTree.children[1].addChild(7);
-      myTree.children[1].addChild(8);
       let resultArray = myTree.mapToArray((val) => ( val * 2 ));
       resultArray = resultArray.sort((a, b) => a - b );
       for (let i = 0; i < soln.length; i++) {
@@ -216,14 +221,6 @@ xdescribe('Tree', () => {
 
     it('mapToArray with no callback should return an array of unchanged values', function(){
       const soln = [1,2,3,4,5,6,7,8];
-      const myTree = new Tree(1);
-      myTree.addChild(2);
-      myTree.addChild(3);
-      myTree.addChild(4);
-      myTree.children[0].addChild(5);
-      myTree.children[0].addChild(6);
-      myTree.children[1].addChild(7);
-      myTree.children[1].addChild(8);
       let resultArray = myTree.mapToArray();
       resultArray = resultArray.sort((a, b) => a - b );
       for (let i = 0; i < soln.length; i++) {
@@ -233,14 +230,6 @@ xdescribe('Tree', () => {
 
     it('filterToArray should return an array of values which pass callback predicate', function(){
       const soln = [2,4,6,8];
-      const myTree = new Tree(1);
-      myTree.addChild(2);
-      myTree.addChild(3);
-      myTree.addChild(4);
-      myTree.children[0].addChild(5);
-      myTree.children[0].addChild(6);
-      myTree.children[1].addChild(7);
-      myTree.children[1].addChild(8);
       let resultArray = myTree.filterToArray((val) => ( val % 2 === 0 ));
       resultArray = resultArray.sort((a, b) => a - b );
       for (let i = 0; i < soln.length; i++) {
