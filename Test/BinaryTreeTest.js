@@ -142,11 +142,27 @@ describe('BinaryTree', () => {
       assert.isFalse(myBinaryTree2.containsVal('Foo'));
     });
 
-    xit('deleteNode should delete a node with children, but keep the children', () => {
-      myBinaryTree2.deleteNode(5)
-      assert.isFalse(myBinaryTree2.containsVal(5));
-      assert.isTrue(myBinaryTree2.containsVal(7));
-      assert.isTrue(myBinaryTree2.containsVal(6));
+    it('deleteNode should delete a node with children, but keep the children', () => {
+      if (myBinaryTree2.left) {
+        if (myBinaryTree2.left.left) {
+          console.log('leftchild: ', myBinaryTree2.left.left.value);
+          var leftChild = myBinaryTree2.left.left.__id
+          var leftParent = myBinaryTree2.left.__id
+          myBinaryTree2.deleteNode(leftParent)
+        assert.isFalse(myBinaryTree2.containsId(leftParent));
+        assert.isTrue(myBinaryTree2.containsId(leftChild));
+        }
+      }
+      if (myBinaryTree2.right) {
+        if (myBinaryTree2.right.right) {
+          console.log('rightchild: ', myBinaryTree2.right.right.value);
+          var rightChild = myBinaryTree2.right.right.__id
+          var rightParent = myBinaryTree2.right.__id
+          myBinaryTree2.deleteNode(rightParent)
+        assert.isFalse(myBinaryTree2.containsId(rightParent));
+        assert.isTrue(myBinaryTree2.containsId(rightChild));
+        }
+      }
     });
 
     xit('deleteNode should replace the root, but keep the children', () => {
