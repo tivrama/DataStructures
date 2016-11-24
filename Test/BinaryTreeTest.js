@@ -145,9 +145,8 @@ describe('BinaryTree', () => {
     it('deleteNode should delete a node with children, but keep the children', () => {
       if (myBinaryTree2.left) {
         if (myBinaryTree2.left.left) {
-          console.log('leftchild: ', myBinaryTree2.left.left.value);
-          var leftChild = myBinaryTree2.left.left.__id
           var leftParent = myBinaryTree2.left.__id
+          var leftChild = myBinaryTree2.left.left.__id
           myBinaryTree2.deleteNode(leftParent)
         assert.isFalse(myBinaryTree2.containsId(leftParent));
         assert.isTrue(myBinaryTree2.containsId(leftChild));
@@ -155,9 +154,8 @@ describe('BinaryTree', () => {
       }
       if (myBinaryTree2.right) {
         if (myBinaryTree2.right.right) {
-          console.log('rightchild: ', myBinaryTree2.right.right.value);
-          var rightChild = myBinaryTree2.right.right.__id
           var rightParent = myBinaryTree2.right.__id
+          var rightChild = myBinaryTree2.right.right.__id
           myBinaryTree2.deleteNode(rightParent)
         assert.isFalse(myBinaryTree2.containsId(rightParent));
         assert.isTrue(myBinaryTree2.containsId(rightChild));
@@ -165,12 +163,14 @@ describe('BinaryTree', () => {
       }
     });
 
-    xit('deleteNode should replace the root, but keep the children', () => {
-      myBinaryTree2.deleteNode(10)
-      console.log('myBinaryTree2: ', myBinaryTree2);
-      assert.isFalse(myBinaryTree2.containsVal(10));
-      assert.isTrue(myBinaryTree2.containsVal(7));
-      assert.isTrue(myBinaryTree2.containsVal(6));
+    it('deleteNode should replace the root, but keep the children', () => {
+      var rootId = myBinaryTree2.__id;
+      if (myBinaryTree2.right) {
+        var rightChild = myBinaryTree2.right.__id
+        myBinaryTree2.deleteNode(rootId)
+        assert.isFalse(myBinaryTree2.containsId(rootId));
+        assert.isTrue(myBinaryTree2.containsId(rightChild));
+      }
     });
 
   });
@@ -179,21 +179,32 @@ describe('BinaryTree', () => {
 
   xdescribe('BinaryTree Helper Functions', () => {
 
-    it('mapToArray should return a sorted array', () => {
-      const soln = [2,5,7,10,11,12,15,17];
-      const test = myBinaryTree.mapToArray();
+    let myBinaryTree4 = new BinaryTree(10);
+    myBinaryTree4.addChild(5)
+    myBinaryTree4.addChild(2)
+    myBinaryTree4.addChild(7)
+    myBinaryTree4.addChild(6)
+    myBinaryTree4.addChild(15)
+    myBinaryTree4.addChild(17)
+    myBinaryTree4.addChild(12)
+    myBinaryTree4.addChild(11)
+
+    xit('mapToArray should return an array of the values', () => {
+      const soln = [2,5,6,7,10,11,12,15,17];
+      let test = myBinaryTree4.mapToArray();
+      test = test.sort((a, b) => a-b);
 		  assert.deepEqual(soln, test);
     });    
 
-    it('mapToArray should return a sorted array with a callback invoked on each item', () => {
-      const soln = [4,10,14,20,22,24,30,34];
-      const test = myBinaryTree.mapToArray((val) => val * 2);
+    xit('mapToArray should return a sorted array with a callback invoked on each item', () => {
+      const soln = [4,10,12,14,20,22,24,30,34];
+      const test = myBinaryTree4.mapToArray((val) => val * 2);
       assert.deepEqual(soln, test);
     });  
 
-    it('filterToArray should return an array of items that pass callback predicate', () => {
-      const soln = [2,10,12];
-      const test = myBinaryTree.filterToArray((val) => val % 2 === 0);
+    xit('filterToArray should return an array of items that pass callback predicate', () => {
+      const soln = [2,6,10,12];
+      const test = myBinaryTree4.filterToArray((val) => val % 2 === 0);
       assert.deepEqual(soln, test);
     }); 
 
