@@ -102,6 +102,8 @@ Binary Tree begins with a root node.  Branches and leaves are added with the add
 
 #### Lookup
 - contains(value)
+- containsId(id)
+- lookUp(id)
 - countNodes
 
 #### Delete

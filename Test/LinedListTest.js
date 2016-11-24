@@ -3,7 +3,7 @@
 const LinkedList = require('../Collections/LinkedList/LinkedList.js').LinkedList,
       assert = require('chai').assert;
 
-describe('LinkedList', () => {
+xdescribe('LinkedList', () => {
 
   describe('LinkedList Create', () => {  
 
