@@ -35,17 +35,18 @@ class BinaryTree {
 		}
 	}
 
-	contains(val) {
+	
+	containsVal(val) {
 		if (this.value === val) {
 			return true;
 		}
 		if (this.left) {
-			if (this.left.contains(val)) {
+			if (this.left.containsVal(val)) {
 				return true
 			}
 		}
 		if (this.right) {
-			if (this.right.contains(val)) {
+			if (this.right.containsVal(val)) {
 				return true
 			}
 		}
@@ -70,13 +71,13 @@ class BinaryTree {
 			return this.__id;
 		}
 		if (this.left) {
-			if (this.left.contains(val)) {
-				return this.left.contains(val)
+			if (this.left.containsVal(val)) {
+				return this.left.getId(val)
 			}
 		}
 		if (this.right) {
-			if (this.right.contains(val)) {
-				return this.right.contains(val)
+			if (this.right.containsVal(val)) {
+				return this.right.getId(val)
 			}
 		}
 		return null		
@@ -144,7 +145,7 @@ class BinaryTree {
 
 			if (node.__id === id) {
 				if (!node.left && !node.right) {
-					parent[side] = null
+					return parent[side] = null
 				}
 				if (node.left) {
 					sub2(node.left)
