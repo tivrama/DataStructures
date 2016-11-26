@@ -164,7 +164,8 @@ describe('BinaryTree', () => {
     });
 
     it('deleteNode should replace the root, but keep the children', () => {
-      var rootId = myBinaryTree2.__id;
+      var rootId = myBinaryTree2
+      .__id;
       if (myBinaryTree2.right) {
         var rightChild = myBinaryTree2.right.__id
         myBinaryTree2.deleteNode(rootId)

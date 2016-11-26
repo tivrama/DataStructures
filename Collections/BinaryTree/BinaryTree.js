@@ -2,8 +2,8 @@
 
 class BinaryTree {
 
-  constructor(val, id = null) {
-    this.__id = id || this.makeId();
+  constructor(val, id = this.makeId()) {
+    this.__id = id;
     this.value = val
     this.left = null;
     this.right = null;
@@ -113,9 +113,9 @@ class BinaryTree {
 
 
 	deleteNode(id) {
-		if (this.left === null && this.right === null) {
-			return this.value = null;
-		}
+		// if (this.left === null && this.right === null) {
+		// 	return this.value = null;
+		// }
 		let children = [];
 		let root = this;
 
@@ -130,7 +130,6 @@ class BinaryTree {
 			if (node.right) {
 				sub2(node.right)
 			}
-			return children;
 		}
 
 		// TODO: rebuild to make balanced tree
@@ -142,8 +141,24 @@ class BinaryTree {
 		}
 
 		const sub = (node, parent = null, side = null) => {
-
 			if (node.__id === id) {
+				if (parent === null) {
+					if (!node.left && !node.right) {
+						return node.value = null;
+					}
+					if (node.left) {
+						sub2(node.left)
+					}
+					if (node.right) {
+						sub2(node.right)
+					}
+					let newRoot = children.pop()
+					node.value = newRoot.value
+					node.__id = newRoot.__id
+					sub3()
+					return node;			
+				}
+
 				if (!node.left && !node.right) {
 					return parent[side] = null
 				}
@@ -153,11 +168,7 @@ class BinaryTree {
 				if (node.right) {
 					sub2(node.right)
 				}
-				let current = children.pop();
-				node.__id = current.__id
-				node.value = current.value
-				node.left = null;
-				node.right = null;
+				parent[side] = null
 				sub3()
 				return
 			}
@@ -168,8 +179,7 @@ class BinaryTree {
 			}
 		}
 		sub(this)
-
-		return this;
+		return root;
 	}
 
 	mapToArray(cb) {
