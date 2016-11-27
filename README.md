@@ -93,8 +93,8 @@ Tree begins with a root node.  Branches and leaves are added with the addChild m
 - children
 
 
-## Binary Tree
-Binary Tree begins with a root node.  Branches and leaves are added with the addChild method.  All methods can be invoked on the root or on any other node.  
+## Binary Tree (Random)
+Binary Tree begins with a root node and nodes are added with the addChild method.  The index is created with a random string.  Though this does result in some inefficiency, the search is dramatically better than an array or linked list, with on average, no more than 55 operations for a tree of 1,000,000 nodes (when searching by id).    
  
 ### Binary Tree Methods
 #### Create
@@ -121,5 +121,5 @@ Binary Tree begins with a root node.  Branches and leaves are added with the add
 #### Diagnostic
 - countNodes()
 - deepestGeneration()
-- distributeNodes()
+- distributeNodes() // coming soon
 

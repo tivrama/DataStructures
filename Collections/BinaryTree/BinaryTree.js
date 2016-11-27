@@ -173,6 +173,10 @@ class BinaryTree {
 		}
 	}
 
+	removeDuplicates() {
+
+	}
+
 
 	mapToArray(cb) {
 		var resultArray = [];
@@ -226,15 +230,26 @@ class BinaryTree {
 	}
 
 	deepestGeneration() {
-		// Returns int denoting the deepest generation of the binary tree
-
+		let generation = 1;
+		const sub = (node, gen = 1) => {
+			if (node.left) { sub(node.left, gen + 1) }
+			if (gen > generation) {
+				generation = gen;
+			}
+			if (node.right) { sub(node.right, gen + 1) }
+		}
+		sub(this);
+		return generation;	
 	}
 
 	distributeNodes() {
-		// Re sorts binary tree so that the deepest generation is no more than 1 generation deeper than the shortest generation.
+		// Re sorts binary tree so that the deepest generation is no more than 1 generation deeper than the shortest.
+
 	}
 
 };
+
+
 
 
 module.exports = { BinaryTree };

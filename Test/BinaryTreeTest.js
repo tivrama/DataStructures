@@ -254,4 +254,20 @@ describe('BinaryTree', () => {
 
   });
 
+
+  describe('BinaryTree Diagnostic Functions', () => {
+
+    let myBinaryTree = new BinaryTree(0);
+    for (let i = 1; i < 10; i++) {
+      myBinaryTree.addChild(i);
+    }
+
+    xit('deepestGeneration should the length of the deepest path', () => { // Test not done
+      const test = myBinaryTree.deepestGeneration();
+      // assert.equal(test, typeof test === 'number', 'deepestGeneration is not working');
+    });
+
+
+  });
+
 });
