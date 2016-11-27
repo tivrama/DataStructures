@@ -132,15 +132,22 @@ describe('BinaryTree', () => {
     });
 
     it('deleteNode should return null if there are no children and root id does not match', () => {
-      let myBinaryTree1 = new BinaryTree(0);
-      assert.equal(myBinaryTree1.deleteNode('fake_id'), null, 'deleteNode with fake id not working');
+      let myBinaryTree = new BinaryTree(0);
+      assert.equal(myBinaryTree.deleteNode('fake_id'), null, 'deleteNode with fake id not working');
     });
 
-    it('deleteNode should return node with value set to null if there are no children and root id does match', () => {
-      let myBinaryTree2 = new BinaryTree(0);
-      let rootId = myBinaryTree2.__id;
-      myBinaryTree2.deleteNode(rootId)
-      assert.equal(myBinaryTree2.value, null, 'deleteNode with id and no children not working');
+    it('deleteNode should reset root value to null if there are no children and root id does match', () => {
+      let myBinaryTree = new BinaryTree(0);
+      let rootId = myBinaryTree.__id;
+      myBinaryTree.deleteNode(rootId)
+      assert.equal(myBinaryTree.value, null, 'deleteNode with id and no children not working');
+    });
+
+    it('deleteNode should return original value that was deleted if there are no children and root id does match', () => {
+      let myBinaryTree = new BinaryTree(0);
+      let rootId = myBinaryTree.__id;
+      let deletedValue = myBinaryTree.deleteNode(rootId)
+      assert.equal(deletedValue, 0, 'deleteNode with id and no children not working');
     });
 
     it('deleteNode should delete leaf', () => {
@@ -250,7 +257,26 @@ describe('BinaryTree', () => {
       let test = myBinaryTree.filterToArray((val) => val % 2 === 0);
       test = test.sort((a, b) => a-b);
       assert.deepEqual(soln, test);
-    }); 
+    });
+
+    let myBinaryTree1 = new BinaryTree(0);
+    for (let i = 1; i < 10; i++) {
+      myBinaryTree1.addChild(i);
+    }
+    myBinaryTree1.addChild(4)
+    myBinaryTree1.addChild(5)
+    myBinaryTree1.addChild(5)
+    it('removeDuplicates should remove nodes with duplicate values', () => {
+      let nodesBefore = myBinaryTree1.countNodes();
+      let test1 = myBinaryTree1.mapToArray();
+      test1 = test1.sort((a, b) => a-b);
+      let deletedNode = myBinaryTree1.removeDuplicates();
+      let test2 = myBinaryTree1.mapToArray();
+      test2 = test2.sort((a, b) => a-b);
+      let nodesAfter = myBinaryTree1.countNodes();
+      assert.equal(nodesBefore, nodesAfter + 3, 'removeDuplicates is not working');
+      assert.deepEqual(test2, [0,1,2,3,4,5,6,7,8,9]);
+    });
 
   });
 
@@ -258,13 +284,19 @@ describe('BinaryTree', () => {
   describe('BinaryTree Diagnostic Functions', () => {
 
     let myBinaryTree = new BinaryTree(0);
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i < 10000; i++) {
       myBinaryTree.addChild(i);
     }
 
-    xit('deepestGeneration should the length of the deepest path', () => { // Test not done
+    it('deepestGeneration should return a number', () => { // Test not done
       const test = myBinaryTree.deepestGeneration();
-      // assert.equal(test, typeof test === 'number', 'deepestGeneration is not working');
+      assert.isTrue(typeof test === 'number');
+    });
+
+
+    it('deepestGeneration should return the length of the deepest path', () => { // Test not done
+      const test = myBinaryTree.deepestGeneration();
+      assert.isTrue(test < 36);
     });
 
 

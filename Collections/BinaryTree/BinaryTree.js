@@ -112,70 +112,67 @@ class BinaryTree {
 	}
 
 
-	deleteNode(id, parent = null, side = null, root = null) {
-		if (!id) null;
+  deleteNode(id, parent = null, side = null, root = null) {
+    let idValue;
+    if (!id) null;
 
-		if (!this.left && !this.right && parent === null) {
-			if (this.__id !== id) {
-				return null;
-			}
-			if (this.__id === id) {
-				this.value = null
-				return this;
-			}
-		}
+    if (!this.left && !this.right && parent === null) {
+      if (this.__id !== id) {
+        return null;
+      }
+      if (this.__id === id) {
+        idValue = this.value
+        this.value = null
+        return idValue;
+      }
+    }
 
-		if (!root) root = this;
-		let children = [];
-		const saveChildren = (node) => {
-			children.push({
-				value: node.value,
-				__id: node.__id
-			});
-			if (node.left) saveChildren(node.left)
-			if (node.right) saveChildren(node.right)
-		}
-		const addChildren = (originalRoot) => {
-			for (let i =0; i < children.length; i++) {
-				originalRoot.addChild(children[i].value, children[i].__id)
-			}
-		}
+    if (!root) root = this;
+    let children = [];
+    const saveChildren = (node) => {
+      children.push({
+        value: node.value,
+        __id: node.__id
+      });
+      if (node.left) saveChildren(node.left)
+      if (node.right) saveChildren(node.right)
+    }
+    const addChildren = (originalRoot) => {
+      for (let i =0; i < children.length; i++) {
+        originalRoot.addChild(children[i].value, children[i].__id)
+      }
+    }
 
-		if (this.__id === id) {
-			if (!parent) {
-				if (this.right) saveChildren(this.right);
-				let newParent = children.shift();
-				if (this.left) saveChildren(this.left);
-				this.value = newParent.value;
-				this.__id = newParent.__id;
-				this.left = null;
-				this.right = null;
-				addChildren(this)
-				return this;
-			}
-			if(!this.left && !this.right && parent) {
-				return parent[side] = null;
-			}
-			if (this.right) saveChildren(this.right)
-			if (this.left) saveChildren(this.left)
-			if (parent[side])	{
-				parent[side] = null;
-				addChildren(root);
-				return root;
-			}
-		}
+    if (this.__id === id) {
+        idValue = this.value;
+      if (!parent) {
+        if (this.right) saveChildren(this.right);
+        let newParent = children.shift();
+        if (this.left) saveChildren(this.left);
+        this.value = newParent.value;
+        this.__id = newParent.__id;
+        this.left = null;
+        this.right = null;
+        addChildren(this)
+        return idValue;
+      }
+      if(!this.left && !this.right && parent) {
+        parent[side] = null;
+        return idValue;
+      }
+      if (this.right) saveChildren(this.right)
+      if (this.left) saveChildren(this.left)
+      if (parent[side]) {
+        parent[side] = null;
+        addChildren(root);
+        return idValue;
+      }
+    }
 
-		if (this.left) {
-			this.left.deleteNode(id, this, 'left', root)
-		}
-		if (this.right) {
-			this.right.deleteNode(id, this, 'right', root)
-		}
-	}
-
-	removeDuplicates() {
-
-	}
+    if (this.left) this.left.deleteNode(id, this, 'left', root)
+    if (this.right) this.right.deleteNode(id, this, 'right', root)
+    return idValue;
+  }
 
 
 	mapToArray(cb) {
@@ -218,6 +215,26 @@ class BinaryTree {
 	}
 
 
+	removeDuplicates() {
+		let cache = {};
+		let returnInfo = {};
+		const findAndRemoveDuplicates = (node, root = null) => {
+			if (!root) root = node;
+			if (!cache[node.value]) {
+				cache[node.value] = node.__id;
+			} else {
+				returnInfo[node.__id] = node.value
+				root.deleteNode(node.__id)
+			}
+			if (!node.left && !node.right) return
+			if (node.left) findAndRemoveDuplicates(node.left, root)
+			if (node.right) findAndRemoveDuplicates(node.right, root)
+		}
+		findAndRemoveDuplicates(this)
+		return returnInfo;
+	}
+
+
 	countNodes() {
 		var count = 0;
 		const sub = (node) => {
@@ -242,10 +259,6 @@ class BinaryTree {
 		return generation;	
 	}
 
-	distributeNodes() {
-		// Re sorts binary tree so that the deepest generation is no more than 1 generation deeper than the shortest.
-
-	}
 
 };
 

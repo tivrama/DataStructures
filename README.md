@@ -8,12 +8,12 @@ Writen in ES6.  Create instances of each data structure by importing only the cl
 
 ## Classes
 - LinkedList
+- Tree
+- BinaryTree
 
 (coming soon)
 - Stack
 - Queue
-- BinaryTree
-- Tree
 - Set
 - Graph
 
@@ -121,5 +121,4 @@ Binary Tree begins with a root node and nodes are added with the addChild method
 #### Diagnostic
 - countNodes()
 - deepestGeneration()
-- distributeNodes() // coming soon
 
