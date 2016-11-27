@@ -113,11 +113,9 @@ class BinaryTree {
 
 
 	deleteNode(id) {
-		// if (this.left === null && this.right === null) {
-		// 	return this.value = null;
-		// }
-		let children = [];
-		let root = this;
+
+		var children = [];
+		var root = this;
 
 		const sub2 = (node) => {
 				children.push({
@@ -125,10 +123,10 @@ class BinaryTree {
 					id: node.__id
 				})
 			if (node.left) {
-				sub2(node.left)
+				return sub2(node.left)
 			}
 			if (node.right) {
-				sub2(node.right)
+				return sub2(node.right)
 			}
 		}
 
@@ -142,17 +140,17 @@ class BinaryTree {
 
 		const sub = (node, parent = null, side = null) => {
 			if (node.__id === id) {
-				if (parent === null) {
-					if (!node.left && !node.right) {
+				if (parent === null) { // if found it is the rood node
+					if (!node.left && !node.right) { // if root has no children
 						return node.value = null;
 					}
-					if (node.left) {
+					if (node.left) { // add children to children array
 						sub2(node.left)
 					}
 					if (node.right) {
 						sub2(node.right)
 					}
-					let newRoot = children.pop()
+					let newRoot = children.pop() // make root equal to ??
 					node.value = newRoot.value
 					node.__id = newRoot.__id
 					sub3()
@@ -178,7 +176,7 @@ class BinaryTree {
 				sub(node.left, node, 'left')
 			}
 		}
-		sub(this)
+		sub(root)
 		return root;
 	}
 
@@ -191,6 +189,17 @@ class BinaryTree {
 			} else {
 				resultArray.push(node.value);
 			}
+			if (node.right) { sub(node.right) }
+		}
+		sub(this);
+		return resultArray;
+	}
+
+	mapIdToArray() {
+		var resultArray = [];
+		const sub = (node) => {
+			if (node.left) { sub(node.left) }
+			resultArray.push(node.__id);
 			if (node.right) { sub(node.right) }
 		}
 		sub(this);

@@ -164,11 +164,12 @@ describe('BinaryTree', () => {
     });
 
     it('deleteNode should replace the root, but keep the children', () => {
-      var rootId = myBinaryTree2
-      .__id;
+      var rootId = myBinaryTree2.__id;
       if (myBinaryTree2.right) {
         var rightChild = myBinaryTree2.right.__id
-        myBinaryTree2.deleteNode(rootId)
+        console.log('Before Delete', myBinaryTree2.mapIdToArray());
+        myBinaryTree2.deleteNode(rootId);
+        console.log('After Delete', myBinaryTree2.mapIdToArray());
         assert.isFalse(myBinaryTree2.containsId(rootId));
         assert.isTrue(myBinaryTree2.containsId(rightChild));
       }
@@ -178,7 +179,7 @@ describe('BinaryTree', () => {
 
 
 
-  xdescribe('BinaryTree Helper Functions', () => {
+  describe('BinaryTree Helper Functions', () => {
 
     let myBinaryTree4 = new BinaryTree(10);
     myBinaryTree4.addChild(5)
@@ -190,18 +191,24 @@ describe('BinaryTree', () => {
     myBinaryTree4.addChild(12)
     myBinaryTree4.addChild(11)
 
-    xit('mapToArray should return an array of the values', () => {
+    it('mapToArray should return an array of the values', () => {
       const soln = [2,5,6,7,10,11,12,15,17];
       let test = myBinaryTree4.mapToArray();
       test = test.sort((a, b) => a-b);
 		  assert.deepEqual(soln, test);
     });    
 
-    xit('mapToArray should return a sorted array with a callback invoked on each item', () => {
+    it('mapToArray should return a sorted array with a callback invoked on each item', () => {
       const soln = [4,10,12,14,20,22,24,30,34];
-      const test = myBinaryTree4.mapToArray((val) => val * 2);
+      let test = myBinaryTree4.mapToArray((val) => val * 2);
+      test = test.sort((a, b) => a-b);
       assert.deepEqual(soln, test);
     });  
+
+    xit('mapIdToArray should return a sorted array if ids', () => { // Test not done
+      const test = myBinaryTree4.mapToArray((val) => val * 2);
+      assert.deepEqual(soln, test);
+    }); 
 
     xit('filterToArray should return an array of items that pass callback predicate', () => {
       const soln = [2,6,10,12];
