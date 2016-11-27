@@ -165,37 +165,34 @@ describe('BinaryTree', () => {
       assert.equal(myBinaryTree.mapIdToArray().length, treeLength - 1, 'deleteNode at leaf not working')
     });
 
-    xit('deleteNode should delete a node with children, but keep the children', () => {
-      let myBinaryTree2 = new BinaryTree(10);
-      myBinaryTree2.addChild(5)
-      myBinaryTree2.addChild(2)
-      myBinaryTree2.addChild(7)
-      myBinaryTree2.addChild(6)
-      myBinaryTree2.addChild(15)
-      myBinaryTree2.addChild(17)
-      myBinaryTree2.addChild(12)
-      myBinaryTree2.addChild(11)
+    it('deleteNode should delete a node with children, but keep the children', () => {
+      let myBinaryTree = new BinaryTree(0);
+      for (let i = 1; i < 10; i++) {
+        myBinaryTree.addChild(i);
+      }
+      const treeLength = myBinaryTree.mapIdToArray().length;
+      let nodesDeleted = 0;
 
-      if (myBinaryTree2.left) {
-        if (myBinaryTree2.left.left) {
-          var leftParent = myBinaryTree2.left.__id
-          var leftChild = myBinaryTree2.left.left.__id
-          console.log('Before Delete Left', myBinaryTree2.mapIdToArray());
-          myBinaryTree2.deleteNode(leftParent);
-          console.log('After Delete Left', myBinaryTree2.mapIdToArray());
-        assert.isFalse(myBinaryTree2.containsId(leftParent));
-        assert.isTrue(myBinaryTree2.containsId(leftChild));
+      if (myBinaryTree.left) {
+        if (myBinaryTree.left.left) {
+          nodesDeleted++;
+          var leftParent = myBinaryTree.left.__id
+          var leftChild = myBinaryTree.left.left.__id
+          myBinaryTree.deleteNode(leftParent);
+        assert.isFalse(myBinaryTree.containsId(leftParent));
+        assert.isTrue(myBinaryTree.containsId(leftChild));
+        assert.equal(myBinaryTree.mapIdToArray().length, treeLength - nodesDeleted, 'deleteNode at leaf not working')
         }
       }
-      if (myBinaryTree2.right) {
-        if (myBinaryTree2.right.right) {
-          var rightParent = myBinaryTree2.right.__id
-          var rightChild = myBinaryTree2.right.right.__id
-          console.log('Before Delete Right', myBinaryTree2.mapIdToArray());
-          myBinaryTree2.deleteNode(rightParent);
-          console.log('After Delete Right', myBinaryTree2.mapIdToArray());
-        assert.isFalse(myBinaryTree2.containsId(rightParent));
-        assert.isTrue(myBinaryTree2.containsId(rightChild));
+      if (myBinaryTree.right) {
+        if (myBinaryTree.right.right) {
+          nodesDeleted++;
+          var rightParent = myBinaryTree.right.__id
+          var rightChild = myBinaryTree.right.right.__id
+          myBinaryTree.deleteNode(rightParent);
+        assert.isFalse(myBinaryTree.containsId(rightParent));
+        assert.isTrue(myBinaryTree.containsId(rightChild));
+        assert.equal(myBinaryTree.mapIdToArray().length, treeLength - nodesDeleted, 'deleteNode at leaf not working')
         }
       }
     });

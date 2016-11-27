@@ -112,91 +112,54 @@ class BinaryTree {
 	}
 
 
-	deleteNode(id) {
+	deleteNode(id, parent = null, side = null, root = null) {
 		if (!id) null;
 
-		if (!this.left && !this.right) {
+		if (!this.left && !this.right && parent === null) {
 			if (this.__id !== id) {
 				return null;
 			}
-		}
-
-		if (!this.left && !this.right) {
 			if (this.__id === id) {
 				this.value = null
 				return this;
 			}
 		}
 
+		if (!root) root = this;
+		let children = [];
+		const saveChildren = (node) => {
+			children.push({
+				value: node.value,
+				__id: node.__id
+			});
+			if (node.left) saveChildren(node.left)
+			if (node.right) saveChildren(node.right)
+		}
+		const addChildren = (originalRoot) => {
+			for (let i =0; i < children.length; i++) {
+				originalRoot.addChild(children[i].value, children[i].__id)
+			}
+		}
+
+		if (this.__id === id) {
+			if(!this.left && !this.right && parent) {
+				return parent[side] = null;
+			}
+			if (this.left) saveChildren(this.left)
+			if (this.right) saveChildren(this.right)
+			parent[side] = null;
+			addChildren(root);
+		}
+
+		if (this.left) {
+			this.left.deleteNode(id, this, 'left', root)
+		}
+		if (this.right) {
+			this.right.deleteNode(id, this, 'right', root)
+		}
+
 	}
 
-	// deleteNode(id) {
-
-	// 	var children = [];
-	// 	var root = this;
-
-	// 	const sub2 = (node) => {
-	// 			children.push({
-	// 				value: node.value,
-	// 				id: node.__id
-	// 			})
-	// 		if (node.left) {
-	// 			return sub2(node.left)
-	// 		}
-	// 		if (node.right) {
-	// 			return sub2(node.right)
-	// 		}
-	// 	}
-
-	// 	// TODO: rebuild to make balanced tree
-	// 	const sub3 = () => {
-	// 		for (let i = 0; i < children.length; i++) {
-	// 			root.addChild(children[i].value, children[i].id)
-	// 		}
-	// 		return;
-	// 	}
-
-	// 	const sub = (node, parent = null, side = null) => {
-	// 		if (node.__id === id) {
-	// 			if (parent === null) { // if found it is the rood node
-	// 				if (!node.left && !node.right) { // if root has no children
-	// 					return node.value = null;
-	// 				}
-	// 				if (node.left) { // add children to children array
-	// 					sub2(node.left)
-	// 				}
-	// 				if (node.right) {
-	// 					sub2(node.right)
-	// 				}
-	// 				let newRoot = children.pop() // make root equal to ??
-	// 				node.value = newRoot.value
-	// 				node.__id = newRoot.__id
-	// 				sub3()
-	// 				return node;			
-	// 			}
-
-	// 			if (!node.left && !node.right) {
-	// 				return parent[side] = null
-	// 			}
-	// 			if (node.left) {
-	// 				sub2(node.left)
-	// 			}
-	// 			if (node.right) {
-	// 				sub2(node.right)
-	// 			}
-	// 			parent[side] = null
-	// 			sub3()
-	// 			return
-	// 		}
-	// 		if (node.__id < id)	{	
-	// 			sub(node.right, node, 'right')
-	// 		} else {
-	// 			sub(node.left, node, 'left')
-	// 		}
-	// 	}
-	// 	sub(root)
-	// 	return root;
-	// }
 
 	mapToArray(cb) {
 		var resultArray = [];
