@@ -237,33 +237,4 @@ class BinaryTree {
 };
 
 
-// let myTree = new BinaryTree('Hello')
-// myTree.addChild('world')
-// myTree.addChild('Foo')
-// myTree.addChild('bar')
-// console.log('myTree: ', myTree.contains('bar'));
-
-// let myBinaryTree = new BinaryTree('A');
-// myBinaryTree.addChild('B')
-// myBinaryTree.addChild('C')
-// myBinaryTree.addChild('D')
-// myBinaryTree.addChild('E')
-// myBinaryTree.addChild('F')
-// myBinaryTree.addChild('G')
-// myBinaryTree.addChild('H')
-
-// if (myBinaryTree.left) {
-// 	const testId = myBinaryTree.left.__id;
-// 	const testVal = myBinaryTree.left.value;
-// 	console.log('testId: ', testId, 'testVal: ', testVal);
-// 	console.log('lookupId: ', myBinaryTree.lookupId(testId));
-// }
-// console.log('myBinaryTree: ', myBinaryTree.right);
-// if (myBinaryTree.right) {
-// 	const testId2 = myBinaryTree.right.__id;
-// 	const testVal2 = myBinaryTree.right.value;
-// 	console.log('testId2: ', testId2, 'testVal2: ', testVal2);
-// 	console.log('lookupId2: ', myBinaryTree.lookupId(testId2));
-// }
-
 module.exports = { BinaryTree };

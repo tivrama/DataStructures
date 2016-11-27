@@ -101,17 +101,25 @@ Binary Tree begins with a root node.  Branches and leaves are added with the add
 - addChild(value)
 
 #### Lookup
-- contains(value)
+- containsVal(value)
 - containsId(id)
+- getId(val)
 - lookUp(id)
-- countNodes
+
+#### Update
+- updateId(id)
 
 #### Delete
 - deleteNode(value) (Promotes any children to node's parent)
-- deleteLeaf(value) // coming soon
-- deleteBranchWithChilden(value) // coming soon
 - removeDuplicates() // coming soon
 
 #### Helper Methods
 - mapToArray(optionalCallback)
+- mapIdToArray()
 - filterToArray(callbackPredicate)
+
+#### Diagnostic
+- countNodes()
+- deepestGeneration()
+- distributeNodes()
+
