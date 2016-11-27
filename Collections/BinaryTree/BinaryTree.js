@@ -113,72 +113,90 @@ class BinaryTree {
 
 
 	deleteNode(id) {
+		if (!id) null;
 
-		var children = [];
-		var root = this;
-
-		const sub2 = (node) => {
-				children.push({
-					value: node.value,
-					id: node.__id
-				})
-			if (node.left) {
-				return sub2(node.left)
-			}
-			if (node.right) {
-				return sub2(node.right)
+		if (!this.left && !this.right) {
+			if (this.__id !== id) {
+				return null;
 			}
 		}
 
-		// TODO: rebuild to make balanced tree
-		const sub3 = () => {
-			for (let i = 0; i < children.length; i++) {
-				root.addChild(children[i].value, children[i].id)
-			}
-			return;
-		}
-
-		const sub = (node, parent = null, side = null) => {
-			if (node.__id === id) {
-				if (parent === null) { // if found it is the rood node
-					if (!node.left && !node.right) { // if root has no children
-						return node.value = null;
-					}
-					if (node.left) { // add children to children array
-						sub2(node.left)
-					}
-					if (node.right) {
-						sub2(node.right)
-					}
-					let newRoot = children.pop() // make root equal to ??
-					node.value = newRoot.value
-					node.__id = newRoot.__id
-					sub3()
-					return node;			
-				}
-
-				if (!node.left && !node.right) {
-					return parent[side] = null
-				}
-				if (node.left) {
-					sub2(node.left)
-				}
-				if (node.right) {
-					sub2(node.right)
-				}
-				parent[side] = null
-				sub3()
-				return
-			}
-			if (node.__id < id)	{	
-				sub(node.right, node, 'right')
-			} else {
-				sub(node.left, node, 'left')
+		if (!this.left && !this.right) {
+			if (this.__id === id) {
+				this.value = null
+				return this;
 			}
 		}
-		sub(root)
-		return root;
+
 	}
+
+	// deleteNode(id) {
+
+	// 	var children = [];
+	// 	var root = this;
+
+	// 	const sub2 = (node) => {
+	// 			children.push({
+	// 				value: node.value,
+	// 				id: node.__id
+	// 			})
+	// 		if (node.left) {
+	// 			return sub2(node.left)
+	// 		}
+	// 		if (node.right) {
+	// 			return sub2(node.right)
+	// 		}
+	// 	}
+
+	// 	// TODO: rebuild to make balanced tree
+	// 	const sub3 = () => {
+	// 		for (let i = 0; i < children.length; i++) {
+	// 			root.addChild(children[i].value, children[i].id)
+	// 		}
+	// 		return;
+	// 	}
+
+	// 	const sub = (node, parent = null, side = null) => {
+	// 		if (node.__id === id) {
+	// 			if (parent === null) { // if found it is the rood node
+	// 				if (!node.left && !node.right) { // if root has no children
+	// 					return node.value = null;
+	// 				}
+	// 				if (node.left) { // add children to children array
+	// 					sub2(node.left)
+	// 				}
+	// 				if (node.right) {
+	// 					sub2(node.right)
+	// 				}
+	// 				let newRoot = children.pop() // make root equal to ??
+	// 				node.value = newRoot.value
+	// 				node.__id = newRoot.__id
+	// 				sub3()
+	// 				return node;			
+	// 			}
+
+	// 			if (!node.left && !node.right) {
+	// 				return parent[side] = null
+	// 			}
+	// 			if (node.left) {
+	// 				sub2(node.left)
+	// 			}
+	// 			if (node.right) {
+	// 				sub2(node.right)
+	// 			}
+	// 			parent[side] = null
+	// 			sub3()
+	// 			return
+	// 		}
+	// 		if (node.__id < id)	{	
+	// 			sub(node.right, node, 'right')
+	// 		} else {
+	// 			sub(node.left, node, 'left')
+	// 		}
+	// 	}
+	// 	sub(root)
+	// 	return root;
+	// }
 
 	mapToArray(cb) {
 		var resultArray = [];

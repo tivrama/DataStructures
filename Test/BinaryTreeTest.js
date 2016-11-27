@@ -122,19 +122,50 @@ describe('BinaryTree', () => {
   });
 
   describe('BinaryTree Delete', () => {
+    let myBinaryTree = new BinaryTree(0);
+    for (let i = 1; i < 10; i++) {
+      myBinaryTree.addChild(i);
+    }
 
-    it('deleteNode should delete leaf', () => {
-      let myBinaryTree4 = new BinaryTree('Hello');
-      myBinaryTree4.addChild('world')
-      myBinaryTree4.addChild('Foo')
-      let fooId = myBinaryTree4.getId('Foo');
-      // console.log('Before Delete', myBinaryTree4.mapIdToArray());
-      myBinaryTree4.deleteNode(fooId);
-      // console.log('After Delete', myBinaryTree4.mapIdToArray());
-      assert.isFalse(myBinaryTree4.containsVal('Foo'));
+    it('deleteNode should return null if no id is passed in', () => {
+      console.log('myBinaryTree Ids: ', myBinaryTree.mapIdToArray());
+      assert.equal(myBinaryTree.deleteNode(), null, 'deleteNode with no id not working');
     });
 
-    it('deleteNode should delete a node with children, but keep the children', () => {
+    it('deleteNode should return null if there are no children and root id does not match', () => {
+      let myBinaryTree1 = new BinaryTree(0);
+      assert.equal(myBinaryTree1.deleteNode('fake_id'), null, 'deleteNode with fake id not working');
+    });
+
+    it('deleteNode should return node with value set to null if there are no children and root id does match', () => {
+      let myBinaryTree2 = new BinaryTree(0);
+      let rootId = myBinaryTree2.__id;
+      myBinaryTree2.deleteNode(rootId)
+      assert.equal(myBinaryTree2.value, null, 'deleteNode with id and no children not working');
+    });
+
+    it('deleteNode should delete leaf', () => {
+      const treeLength = myBinaryTree.mapIdToArray().length;
+      let firstLeaf;
+      const findLeaf = (node) => {
+        if (!node.left && !node.right) {
+          firstLeaf = node.__id;
+          return firstLeaf
+        }
+        if (node.left) {
+          findLeaf(node.left)
+        }
+        if (node.right) {
+          findLeaf(node.right)
+        }
+      }
+      findLeaf(myBinaryTree);
+      myBinaryTree.deleteNode(firstLeaf);
+      assert.isFalse(myBinaryTree.containsId(firstLeaf));
+      assert.equal(myBinaryTree.mapIdToArray().length, treeLength - 1, 'deleteNode at leaf not working')
+    });
+
+    xit('deleteNode should delete a node with children, but keep the children', () => {
       let myBinaryTree2 = new BinaryTree(10);
       myBinaryTree2.addChild(5)
       myBinaryTree2.addChild(2)
