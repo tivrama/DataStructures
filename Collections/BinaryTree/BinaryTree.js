@@ -22,6 +22,7 @@ class BinaryTree {
     return text;
   }
 
+//-- CREATE -----------------------------
   addChild(val, id = null) {
   	if (!id) {
   		var id = this.makeId();
@@ -35,7 +36,7 @@ class BinaryTree {
 		}
 	}
 
-	
+//-- LOOKUP -----------------------------
 	containsVal(val) {
 		if (this.value === val) {
 			return true;
@@ -97,6 +98,7 @@ class BinaryTree {
 		}
 	}
 
+//-- UPDATE -----------------------------
 	updateId(id, val) {
 		if (this.__id === id) {
 			return this.value = val;
@@ -111,7 +113,7 @@ class BinaryTree {
 		}
 	}
 
-
+//-- DELETE -----------------------------
   deleteNode(id, parent = null, side = null, root = null) {
     let idValue;
     if (!id) null;
@@ -174,7 +176,7 @@ class BinaryTree {
     return idValue;
   }
 
-
+//-- HELPER -----------------------------
 	mapToArray(cb) {
 		var resultArray = [];
 		const sub = (node) => {
@@ -214,7 +216,7 @@ class BinaryTree {
 		return resultArray;
 	}
 
-
+//-- DIGNOSTIC -----------------------------
 	removeDuplicates() {
 		let cache = {};
 		let returnInfo = {};
@@ -259,9 +261,7 @@ class BinaryTree {
 		return generation;	
 	}
 
-
 };
-
 
 
 
