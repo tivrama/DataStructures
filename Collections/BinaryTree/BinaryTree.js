@@ -142,13 +142,27 @@ class BinaryTree {
 		}
 
 		if (this.__id === id) {
+			if (!parent) { // if found node is the root
+				if (this.right) saveChildren(this.right);
+				let newParent = children.shift();
+				if (this.left) saveChildren(this.left);
+				this.value = newParent.value;
+				this.__id = newParent.__id;
+				this.left = null;
+				this.right = null;
+				addChildren(this)
+				return this;
+			}
 			if(!this.left && !this.right && parent) {
 				return parent[side] = null;
 			}
-			if (this.left) saveChildren(this.left)
 			if (this.right) saveChildren(this.right)
-			parent[side] = null;
-			addChildren(root);
+			if (this.left) saveChildren(this.left)
+			if (parent[side])	{
+				parent[side] = null;
+				addChildren(root);
+				return root;
+			}
 		}
 
 		if (this.left) {

@@ -128,7 +128,6 @@ describe('BinaryTree', () => {
     }
 
     it('deleteNode should return null if no id is passed in', () => {
-      console.log('myBinaryTree Ids: ', myBinaryTree.mapIdToArray());
       assert.equal(myBinaryTree.deleteNode(), null, 'deleteNode with no id not working');
     });
 
@@ -197,15 +196,24 @@ describe('BinaryTree', () => {
       }
     });
 
-    xit('deleteNode should replace the root, but keep the children', () => {
-      var rootId = myBinaryTree2.__id;
-      if (myBinaryTree2.right) {
-        var rightChild = myBinaryTree2.right.__id
-        console.log('Before Delete', myBinaryTree2.mapIdToArray());
-        myBinaryTree2.deleteNode(rootId);
-        console.log('After Delete', myBinaryTree2.mapIdToArray());
-        assert.isFalse(myBinaryTree2.containsId(rootId));
-        assert.isTrue(myBinaryTree2.containsId(rightChild));
+    it('deleteNode should replace the root, but keep the children', () => {
+      let myBinaryTree = new BinaryTree(0);
+      for (let i = 1; i < 10; i++) {
+        myBinaryTree.addChild(i);
+      }
+      const treeLength = myBinaryTree.mapIdToArray().length;
+      let nodesDeleted = 0;
+
+      var rootId = myBinaryTree.__id;
+      if (myBinaryTree.right) {
+        nodesDeleted++;
+        var rightChild = myBinaryTree.right.__id
+        console.log('Before Delete', myBinaryTree.mapIdToArray());
+        myBinaryTree.deleteNode(rootId);
+        console.log('After Delete', myBinaryTree.mapIdToArray());
+        assert.isFalse(myBinaryTree.containsId(rootId));
+        assert.isTrue(myBinaryTree.containsId(rightChild));
+        assert.equal(myBinaryTree.mapIdToArray().length, treeLength - nodesDeleted, 'deleteNode at leaf not working')
       }
     });
 
