@@ -142,7 +142,7 @@ class BinaryTree {
 		}
 
 		if (this.__id === id) {
-			if (!parent) { // if found node is the root
+			if (!parent) {
 				if (this.right) saveChildren(this.right);
 				let newParent = children.shift();
 				if (this.left) saveChildren(this.left);
@@ -171,7 +171,6 @@ class BinaryTree {
 		if (this.right) {
 			this.right.deleteNode(id, this, 'right', root)
 		}
-
 	}
 
 

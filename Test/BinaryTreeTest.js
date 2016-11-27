@@ -208,9 +208,7 @@ describe('BinaryTree', () => {
       if (myBinaryTree.right) {
         nodesDeleted++;
         var rightChild = myBinaryTree.right.__id
-        console.log('Before Delete', myBinaryTree.mapIdToArray());
         myBinaryTree.deleteNode(rootId);
-        console.log('After Delete', myBinaryTree.mapIdToArray());
         assert.isFalse(myBinaryTree.containsId(rootId));
         assert.isTrue(myBinaryTree.containsId(rightChild));
         assert.equal(myBinaryTree.mapIdToArray().length, treeLength - nodesDeleted, 'deleteNode at leaf not working')
@@ -223,38 +221,34 @@ describe('BinaryTree', () => {
 
   describe('BinaryTree Helper Functions', () => {
 
-    let myBinaryTree4 = new BinaryTree(10);
-    myBinaryTree4.addChild(5)
-    myBinaryTree4.addChild(2)
-    myBinaryTree4.addChild(7)
-    myBinaryTree4.addChild(6)
-    myBinaryTree4.addChild(15)
-    myBinaryTree4.addChild(17)
-    myBinaryTree4.addChild(12)
-    myBinaryTree4.addChild(11)
+    let myBinaryTree = new BinaryTree(0);
+    for (let i = 1; i < 10; i++) {
+      myBinaryTree.addChild(i);
+    }
 
     it('mapToArray should return an array of the values', () => {
-      const soln = [2,5,6,7,10,11,12,15,17];
-      let test = myBinaryTree4.mapToArray();
+      const soln = [0,1,2,3,4,5,6,7,8,9];
+      let test = myBinaryTree.mapToArray();
       test = test.sort((a, b) => a-b);
 		  assert.deepEqual(soln, test);
     });    
 
     it('mapToArray should return a sorted array with a callback invoked on each item', () => {
-      const soln = [4,10,12,14,20,22,24,30,34];
-      let test = myBinaryTree4.mapToArray((val) => val * 2);
+      const soln = [0,2,4,6,8,10,12,14,16,18];
+      let test = myBinaryTree.mapToArray((val) => val * 2);
       test = test.sort((a, b) => a-b);
       assert.deepEqual(soln, test);
     });  
 
-    xit('mapIdToArray should return a sorted array if ids', () => { // Test not done
-      const test = myBinaryTree4.mapToArray((val) => val * 2);
-      assert.deepEqual(soln, test);
+    it('mapIdToArray should return a sorted array if ids', () => { // Test not done
+      const test = myBinaryTree.mapIdToArray();
+      assert.equal(myBinaryTree.countNodes(), test.length, 'mapIdToArray is not working');
     }); 
 
-    xit('filterToArray should return an array of items that pass callback predicate', () => {
-      const soln = [2,6,10,12];
-      const test = myBinaryTree4.filterToArray((val) => val % 2 === 0);
+    it('filterToArray should return an array of items that pass callback predicate', () => {
+      const soln = [0,2,4,6,8];
+      let test = myBinaryTree.filterToArray((val) => val % 2 === 0);
+      test = test.sort((a, b) => a-b);
       assert.deepEqual(soln, test);
     }); 
 
