@@ -9,7 +9,7 @@ class BinaryTree {
     this.right = null;
   }
 
-  makeId() {
+  makeId() { // TODO: make root node's first 5 chars be in dead alphabetical center
     let text = '';
     let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const makeString = () => {

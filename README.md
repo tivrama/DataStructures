@@ -10,12 +10,13 @@ Writen in ES6.  Create instances of each data structure by importing only the cl
 - LinkedList
 - Tree
 - BinaryTree
+- Graph
 
 (coming soon)
 - Stack
 - Queue
 - Set
-- Graph
+
 
 ## Linked List (Single)
 Linked List creates nodes that that are linked via a next property on each node.  When creating an instance of LinkedList, the instance will keep track of the head, tail and length.  It will also create a unique ID for each node with methods that can CRUD by value or ID.  
@@ -122,3 +123,5 @@ Binary Tree begins with a root node and nodes are added with the addChild method
 - countNodes()
 - deepestGeneration()
 
+
+## Graph (Directed)
