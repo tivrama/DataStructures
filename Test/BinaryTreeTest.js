@@ -3,7 +3,7 @@
 const BinaryTree = require('../Collections/BinaryTree/BinaryTree.js').BinaryTree,
       assert = require('chai').assert;
 
-describe('BinaryTree', () => {
+xdescribe('BinaryTree', () => {
 
   let myBinaryTree = new BinaryTree('A');
   myBinaryTree.addChild('B')
