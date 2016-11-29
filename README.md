@@ -102,16 +102,16 @@ Binary Tree begins with a root node and nodes are added with the addChild method
 - addChild(value)
 
 #### Lookup
-- containsVal(value)
 - containsId(id)
-- getId(val)
 - lookUp(id)
+- containsVal(value) (slow)
+- getId(val) (slow)
 
 #### Update
-- updateId(id)
+- updateId(id, value)
 
 #### Delete
-- deleteNode(value) (Promotes any children to node's parent)
+- deleteNode(id) (Promotes any children to node's parent)
 - removeDuplicates() // coming soon
 
 #### Helper Methods
