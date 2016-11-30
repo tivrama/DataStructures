@@ -98,17 +98,37 @@ class Graph {
 		return null;	
 	}
 
-	hasEdge(fromNode, toNode) {
-  
-	}
+	hasEdge(toNode) {
+		if (this.edges.indexOf(toNode) !== -1) {
+			return true;
+		}
+		return false;
+  }
 
 	addTwoWayEdges(toNode) {
-
+		let to;
+		let from;
+		if (this.edges.indexOf(toNode) !== -1) {
+			to = true;
+		} else {
+			to = false;
+		}
+		if (toNode.edges.indexOf(this.edges) !== -1) {
+			from = true;
+		} else {
+			from = false;
+		}
+		if (to && from) {
+			return true
+		} else {
+			return false;
+		}
 	}
 
-	addEdge(fromNode, toNode) {
-
-  }
+	addEdge(toNode) {
+  	this.edges.push(toNode);
+  	return this.edges[this.edges.length-1];
+	}
 
 	removeEdge(fromNode, toNode) {
 
