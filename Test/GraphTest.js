@@ -56,6 +56,22 @@ describe('Graph', () => {
       assert.equal(Graph3.lookupId('fake_id'), null, 'lookupId not working');
     });
 
+    it('hasEdge should return true an edge exists', () => {
+      assert.isTrue(Graph2.hasEdge(Graph1));
+      assert.isTrue(Graph3.hasEdge(Graph2));
+      assert.isFalse(Graph3.hasEdge(Graph1));
+      assert.isFalse(Graph3.hasEdge('fake_graph'));
+    });
+
+    it('hasTwoWayEdges should return true an edge both ways between two nodes', () => {
+      assert.isFalse(Graph2.hasTwoWayEdges(Graph1));
+      assert.isFalse(Graph3.hasTwoWayEdges(Graph2));
+      assert.isFalse(Graph3.hasTwoWayEdges(Graph1));
+      assert.isNull(Graph3.hasTwoWayEdges('fake_graph'));
+      Graph1.addEdge(Graph2);
+      assert.isTrue(Graph2.hasTwoWayEdges(Graph1));
+    });
+
   }); 
 
   describe('Graph Update', () => { 
@@ -66,8 +82,6 @@ describe('Graph', () => {
     let Graph1Id = Graph1.__id;
     let Graph2Id = Graph2.__id;
     let Graph3Id = Graph3.__id;
-
-    let container = [Graph1, Graph2, Graph3];
 
     it('updateId should update the value of an id if it exists anywhere in connected graph', () => {
       assert.equal(Graph1.lookupId(Graph1Id), 1, 'updateId not working');
