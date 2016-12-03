@@ -90,26 +90,18 @@ class Graph {
   }
 
 	hasTwoWayEdges(toNode) {
-		if(!this.edges || !toNode.edges) {
+		if (!this.edges || !toNode.edges) {
 			return null;
 		}
 		let to;
 		let from;
-		if (this.edges.indexOf(toNode) !== -1) {
-			to = true;
-		} else {
-			to = false;
-		}
-		if (toNode.edges.indexOf(this) !== -1) {
-			from = true;
-		} else {
-			from = false;
-		}
+
+		this.edges.indexOf(toNode) !== -1 ? to = true : to = false;
+		toNode.edges.indexOf(this) !== -1 ? from = true : from = false;
 		if (to && from) {
-			return true
-		} else {
-			return false;
+			return true;
 		}
+		return false;
 	}
 
 
