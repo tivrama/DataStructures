@@ -9,16 +9,23 @@ class BinaryTree {
     this.right = null;
   }
 
-  makeId() { // TODO: make root node's first 5 chars be in dead alphabetical center
-    let text = '';
-    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const makeString = () => {
-      // string is 20 chars long.  Can change if desired
-      for (var i = 0; i < 20; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-      }
-    }
-    makeString();
+  makeId(root = null) { // TODO: make root node's chars = 'VVVVVVVVVVVVVVVVVVVV'
+	  let text = '';
+	  // string is 20 chars long.  Can change if desired
+	  let length = 20;
+	  if (!root) {
+	    let possible = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	    const makeString = () => {
+	      for (let i = 0; i < length; i++) {
+	        text += possible.charAt(Math.floor(Math.random() * possible.length));
+	      }
+	    }
+	    makeString();
+	  } else {
+	  	for (let i = 0; i < length; i++) {
+	  		text += 'V';
+	  	}
+	  }
     return text;
   }
 
@@ -43,7 +50,7 @@ class BinaryTree {
 		}
 		if (this.left) {
 			if (this.left.containsVal(val)) {
-				return true
+		return true
 			}
 		}
 		if (this.right) {
@@ -263,6 +270,7 @@ class BinaryTree {
 
 };
 
-
+let tree = new BinaryTree('hello');
+console.log('tree: ', tree.makeId('root'));
 
 module.exports = { BinaryTree };
