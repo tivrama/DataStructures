@@ -3,7 +3,7 @@
 const BinaryTree = require('../Collections/BinaryTree/BinaryTree.js').BinaryTree,
       assert = require('chai').assert;
 
-xdescribe('BinaryTree', () => {
+describe('BinaryTree', () => {
 
   let myBinaryTree = new BinaryTree('A');
   myBinaryTree.addChild('B')
@@ -17,6 +17,19 @@ xdescribe('BinaryTree', () => {
   myBinaryTree.addChild('J')
 
   describe('BinaryTree Create', () => {  
+
+    it('creating new BinaryTree, the root ID should be "VVVVVVVVVVVVVVVVVVVV"', () => {
+      assert.equal(myBinaryTree.__id, 'VVVVVVVVVVVVVVVVVVVV', 'makeId not working')
+    });
+
+    it('creating new BinaryTree, the right ID should be > "VVVVVVVVVVVVVVVVVVVV" and < for left', () => {
+      if (myBinaryTree.right) {
+        assert.isTrue(myBinaryTree.right.__id > myBinaryTree.__id)
+      }
+      if (myBinaryTree.left) {
+        assert.isTrue(myBinaryTree.left.__id < myBinaryTree.__id)
+      }
+    });
 
     it('creating new BinaryTree should take a value', () => {
       const myBinaryTree2 = new BinaryTree('Hello World');

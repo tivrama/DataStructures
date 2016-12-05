@@ -9,7 +9,7 @@ class BinaryTree {
     this.right = null;
   }
 
-  makeId(root = null) { // TODO: make root node's chars = 'VVVVVVVVVVVVVVVVVVVV'
+  makeId(root = true) {
 	  let text = '';
 	  // string is 20 chars long.  Can change if desired
 	  let length = 20;
@@ -32,7 +32,7 @@ class BinaryTree {
 //-- CREATE -----------------------------
   addChild(val, id = null) {
   	if (!id) {
-  		var id = this.makeId();
+  		var id = this.makeId(false);
   	}
   	let side ='';
   	this.__id < id ? side = 'right' : side = 'left';
@@ -156,7 +156,7 @@ class BinaryTree {
         idValue = this.value;
       if (!parent) {
         if (this.right) saveChildren(this.right);
-        let newParent = children.shift();
+        let newParent = children.shift();  // Optional: reset id for root value 'VVVV...'
         if (this.left) saveChildren(this.left);
         this.value = newParent.value;
         this.__id = newParent.__id;
@@ -270,7 +270,5 @@ class BinaryTree {
 
 };
 
-let tree = new BinaryTree('hello');
-console.log('tree: ', tree.makeId('root'));
 
 module.exports = { BinaryTree };
