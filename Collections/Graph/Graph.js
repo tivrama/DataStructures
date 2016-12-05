@@ -10,7 +10,7 @@ class Graph {
 
   makeId() {
     let text = '';
-    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let possible = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const makeString = () => {
       // string is 20 chars long.  Can change if desired
       for (var i = 0; i < 20; i++) {
