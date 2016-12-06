@@ -125,3 +125,31 @@ Binary Tree begins with a root node and nodes are added with the addChild method
 
 
 ## Graph (Directed)
+Graph class creates a new instance of a graph.  Other graphs can be passed into the second parameter (which is an array) as edges. Each graph has a unique ID.  
+
+### Graph Methods
+#### Create
+- (the only creation is by sntanciating a new instance of the class: ```let myGraph = new Graph('{hello: 'world'}, [yourGraph, theirGraph])```)
+
+#### Lookup
+- connectedTo(node)
+- connectedToVal(Val)
+- getId(val)
+- lookupId(id)
+- hasEdge(toNode)
+- hasTwoWayEdges(toNode)
+
+#### Update
+- updateId(id, val)
+- addEdge(toNode)
+- addTwoWayEdges(toNode)
+- removeEdge(fromNode, toNode)
+
+#### Delete
+- removeTwoWayEdges(toNode)
+
+#### Helper Methods
+- mapToArray(cb)
+- mapIdToArray()
+- filterToArray(cb)
+- countNodes()
