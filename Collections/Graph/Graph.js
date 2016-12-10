@@ -127,11 +127,13 @@ class Graph {
 	}
 
 	addTwoWayEdges(toNode) {
-		
+		this.edges.push(toNode);
+		toNode.edges.push(this);
+		return this.edges.length;
 	}
 
 	removeEdge(fromNode, toNode) {
-
+		
 	}
 
 	mapToArray(cb) {
