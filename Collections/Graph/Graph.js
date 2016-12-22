@@ -132,7 +132,7 @@ class Graph {
 		return this.edges.length;
 	}
 
-	removeEdge(fromNode, toNode) {
+	removeEdge(toNode) {
 		
 	}
 
@@ -151,6 +151,10 @@ class Graph {
 	countNodes() {
 
 	}
+
+	degreesOfSeperation(toNode) {
+
+	}	
 
 };
 
