@@ -95,6 +95,11 @@ describe('Graph', () => {
       assert.equal(Graph1.lookupId(Graph1Id), 'ichi', 'updateId not working');
     });
 
+    it('removeEdge should remove the parameter graph from this graph, if there was no edge, return -1', () => {
+      assert.equal(Graph1.removeEdge(Graph2), -1, 'removeEdge when this has no edges not working')
+      assert.equal(Graph3.removeEdge(Graph2), 0, 'removeEdge not working')
+    });
+
   });
 
 });

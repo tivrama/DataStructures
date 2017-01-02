@@ -133,7 +133,11 @@ class Graph {
 	}
 
 	removeEdge(toNode) {
-		
+		if (this.edges.indexOf(toNode) !== -1) {
+			this.edges.splice(this.edges.indexOf(toNode), 1)
+			return this.edges.length;
+		}
+		return -1;
 	}
 
 	mapToArray(cb) {
