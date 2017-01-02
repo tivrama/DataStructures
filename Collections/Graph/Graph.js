@@ -202,7 +202,34 @@ class Graph {
 	}
 
 	filterToArray(cb) {
+		let results = [];
+		let cache = {};
 
+		cache[this.__id] = 1;
+		if (cb(this.value)) {
+			results.push(this.value);
+		}
+		// TODO: add way to escape circular edges
+		const sub = (edges) => {
+			if (!edges.length) {
+				return
+			}
+			for (let i = 0; i < edges.length; i++) {
+				if (!cache[edges[i].__id]) {
+					cache[edges[i].__id] = 1;
+					if (cb(edges[i].value)) {
+						results.push(edges[i].value);
+					}
+					if (edges[i].edges.length) {
+						sub(edges[i].edges);
+					}
+				} else {
+					cache[edges[i].__id] += 1;
+				}
+			}
+		}
+		sub(this.edges)
+		return results;
 	}
 
 	countNodes() {
