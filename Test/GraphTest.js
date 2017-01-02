@@ -102,4 +102,28 @@ describe('Graph', () => {
 
   });
 
+  describe('Helper Functions', () => {
+
+    let Graph1 = new Graph(1);
+    let Graph2 = new Graph(2, [Graph1]);
+    let Graph3 = new Graph(3, [Graph2]);
+    let Graph1Id = Graph1.__id;
+    let Graph2Id = Graph2.__id;
+    let Graph3Id = Graph3.__id;
+   
+    let resultsArray1 = Graph3.mapValToArray();
+    let resultsArray2 = Graph3.mapValToArray((val) => {return val * 2})
+    it('mapValToArray should return an array of calues from connected nodes - with or without a cb', () => {
+      assert.deepEqual(resultsArray1, [3, 2, 1], 'mabValToArray not working without callback')
+      assert.deepEqual(resultsArray2, [6, 4, 2], 'mabValToArray not working with callback')
+    });
+
+    let ids = [Graph3.__id, Graph2.__id, Graph1.__id];
+    let resultsArray = Graph3.mapIdToArray();
+    it('mapIdToArray should return an array of ids from connected nodes', () => {
+      assert.deepEqual(resultsArray, ids, 'mapIdToArray not working')
+    })
+    
+  });
+
 });

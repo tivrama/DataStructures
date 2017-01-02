@@ -140,12 +140,65 @@ class Graph {
 		return -1;
 	}
 
-	mapToArray(cb) {
+	mapValToArray(cb = null) {
+		let results = [];
+		let cache = {};
+		const implementCB = (value) => {
+			if (!cb) {
+				return results.push(value);
+			} else {
+				return results.push(cb(value));
+			}
+		}
 
+		cache[this.__id] = 1;
+		implementCB(this.value);
+		// TODO: add way to escape circular edges
+		const sub = (edges) => {
+			if (!edges.length) {
+				return
+			}
+			for (let i = 0; i < edges.length; i++) {
+				if (!cache[edges[i].__id]) {
+					cache[edges[i].__id] = 1;
+					implementCB(edges[i].value)
+					if (edges[i].edges.length) {
+						sub(edges[i].edges);
+					}
+				} else {
+					cache[edges[i].__id] += 1;
+				}
+			}
+		}
+		sub(this.edges)
+		return results;
 	}
 
 	mapIdToArray() {
+		let results = [];
+		let cache = {};
 
+		cache[this.__id] = 1;
+		results.push(this.__id);
+		// TODO: add way to escape circular edges
+		const sub = (edges) => {
+			if (!edges.length) {
+				return
+			}
+			for (let i = 0; i < edges.length; i++) {
+				if (!cache[edges[i].__id]) {
+					cache[edges[i].__id] = 1;
+					results.push(edges[i].__id)
+					if (edges[i].edges.length) {
+						sub(edges[i].edges);
+					}
+				} else {
+					cache[edges[i].__id] += 1;
+				}
+			}
+		}
+		sub(this.edges)
+		return results;
 	}
 
 	filterToArray(cb) {
