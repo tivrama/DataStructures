@@ -233,11 +233,34 @@ class Graph {
 	}
 
 	countNodes() {
+		let count = 0;
+		let cache = {};
 
+		cache[this.__id] = 1;
+		count ++;
+		// TODO: add way to escape circular edges
+		const sub = (edges) => {
+			if (!edges.length) {
+				return
+			}
+			for (let i = 0; i < edges.length; i++) {
+				if (!cache[edges[i].__id]) {
+					cache[edges[i].__id] = 1;
+					count ++;
+					if (edges[i].edges.length) {
+						sub(edges[i].edges);
+					}
+				} else {
+					cache[edges[i].__id] += 1;
+				}
+			}
+		}
+		sub(this.edges)
+		return count;
 	}
 
 	degreesOfSeperation(toNode) {
-
+		
 	}	
 
 };

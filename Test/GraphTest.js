@@ -113,7 +113,7 @@ describe('Graph', () => {
    
     let resultsArray1 = Graph3.mapValToArray();
     let resultsArray2 = Graph3.mapValToArray((val) => {return val * 2})
-    it('mapValToArray should return an array of calues from connected nodes - with or without a cb', () => {
+    it('mapValToArray should return an array of values from connected nodes - with or without a cb', () => {
       assert.deepEqual(resultsArray1, [3, 2, 1], 'mapValToArray not working without callback')
       assert.deepEqual(resultsArray2, [6, 4, 2], 'mapValToArray not working with callback')
     });
@@ -129,6 +129,10 @@ describe('Graph', () => {
       assert.deepEqual(Graph3.filterToArray((val) => { return val % 2 === 0 }), [2], 'filterToArray not working')
     });
     
+    it('countNodes should return the number of nodes connected by edges', () => {
+      assert.equal(Graph3.countNodes(), 3, 'countNodes not working')
+    });
+
   });
 
 });
