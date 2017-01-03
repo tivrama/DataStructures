@@ -107,9 +107,6 @@ describe('Graph', () => {
     let Graph1 = new Graph(1);
     let Graph2 = new Graph(2, [Graph1]);
     let Graph3 = new Graph(3, [Graph2]);
-    let Graph1Id = Graph1.__id;
-    let Graph2Id = Graph2.__id;
-    let Graph3Id = Graph3.__id;
    
     let resultsArray1 = Graph3.mapValToArray();
     let resultsArray2 = Graph3.mapValToArray((val) => {return val * 2})
