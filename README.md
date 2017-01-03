@@ -150,7 +150,7 @@ Graph class creates a new instance of a graph.  Other graphs can be passed into 
 - removeTwoWayEdges(toNode)
 
 #### Helper Methods
-- mapToArray(cb)
+- mapToArray(callback)
 - mapIdToArray()
-- filterToArray(cb)
+- filterToArray(callback)
 - countNodes()
