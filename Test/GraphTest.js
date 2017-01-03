@@ -133,6 +133,12 @@ describe('Graph', () => {
       assert.equal(Graph3.countNodes(), 3, 'countNodes not working')
     });
 
+    it('degreesOfSeperation should return a sorted array with all the degrees of seperation', () => {
+      assert.deepEqual(Graph3.degreesOfSeperation(Graph1), [2], 'degreesOfSeperation not working')
+      Graph3.addEdge(Graph1);
+      assert.deepEqual(Graph3.degreesOfSeperation(Graph1), [1,2], 'degreesOfSeperation not working')
+    });
+
   });
 
 });

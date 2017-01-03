@@ -260,7 +260,32 @@ class Graph {
 	}
 
 	degreesOfSeperation(toNode) {
-		
+		let count = [];
+		let cache = {};
+		const sub = (edges, memo) => {
+			let temp = memo
+			for (let i = 0; i < edges.length; i++) {
+				if (edges[i].__id === toNode.__id) {
+					count.push(temp);
+				}
+				if (edges[i].edges.length && !cache[edges[i]]) {
+					cache[edges[i]] = memo;
+					memo += 1;
+					sub(edges[i].edges, memo)
+				}
+			}
+		}
+		if (this.edges.length) {
+			sub(this.edges, 1)
+		} else {
+			return -1;
+		}
+		if (count.length) {
+			count = count.sort();
+			return count;
+		} else {
+			return -1;
+		}
 	}	
 
 };
