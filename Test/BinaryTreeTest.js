@@ -1,6 +1,6 @@
 'use strict';
 
-const BinaryTree = require('../Collections/BinaryTree/BinaryTree.js').BinaryTree,
+const BinaryTree = require('../source/BinaryTree.js').BinaryTree,
       assert = require('chai').assert;
 
 xdescribe('BinaryTree', () => {

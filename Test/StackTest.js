@@ -1,6 +1,6 @@
 'use strict';
 
-const Stack = require('../Collections/Stack/Stack.js').Stack,
+const Stack = require('../source/Stack.js').Stack,
       assert = require('chai').assert;
 
 xdescribe('Stack', () => {

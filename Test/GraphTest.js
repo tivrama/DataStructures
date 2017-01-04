@@ -1,5 +1,5 @@
 'use strict';
-const Graph = require('../Collections/Graph/Graph.js').Graph,
+const Graph = require('../source/Graph.js').Graph,
       assert = require('chai').assert;
 
 describe('Graph', () => {
