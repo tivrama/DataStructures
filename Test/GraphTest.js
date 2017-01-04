@@ -134,6 +134,7 @@ describe('Graph', () => {
       assert.deepEqual(Graph3.degreesOfSeperation(Graph1), [2], 'degreesOfSeperation not working')
       Graph3.addEdge(Graph1);
       assert.deepEqual(Graph3.degreesOfSeperation(Graph1), [1,2], 'degreesOfSeperation not working')
+      assert.equal(Graph1.degreesOfSeperation(Graph3), -1, 'degreesOfSeperation not working')
     });
 
   });

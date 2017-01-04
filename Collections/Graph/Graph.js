@@ -263,7 +263,7 @@ class Graph {
 		let count = [];
 		let cache = {};
 		const sub = (edges, memo) => {
-			let temp = memo
+			let temp = memo;
 			for (let i = 0; i < edges.length; i++) {
 				if (edges[i].__id === toNode.__id) {
 					count.push(temp);
