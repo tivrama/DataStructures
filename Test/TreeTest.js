@@ -1,6 +1,6 @@
 'use strict';
 
-const Tree = require('../Collections/Tree/Tree.js').Tree,
+const Tree = require('../source/Tree.js').Tree,
       assert = require('chai').assert;
 
 xdescribe('Tree', () => {
