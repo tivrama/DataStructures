@@ -85,7 +85,7 @@ class Tree {
       for (var j = 0; j < this.children.length; j++) {
         parent.children.push(this.children[j]);
       }
-      return parent.children.splice(index, 1);; 
+      return parent.children.splice(index, 1); 
     }
     for (var i = 0; i < this.children.length; i++) {
       this.children[i].deleteNode(val, this, i);
@@ -135,7 +135,7 @@ class Tree {
         for (var j = 0; j < node.children.length; j++) {
           parent.children.push(node.children[j]);
         }
-        return parent.children.splice(index, 1);; 
+        return parent.children.splice(index, 1); 
       }
       cache[node.value] = node.value;
       for (var i = 0; i < node.children.length; i++) {
@@ -196,6 +196,6 @@ class Tree {
   }
 
 
-};
+}
 
 module.exports = { Tree };

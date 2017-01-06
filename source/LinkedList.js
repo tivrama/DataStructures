@@ -401,7 +401,7 @@ class LinkedList {
       }
     }
     sub2(mergedArray.pop())
-  };
+  }
 
 
 //-- DIGNOSTIC -----------------------------
