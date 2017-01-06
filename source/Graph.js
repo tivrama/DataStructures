@@ -122,8 +122,8 @@ class Graph {
 	}
 
 	addEdge(toNode) {
-  	this.edges.push(toNode);
-  	return this.edges.length;
+		this.edges.push(toNode);
+		return this.edges.length;
 	}
 
 	addTwoWayEdges(toNode) {
@@ -288,6 +288,6 @@ class Graph {
 		}
 	}	
 
-};
+}
 
 module.exports = { Graph };
