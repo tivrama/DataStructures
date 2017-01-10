@@ -3,7 +3,7 @@
 const Stack = require('../source/Stack.js').Stack,
       assert = require('chai').assert;
 
-xdescribe('Stack', () => {
+describe('Stack', () => {
 
   describe('Stack Create', () => {  
 
@@ -39,6 +39,21 @@ xdescribe('Stack', () => {
       myStack.pushCollection(yourObject);
       assert.deepEqual(myStack.stack, [1, 2, 3, 4, 5, 'A', 'B'], 'pushCollection with object not working')
     })
+
+  });
+
+  describe('Stack Lookup', () => {
+
+    it('next should return the value of the next item to be popped', () => {
+      let myStack = new Stack([1, 2, 3, 4, 5]);
+      assert.equal(myStack.next(), 5, 'next not working')
+    });
+
+    it('peak should return the value of item and the paramaterd depth', () => {
+      let myStack = new Stack([1, 2, 3, 4, 5]);
+      assert.equal(myStack.peek(2), 4, 'peak not working')
+      assert.equal(myStack.peek(myStack.depth), 1, 'peak not working')
+    });
 
   });
 

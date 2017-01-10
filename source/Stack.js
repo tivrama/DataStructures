@@ -39,6 +39,17 @@ class Stack {
     return this.depth;
   }
 
+//-- LOOKUP -----------------------------
+
+  next() {
+    return this.stack[this.depth-1];
+  }
+
+  peek(index) {
+    return this.stack[(this.depth) - index];
+  }
+
+
 //-- DELETE -----------------------------
 
   pop() {
