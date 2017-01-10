@@ -25,17 +25,31 @@ class Queue {
   }
 
   enqueueCollection(collection) {
+    if (Array.isArray(collection)) {
+      for (let i = collection.length-1; i >= 0; i--) {
+        this.enqueue(collection[i]);
+      }
+    } else {
+      let temp = [];
+      for (let key in collection) {
+        temp.push(collection[key])
+      }
+      for (let i = temp.length-1; i >= 0; i--) {
+        this.enqueue(temp[i]);
+      }
+    }
 
+    return this.length;
   }
 
 //-- LOOKUP -----------------------------
 
   next() {
-    return this.queue[this.length-1]
+    return this.queue[this.length-1];
   }
 
   peek(index) {
-    
+    return this.queue[(this.length) - index];
   }
 
 //-- DELETE -----------------------------
@@ -51,7 +65,8 @@ class Queue {
 //-- HELPER -----------------------------
 
   merge(queueToMerge) {
-
+    this.enqueueCollection(queueToMerge.queue);
+    return this.length;
   }
 
 }

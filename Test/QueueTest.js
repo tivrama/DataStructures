@@ -25,45 +25,60 @@ describe('Queue', () => {
     it('enqueueCollection should take an array and add to the top of the stack', () => {
       let myQueue = new Queue([1, 2, 3, 4, 5]);
       const yourQueue = [6, 7, 8, 9, 10];
-      const fullQueue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      myQueue.pushCollection(yourQueue)
+      const fullQueue = [6, 7, 8, 9, 10, 1, 2, 3, 4, 5];
+      myQueue.enqueueCollection(yourQueue)
       assert.deepEqual(myQueue.queue, fullQueue, 'enqueueCollection with array not working')     
     });
 
-    xit('pushCollection should take and object and add values to the top of the stack', () => {
-      let myStack = new Stack([1, 2, 3, 4, 5]);
+    it('pushCollection should take an object and add values to the top of the beginning of the queue', () => {
+      let myQueue = new Queue([1, 2, 3, 4, 5]);
       let yourObject = {
         a: 'A',
         b: 'B'
       };
-      myStack.pushCollection(yourObject);
-      assert.deepEqual(myStack.stack, [1, 2, 3, 4, 5, 'A', 'B'], 'pushCollection with object not working')
+      myQueue.enqueueCollection(yourObject);
+      assert.deepEqual(myQueue.queue, ['A', 'B', 1, 2, 3, 4, 5], 'enqueueCollection with object not working')
     })
+
+  });
+
+  describe('Queue Lookup', () => {
+
+    it('next should return the value of the next item to be dequeued', () => {
+      let myQueue = new Queue([1, 2, 3, 4, 5]);
+      assert.equal(myQueue.next(), 5, 'next not working')
+    });
+
+    it('peak should return the value of item and the paramaterd depth', () => {
+      let myQueue = new Queue([1, 2, 3, 4, 5]);
+      assert.equal(myQueue.peek(2), 4, 'peak not working')
+      assert.equal(myQueue.peek(myQueue.length), 1, 'peak not working')
+    });
 
   });
 
   describe('Queue Delete', () => {  
 
-    xit('dequeue should return the value at the end of the queue', () => {
+    it('dequeue should return the value at the end of the queue', () => {
       let myQueue = new Queue([1, 2, 3, 4, 5]);
-      assert.equal(myQueue.pop(), 5, 'dequeue not working')
+      assert.equal(myQueue.dequeue(), 5, 'dequeue not working')
     });
 
   });
 
   describe('Queue Helper', () => {
 
-    xit('merge should put the the collection of the parameter stack on top of this stack', () => {
-      let myStack = new Queue([1, 2, 3, 4, 5]);
-      const yourStack = new Queue([6, 7, 8, 9, 10]);
-      const fullStack = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      assert.equal(myStack.merge(yourStack), 10, 'merge not returning right number')
-      assert.deepEqual(myStack.stack, fullStack, 'merge not merging in right order')
+    it('merge should put the the collection of the parameter queue at the end of this queue', () => {
+      let myQueue = new Queue([1, 2, 3, 4, 5]);
+      const yourQueue = new Queue([6, 7, 8, 9, 10]);
+      const fullQueue = [6, 7, 8, 9, 10, 1, 2, 3, 4, 5];
+      assert.equal(myQueue.merge(yourQueue), 10, 'merge not returning right number')
+      assert.deepEqual(myQueue.queue, fullQueue, 'merge not merging in right order')
     });
 
-    xit('depth property should show depth of the stack', () => {
-      const myStack = new Stack([1, 2, 3, 4, 5]);
-      assert.equal(myStack.depth, 5, 'depth not working')
+    it('length property should show length of the queue', () => {
+      const myQueue = new Queue([1, 2, 3, 4, 5]);
+      assert.equal(myQueue.length, 5, 'length not working')
     });
 
   });
