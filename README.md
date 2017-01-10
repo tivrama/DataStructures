@@ -171,3 +171,20 @@ Stack follows first in, last out.  When creating a new stack, if an array is put
 
 #### Properties
 - depth
+
+## Queue
+Queue follows first in, first out.  When creating a new queue, if an array is put in the parameter, each element becomes an item in the stack with element [0] being first out. 
+ 
+### Queue Methods
+#### Create
+- enqueue(value)
+- enqueueCollection(collection)
+
+#### Delete
+- dequeue()
+
+#### Helper
+- merge(stackToMerge)
+
+#### Properties
+- length
