@@ -12,9 +12,9 @@ The spirit behind this project is to allow the use of classic data structures wi
 - Tree
 - BinaryTree
 - Graph
+- Stack
 
 (coming soon)
-- Stack
 - Queue
 - Set
 
@@ -154,3 +154,20 @@ Graph class creates a new instance of a graph.  Other graphs can be passed into 
 - mapIdToArray()
 - filterToArray(callback)
 - countNodes()
+
+## Stack
+Stack follows first in, last out.  When creating a new stack, if an array is put in the parameter, each element becomes an item in the stack with element [0] being on bottom. 
+ 
+### Stack Methods
+#### Create
+- push(value)
+- pushCollection(collection)
+
+#### Delete
+- pop()
+
+#### Helper
+- merge(stackToMerge)
+
+#### Properties
+- depth

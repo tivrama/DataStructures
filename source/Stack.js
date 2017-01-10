@@ -5,10 +5,13 @@ class Stack {
   constructor(val) {
     if (val && Array.isArray(val)) {
       this.stack = val;
+      this.depth = val.length;
     } else if (val !== undefined) {
       this.stack = [val];
+      this.depth = 1;
     } else {
       this.stack = [];
+      this.depth = 0;
     }
   }
 
@@ -16,22 +19,45 @@ class Stack {
 //-- CREATE -----------------------------
 
   push(value) {
-    return this.stack.push(value);
+    this.stack[this.depth] = value;
+    this.depth ++;
+    return this.depth;
+  }
+
+  pushCollection(collection) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        this.stack[this.depth] = collection[i];
+        this.depth ++;
+      }
+    } else {
+      for (let key in collection) {
+        this.stack[this.depth] = collection[key];
+        this.depth ++;
+      }
+    }
+    return this.depth;
   }
 
 //-- DELETE -----------------------------
 
   pop() {
-    return this.stack.pop();
+    let popped = this.stack[this.depth-1];
+    this.stack = this.stack.splice(this.depth-1, 1);
+    this.depth --;
+    return popped;
   }
 
 
 //-- HELPER -----------------------------
 
-  length() {
-    return this.stack.length;
+  merge(stackToMerge) {
+    for (let i = 0; i < stackToMerge.stack.length; i++) {
+      this.stack[this.depth] = stackToMerge.stack[i];
+      this.depth ++;
+    }
+    return this.depth;
   }
-
 }
 
 module.exports = { Stack };
