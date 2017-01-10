@@ -3,7 +3,7 @@
 const Stack = require('../source/Stack.js').Stack,
       assert = require('chai').assert;
 
-describe('Stack', () => {
+xdescribe('Stack', () => {
 
   describe('Stack Create', () => {  
 
