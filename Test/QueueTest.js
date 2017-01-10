@@ -17,17 +17,17 @@ describe('Queue', () => {
       assert.deepEqual(myQueue.queue, [1, 2, 3, 4, 5], 'create new Queue with an array not working')
     });
 
-    xit('push sould return the new length of the stack', () => {
-      let myStack = new Stack([1, 2, 3, 4, 5]);
-      assert.deepEqual(myStack.push(6), 6, 'push not working')
+    it('enqueue should return the new length of the queue', () => {
+      let myQueue = new Queue([1, 2, 3, 4, 5]);
+      assert.deepEqual(myQueue.enqueue(6), 6, 'enqueue not working')
     });
 
-    xit('pushCollection should take and array and add to the top of the stack', () => {
-      let myStack = new Stack([1, 2, 3, 4, 5]);
-      const yourStack = [6, 7, 8, 9, 10];
-      const fullStack = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      myStack.pushCollection(yourStack)
-      assert.deepEqual(myStack.stack, fullStack, 'pushCollection with array not working')     
+    it('enqueueCollection should take an array and add to the top of the stack', () => {
+      let myQueue = new Queue([1, 2, 3, 4, 5]);
+      const yourQueue = [6, 7, 8, 9, 10];
+      const fullQueue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      myQueue.pushCollection(yourQueue)
+      assert.deepEqual(myQueue.queue, fullQueue, 'enqueueCollection with array not working')     
     });
 
     xit('pushCollection should take and object and add values to the top of the stack', () => {
@@ -42,20 +42,20 @@ describe('Queue', () => {
 
   });
 
-  describe('Stack Delete', () => {  
+  describe('Queue Delete', () => {  
 
-    xit('pop should return the value at the top of the stack', () => {
-      let myStack = new Stack([1, 2, 3, 4, 5]);
-      assert.equal(myStack.pop(), 5, 'pop not working')
+    xit('dequeue should return the value at the end of the queue', () => {
+      let myQueue = new Queue([1, 2, 3, 4, 5]);
+      assert.equal(myQueue.pop(), 5, 'dequeue not working')
     });
 
   });
 
-  describe('Stack Helper', () => {
+  describe('Queue Helper', () => {
 
     xit('merge should put the the collection of the parameter stack on top of this stack', () => {
-      let myStack = new Stack([1, 2, 3, 4, 5]);
-      const yourStack = new Stack([6, 7, 8, 9, 10]);
+      let myStack = new Queue([1, 2, 3, 4, 5]);
+      const yourStack = new Queue([6, 7, 8, 9, 10]);
       const fullStack = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       assert.equal(myStack.merge(yourStack), 10, 'merge not returning right number')
       assert.deepEqual(myStack.stack, fullStack, 'merge not merging in right order')

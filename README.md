@@ -163,6 +163,10 @@ Stack follows first in, last out.  When creating a new stack, if an array is put
 - push(value)
 - pushCollection(collection)
 
+#### Lookup
+- next()
+- peek(index)
+
 #### Delete
 - pop()
 
@@ -179,6 +183,10 @@ Queue follows first in, first out.  When creating a new queue, if an array is pu
 #### Create
 - enqueue(value)
 - enqueueCollection(collection)
+
+#### Lookup
+- next()
+- peek(index)
 
 #### Delete
 - dequeue()
