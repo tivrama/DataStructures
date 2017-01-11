@@ -104,7 +104,6 @@ class Graph {
     return false;
   }
 
-
 //-- UPDATE -----------------------------
   updateId(id, val) {
     if (this.__id === id) {
@@ -140,6 +139,19 @@ class Graph {
     return -1;
   }
 
+  removeTwoWayEdges(toNode) {
+    let indexInThis = this.edges.indexOf(toNode);
+    if (indexInThis !== -1) {
+      this.edges.splice(indexInThis, 1);
+    }
+    let indexInThat = toNode.edges.indexOf(this);
+    if (indexInThat !== -1) {
+      toNode.edges.splice(indexInThat, 1);
+    }
+    return this.edges.length;
+  }
+
+//-- HELPER -----------------------------
   mapValToArray(cb = null) {
     let results = [];
     let cache = {};

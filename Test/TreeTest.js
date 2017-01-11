@@ -3,7 +3,7 @@
 const Tree = require('../source/Tree.js').Tree,
       assert = require('chai').assert;
 
-xdescribe('Tree', () => {
+describe('Tree', () => {
 
   describe('Tree Create', () => {  
 

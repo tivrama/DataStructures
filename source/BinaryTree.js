@@ -183,6 +183,25 @@ class BinaryTree {
     return idValue;
   }
 
+  removeDuplicates() {
+    let cache = {};
+    let returnInfo = {};
+    const findAndRemoveDuplicates = (node, root = null) => {
+      if (!root) root = node;
+      if (!cache[node.value]) {
+        cache[node.value] = node.__id;
+      } else {
+        returnInfo[node.__id] = node.value
+        root.deleteNode(node.__id)
+      }
+      if (!node.left && !node.right) return
+      if (node.left) findAndRemoveDuplicates(node.left, root)
+      if (node.right) findAndRemoveDuplicates(node.right, root)
+    }
+    findAndRemoveDuplicates(this)
+    return returnInfo;
+  }
+
 //-- HELPER -----------------------------
   mapToArray(cb) {
     var resultArray = [];
@@ -224,26 +243,6 @@ class BinaryTree {
   }
 
 //-- DIGNOSTIC -----------------------------
-  removeDuplicates() {
-    let cache = {};
-    let returnInfo = {};
-    const findAndRemoveDuplicates = (node, root = null) => {
-      if (!root) root = node;
-      if (!cache[node.value]) {
-        cache[node.value] = node.__id;
-      } else {
-        returnInfo[node.__id] = node.value
-        root.deleteNode(node.__id)
-      }
-      if (!node.left && !node.right) return
-      if (node.left) findAndRemoveDuplicates(node.left, root)
-      if (node.right) findAndRemoveDuplicates(node.right, root)
-    }
-    findAndRemoveDuplicates(this)
-    return returnInfo;
-  }
-
-
   countNodes() {
     var count = 0;
     const sub = (node) => {
@@ -269,6 +268,5 @@ class BinaryTree {
   }
 
 }
-
 
 module.exports = { BinaryTree };

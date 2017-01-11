@@ -13,7 +13,6 @@ class Tree {
     return this.children[this.children.length-1];
   }
 
-
 //-- LOOKUP --------------------------------
   contains(val) {
     if (this.value === val) {
@@ -29,7 +28,6 @@ class Tree {
     return false
   }
 
-
   countLeaves() {
     let counter = 0;
     const sub = (node) => {
@@ -43,7 +41,6 @@ class Tree {
     sub(this);
     return counter;
   }
-
 
   countNodes() {
     let counter = 0;
@@ -59,7 +56,6 @@ class Tree {
     return counter;
   }
 
-
 //-- UPDATE --------------------------------
   updateValue(val, newValue) {
     if(this.value === val) {
@@ -71,7 +67,6 @@ class Tree {
       }
     }
   }
-
 
 //-- DELETE --------------------------------
   deleteNode(val, parent = null, index = 0) {
@@ -92,7 +87,6 @@ class Tree {
     }  
   }
 
-
   deleteLeaf(val, parent = null, index = 0) {
     if (this.value === val && this.children.length === 0 && parent === null) {
       return;
@@ -108,7 +102,6 @@ class Tree {
     }
   }
 
-
   deleteBranchWithChilden(val, parent = null, index = 0) {
     if (this.value === val && this.children.length === 0 && parent === null) {
       return;
@@ -120,7 +113,6 @@ class Tree {
       this.children[i].deleteBranchWithChilden(val, this, i);
     }
   }
-
 
   removeDuplicates() {
     let cache = {}
@@ -145,7 +137,6 @@ class Tree {
     return sub(this);
   }
 
-
 //-- HELPER --------------------------------
   onEach(cb) {
     this.value = cb(this.value);
@@ -155,7 +146,6 @@ class Tree {
       }
     }
   }
-
 
   mapToArray(cb) {
     let resultArray = [];
@@ -175,7 +165,6 @@ class Tree {
     return resultArray;
   }
 
-
   filterToArray(cb) {
     if (!cb) {
       return;
@@ -194,7 +183,6 @@ class Tree {
     sub(this);
     return resultArray;
   }
-
 
 }
 

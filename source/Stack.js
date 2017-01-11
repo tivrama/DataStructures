@@ -15,9 +15,7 @@ class Stack {
     }
   }
 
-
 //-- CREATE -----------------------------
-
   push(value) {
     this.stack[this.depth] = value;
     this.depth ++;
@@ -40,7 +38,6 @@ class Stack {
   }
 
 //-- LOOKUP -----------------------------
-
   next() {
     return this.stack[this.depth-1];
   }
@@ -49,9 +46,7 @@ class Stack {
     return this.stack[(this.depth) - index];
   }
 
-
 //-- DELETE -----------------------------
-
   pop() {
     let popped = this.stack[this.depth-1];
     this.stack = this.stack.splice(this.depth-1, 1);
@@ -59,9 +54,7 @@ class Stack {
     return popped;
   }
 
-
 //-- HELPER -----------------------------
-
   merge(stackToMerge) {
     for (let i = 0; i < stackToMerge.stack.length; i++) {
       this.stack[this.depth] = stackToMerge.stack[i];

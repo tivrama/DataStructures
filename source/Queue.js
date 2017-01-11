@@ -15,9 +15,7 @@ class Queue {
     }
   }
 
-
 //-- CREATE -----------------------------
-
   enqueue(value) {
     this.queue = [value].concat(this.queue);
     this.length ++;
@@ -41,9 +39,7 @@ class Queue {
 
     return this.length;
   }
-
 //-- LOOKUP -----------------------------
-
   next() {
     return this.queue[this.length-1];
   }
@@ -53,7 +49,6 @@ class Queue {
   }
 
 //-- DELETE -----------------------------
-
   dequeue() {
     let dequeued = this.queue[this.length-1];
     this.queue = this.queue.splice(this.length-1, 1);
@@ -61,9 +56,7 @@ class Queue {
     return dequeued;
   }
 
-
 //-- HELPER -----------------------------
-
   merge(queueToMerge) {
     this.enqueueCollection(queueToMerge.queue);
     return this.length;

@@ -27,7 +27,6 @@ class LinkedList {
     return text;
   }
 
-
 //-- CREATE --------------------------------
   addToHead(val) { // Adds a node to head
     const makeNode = {
@@ -115,9 +114,7 @@ class LinkedList {
     sub(this.head);
   }
 
-
 //-- LOOKUP --------------------------------
-
   readValueAtId(id) { // Updated value at node with selected ID
     const sub = (node) => {
       if (node.__id === id) {
@@ -188,7 +185,6 @@ class LinkedList {
     return sub(this.head);
   }
 
-
 //-- UPDATE --------------------------------
   updateValueAtId(id, val) { // Updated value at node with selected ID
     const sub = (node) => {
@@ -204,7 +200,6 @@ class LinkedList {
     }
     return sub(this.head);
   }
-
 
 //-- DELETE --------------------------------
   deleteHead() {
@@ -305,7 +300,6 @@ class LinkedList {
     sub(this.head);
   }
 
-
 //-- HELPER --------------------------------
   onEach(cb) {
     if (!this.head) {
@@ -402,7 +396,6 @@ class LinkedList {
     }
     sub2(mergedArray.pop())
   }
-
 
 //-- DIGNOSTIC -----------------------------
   hasCycle() {
@@ -569,6 +562,5 @@ class LinkedList {
   } 
 
 }
-
 
 module.exports = { LinkedList };

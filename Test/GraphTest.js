@@ -100,6 +100,15 @@ describe('Graph', () => {
       assert.equal(Graph3.removeEdge(Graph2), 0, 'removeEdge not working')
     });
 
+    it('removeTwoWayEdges should remove edges from this and the toNode', () => {
+      let GraphA = new Graph(1);
+      let GraphB = new Graph(2, [GraphA]);
+      GraphA.addEdge(GraphB);
+      assert.equal(GraphA.removeTwoWayEdges(GraphB), 0, 'removeTwoWayEdges not working');
+      assert.equal(GraphB.edges.length, 0, 'removeTwoWayEdges not working')
+
+    });
+
   });
 
   describe('Helper Functions', () => {
