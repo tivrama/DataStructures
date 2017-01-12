@@ -1,4 +1,5 @@
 # DataStructures
+##[To The Wiki](https://github.com/tivrama/DataStructures/wiki)
 
 ## Usage
 Writen in ES6.  Create instances of each data structure by importing only the class you want.
