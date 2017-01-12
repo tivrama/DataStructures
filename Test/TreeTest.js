@@ -1,6 +1,6 @@
 'use strict';
 
-const Tree = require('../source/Tree.js').Tree,
+const Tree = require('../index').Tree,
       assert = require('chai').assert;
 
 describe('Tree', () => {

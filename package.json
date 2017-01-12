@@ -1,7 +1,7 @@
 {
-  "name": "DataStructures",
-  "version": "1.0.0",
-  "description": "Library of Data Structures",
+  "name": "data-structures-javascript",
+  "version": "1.0.16",
+  "description": "Library of Data Structures in Javascript",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -13,11 +13,23 @@
     "type": "git",
     "url": "git+https://github.com/tivrama/DataStructures.git"
   },
-  "author": "Joel Schoolnik",
-  "license": "ISC",
+  "author": "Joel Schoolnik <jschoolnik@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tivrama/DataStructures/issues"
   },
+  "keywords": [
+    "data structure",
+    "linked list",
+    "stack",
+    "binary search tree",
+    "binary tree",
+    "tree",
+    "graph",
+    "edge",
+    "queue",
+    "id based"
+  ],
   "homepage": "https://github.com/tivrama/DataStructures#readme",
   "devDependencies": {
     "chai": "^3.5.0",

@@ -1,6 +1,6 @@
 'use strict';
 
-const Queue = require('../source/Queue.js').Queue,
+const Queue = require('../index').Queue,
       assert = require('chai').assert;
 
 describe('Queue', () => {

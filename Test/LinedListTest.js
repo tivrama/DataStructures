@@ -1,6 +1,6 @@
 'use strict';
 
-const LinkedList = require('../source/LinkedList.js').LinkedList,
+const LinkedList = require('../index').LinkedList,
       assert = require('chai').assert;
 
 describe('LinkedList', () => {

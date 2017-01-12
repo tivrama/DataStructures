@@ -1,6 +1,6 @@
 'use strict';
 
-const BinaryTree = require('../source/BinaryTree.js').BinaryTree,
+const BinaryTree = require('../index').BinaryTree,
       assert = require('chai').assert;
 
 describe('BinaryTree', () => {

@@ -1,4 +1,4 @@
-'use strict';
+(function() {
 
 class Queue {
 
@@ -64,4 +64,5 @@ class Queue {
 
 }
 
-module.exports = { Queue };
+module.exports = Queue;
+}.call(this));

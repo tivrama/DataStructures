@@ -1,4 +1,4 @@
-'use strict';
+(function() {
 
 class LinkedList {
 
@@ -563,4 +563,5 @@ class LinkedList {
 
 }
 
-module.exports = { LinkedList };
+module.exports = LinkedList;
+}.call(this));

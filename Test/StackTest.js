@@ -1,6 +1,6 @@
 'use strict';
 
-const Stack = require('../source/Stack.js').Stack,
+const Stack = require('../index').Stack,
       assert = require('chai').assert;
 
 describe('Stack', () => {

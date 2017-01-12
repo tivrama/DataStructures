@@ -1,4 +1,4 @@
-'use strict';
+(function() {
 
 class BinaryTree {
 
@@ -269,4 +269,5 @@ class BinaryTree {
 
 }
 
-module.exports = { BinaryTree };
+module.exports = BinaryTree;
+}.call(this));

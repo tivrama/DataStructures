@@ -1,4 +1,4 @@
-'use strict';
+(function() {
 
 class Stack {
 
@@ -64,4 +64,5 @@ class Stack {
   }
 }
 
-module.exports = { Stack };
+module.exports = Stack;
+}.call(this));

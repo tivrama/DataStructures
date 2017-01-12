@@ -1,4 +1,4 @@
-'use strict';
+(function() {
 
 class Graph {
 
@@ -302,4 +302,5 @@ class Graph {
 
 }
 
-module.exports = { Graph };
+module.exports = Graph;
+}.call(this));
