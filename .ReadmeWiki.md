@@ -17,12 +17,12 @@ For example:
 
 
 ## Classes
-- BinaryTree
-- Graph
-- LinkedList
-- Queue
-- Stack
-- Tree
+- [BinaryTree](https://github.com/tivrama/DataStructures/wiki/Binary-Tree-(Random))
+- [Graph](https://github.com/tivrama/DataStructures/wiki/Graph-(directed))
+- [LinkedList](https://github.com/tivrama/DataStructures/wiki/Linked-List-(Single))
+- [Queue](https://github.com/tivrama/DataStructures/wiki/Queue)
+- [Stack](https://github.com/tivrama/DataStructures/wiki/Stack)
+- [Tree](https://github.com/tivrama/DataStructures/wiki/Tree)
 
 
 ### test: run mocha

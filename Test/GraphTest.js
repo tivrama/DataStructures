@@ -146,6 +146,17 @@ describe('Graph', () => {
       assert.equal(Graph1.degreesOfSeperation(Graph3), -1, 'degreesOfSeperation not working')
     });
 
+    let Graph4 = new Graph(1);
+    let Graph5 = new Graph(2, [Graph4]);
+    let Graph6 = new Graph(3, [Graph5]);
+    let Graph7 = new Graph(4, [Graph4, Graph5, Graph6])
+
+    it('closestDegreesOfSeperation should return an int with the closest degree of seperation', () => {
+      // assert.equal(Graph6.closestDegreesOfSeperation(Graph1), -1, 'closestDegreesOfSeperation not working when there is no connection')
+      assert.equal(Graph6.closestDegreesOfSeperation(Graph4), 2, 'closestDegreesOfSeperation not working')
+      assert.equal(Graph7.closestDegreesOfSeperation(Graph4), 1, 'closestDegreesOfSeperation not working')
+    });
+
   });
 
 });

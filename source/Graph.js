@@ -23,6 +23,7 @@ class Graph {
 
 //-- LOOKUP -----------------------------
   connectedTo(node) {
+    // TODO: refactor to breadth first search and make cache for circular edges
     if (this.__id === node.__id) {
       return true
     }
@@ -38,6 +39,7 @@ class Graph {
   }
 
   connectedToVal(val) {
+    // TODO: refactor to breadth first search and make cache for circular edges
     if (this.value === val) {
       return true;
     }
@@ -53,6 +55,7 @@ class Graph {
   }
 
   getId(val) {
+    // TODO: refactor to breadth first search and make cache for circular edges
     if (this.value === val) {
       return this.__id;
     }
@@ -68,6 +71,7 @@ class Graph {
   }
 
   lookupId(id) {
+    // TODO: refactor to breadth first search and make cache for circular edges
     if (this.__id === id) {
       return this.value;
     }
@@ -250,7 +254,7 @@ class Graph {
 
     cache[this.__id] = 1;
     count ++;
-    // TODO: add way to escape circular edges
+    // TODO: add way to escape circular edges && refactor recursion to while loop
     const sub = (edges) => {
       if (!edges.length) {
         return
@@ -272,6 +276,7 @@ class Graph {
   }
 
   degreesOfSeperation(toNode) {
+    // TODO: review and refactor - switch to breadth first search?
     let count = [];
     let cache = {};
     const sub = (edges, memo) => {
@@ -298,6 +303,41 @@ class Graph {
     } else {
       return -1;
     }
+  }
+
+  closestDegreesOfSeperation(toNode) {
+    // TODO: use cache to check circular refs
+    let level = 1;
+    let cache = {};
+    let id = toNode.__id;
+    let queue = [this];
+    let item;
+
+let count = 1 // remove when done testing
+
+    while (item = queue.pop()) {
+
+if (count > 100) return count// remove when done testing
+count++; // remove when done testing
+
+      cache[this.__id] = level;
+      for (let i = 0; i < item.edges.length; i++) {
+
+        //check if [i] is in cache
+        if (cache[item.edges[i].__id]) continue
+
+
+        if (item.edges[i].__id === id) {
+          return level;
+        }
+        if (cache[edges][i]) {
+
+        }
+      }
+      level++;
+      queue = item.edges;
+    }
+    return -1;
   }
 
 }
