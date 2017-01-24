@@ -275,36 +275,6 @@ class Graph {
     return count;
   }
 
-  degreesOfSeperation(toNode) {
-    // TODO: review and refactor - switch to breadth first search?
-    let count = [];
-    let cache = {};
-    const sub = (edges, memo) => {
-      let temp = memo;
-      for (let i = 0; i < edges.length; i++) {
-        if (edges[i].__id === toNode.__id) {
-          count.push(temp);
-        }
-        if (edges[i].edges.length && !cache[edges[i]]) {
-          cache[edges[i]] = memo;
-          memo += 1;
-          sub(edges[i].edges, memo)
-        }
-      }
-    }
-    if (this.edges.length) {
-      sub(this.edges, 1)
-    } else {
-      return -1;
-    }
-    if (count.length) {
-      count = count.sort();
-      return count;
-    } else {
-      return -1;
-    }
-  }
-
   closestDegreeOfSeperation(toNode) {
     let queue = [];
     let next = this.edges;
@@ -313,16 +283,9 @@ class Graph {
     let level = 1;
 
     while (next.length) {
-      for (var i = 0; i < next.length; i++) {
-        if (next[i].__id === id) {
-          return level;
-        }
-
-        if (cache[next[i].__id]) {
-          console.error('Circular Reference');
-          continue;
-        }
-console.log('next: ', next);
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (next[i].__id === id) return level;
+        if (cache[next[i].__id]) continue checkCurr;
         cache[next[i].__id] = level;
         queue.push(next[i].edges)
       }
@@ -331,8 +294,6 @@ console.log('next: ', next);
     }
     return -1;
   }
-
-
 
 }
 

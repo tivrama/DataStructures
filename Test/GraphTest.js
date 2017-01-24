@@ -139,13 +139,6 @@ describe('Graph', () => {
       assert.equal(Graph3.countNodes(), 3, 'countNodes not working')
     });
 
-    it('degreesOfSeperation should return a sorted array with all the degrees of seperation', () => {
-      assert.deepEqual(Graph3.degreesOfSeperation(Graph1), [2], 'degreesOfSeperation not working')
-      Graph3.addEdge(Graph1);
-      assert.deepEqual(Graph3.degreesOfSeperation(Graph1), [1,2], 'degreesOfSeperation not working')
-      assert.equal(Graph1.degreesOfSeperation(Graph3), -1, 'degreesOfSeperation not working')
-    });
-
     let Graph4 = new Graph(1);
     let Graph5 = new Graph(2, [Graph4]);
     let Graph6 = new Graph(3, [Graph5]);
@@ -155,6 +148,7 @@ describe('Graph', () => {
     let Graph10 = new Graph(7, [Graph8])
     Graph8.addEdge(Graph9)
     Graph9.addEdge(Graph8)
+    Graph9.addEdge(Graph10)
 
     it('closestDegreeOfSeperation should return an int with the closest degree of seperation', () => {
       assert.equal(Graph6.closestDegreeOfSeperation(Graph1), -1, 'closestDegreeOfSeperation not working when there is no connection')
@@ -163,7 +157,6 @@ describe('Graph', () => {
     });
 
     it('closestDegreeOfSeperation should not be tricked by a circular reference', () => {
-      console.log('Graph8.closestDegreeOfSeperation(Graph10): ', Graph8.closestDegreeOfSeperation(Graph10));
       assert.equal(Graph8.closestDegreeOfSeperation(Graph10), 2, 'closestDegreeOfSeperation not working')
     });
 
