@@ -305,40 +305,34 @@ class Graph {
     }
   }
 
-  closestDegreesOfSeperation(toNode) {
-    // TODO: use cache to check circular refs
-    let level = 1;
+  closestDegreeOfSeperation(toNode) {
+    let queue = [];
+    let next = this.edges;
     let cache = {};
     let id = toNode.__id;
-    let queue = [this];
-    let item;
+    let level = 1;
 
-let count = 1 // remove when done testing
-
-    while (item = queue.pop()) {
-
-if (count > 100) return count// remove when done testing
-count++; // remove when done testing
-
-      cache[this.__id] = level;
-      for (let i = 0; i < item.edges.length; i++) {
-
-        //check if [i] is in cache
-        if (cache[item.edges[i].__id]) continue
-
-
-        if (item.edges[i].__id === id) {
+    while (next.length) {
+      for (var i = 0; i < next.length; i++) {
+        if (next[i].__id === id) {
           return level;
         }
-        if (cache[edges][i]) {
 
+        if (cache[next[i].__id]) {
+          console.error('Circular Reference');
+          continue;
         }
+console.log('next: ', next);
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
       level++;
-      queue = item.edges;
+      next = queue.shift();
     }
     return -1;
   }
+
+
 
 }
 
