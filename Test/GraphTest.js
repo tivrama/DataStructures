@@ -149,12 +149,22 @@ describe('Graph', () => {
     let Graph4 = new Graph(1);
     let Graph5 = new Graph(2, [Graph4]);
     let Graph6 = new Graph(3, [Graph5]);
-    let Graph7 = new Graph(4, [Graph4, Graph5, Graph6])
+    let Graph7 = new Graph(4, [Graph5, Graph6, Graph4])
+    let Graph8 = new Graph(5)
+    let Graph9 = new Graph(6)
+    let Graph10 = new Graph(7, [Graph8])
+    Graph8.addEdge(Graph9)
+    Graph9.addEdge(Graph8)
 
-    it('closestDegreesOfSeperation should return an int with the closest degree of seperation', () => {
-      // assert.equal(Graph6.closestDegreesOfSeperation(Graph1), -1, 'closestDegreesOfSeperation not working when there is no connection')
-      assert.equal(Graph6.closestDegreesOfSeperation(Graph4), 2, 'closestDegreesOfSeperation not working')
-      assert.equal(Graph7.closestDegreesOfSeperation(Graph4), 1, 'closestDegreesOfSeperation not working')
+    it('closestDegreeOfSeperation should return an int with the closest degree of seperation', () => {
+      assert.equal(Graph6.closestDegreeOfSeperation(Graph1), -1, 'closestDegreeOfSeperation not working when there is no connection')
+      assert.equal(Graph6.closestDegreeOfSeperation(Graph4), 2, 'closestDegreeOfSeperation not working')
+      assert.equal(Graph7.closestDegreeOfSeperation(Graph4), 1, 'closestDegreeOfSeperation not working')
+    });
+
+    it('closestDegreeOfSeperation should not be tricked by a circular reference', () => {
+      console.log('Graph8.closestDegreeOfSeperation(Graph10): ', Graph8.closestDegreeOfSeperation(Graph10));
+      assert.equal(Graph8.closestDegreeOfSeperation(Graph10), 2, 'closestDegreeOfSeperation not working')
     });
 
   });
