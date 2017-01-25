@@ -35,7 +35,8 @@ Please checkout the [Wiki](https://github.com/tivrama/DataStructures/wiki) to se
 ```run mocha```
 
 ## Updates / Todo
-Some classes use recursive calls which can potentially create a stack overflow depending on the environment.  Replace recursive functions with loops.  
+- Some classes use recursive calls which can potentially create a stack overflow depending on the environment.  Replace recursive functions with loops.
+- Graph has no recursion and uses breadth first searches.  But adding a second paramenter to functions like map, filter and count, which specifies a limit to the degree of seperation, will make these functions more useful in expecially large collections. The functions do currently record the degree of seperation.  
 
 ## Contributing
 Please submit pull requests to [github.com/tivrama](https://github.com/tivrama/DataStructures)
