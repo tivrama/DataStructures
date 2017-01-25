@@ -102,7 +102,7 @@ class Tree {
     }
   }
 
-  deleteBranchWithChilden(val, parent = null, index = 0) {
+  deleteBranchWithChildren(val, parent = null, index = 0) {
     if (this.value === val && this.children.length === 0 && parent === null) {
       return;
     }
@@ -110,7 +110,7 @@ class Tree {
       return parent.children.splice(index, 1);
     }
     for (var i = 0; i < this.children.length; i++) {
-      this.children[i].deleteBranchWithChilden(val, this, i);
+      this.children[i].deleteBranchWithChildren(val, this, i);
     }
   }
 

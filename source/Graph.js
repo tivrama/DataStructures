@@ -278,7 +278,7 @@ class Graph {
     return count;
   }
 
-  closestDegreeOfSeperation(toNode) {
+  degreeOfSeparation(toNode) {
     let queue = [];
     let next = this.edges;
     let cache = {};

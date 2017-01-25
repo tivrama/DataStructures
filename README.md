@@ -22,7 +22,7 @@ For example:
 
 
 ## Classes
-Please checkout the #[Wiki](https://github.com/tivrama/DataStructures/wiki) to see usage of these classes.
+Please checkout the [Wiki](https://github.com/tivrama/DataStructures/wiki) to see usage of these classes.
 - [BinaryTree](https://github.com/tivrama/DataStructures/wiki/Binary-Tree-(Random))
 - [Graph](https://github.com/tivrama/DataStructures/wiki/Graph-(directed))
 - [LinkedList](https://github.com/tivrama/DataStructures/wiki/Linked-List-(Single))
