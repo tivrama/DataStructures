@@ -22,68 +22,89 @@ class Graph {
   }
 
 //-- LOOKUP -----------------------------
-  connectedTo(node) {
-    // TODO: refactor to breadth first search and make cache for circular edges
-    if (this.__id === node.__id) {
-      return true
-    }
-    for (let i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].__id === node.__id) {
-        return true
+  connectedTo(toNode) {
+    let queue = [];
+    let next = this.edges;
+    let cache = {};
+    let id = toNode.__id;
+    let level = 1;
+    if (this.__id === id) return true;
+    cache[this.__id] = true;
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (next[i].__id === id) return true;
+        if (cache[next[i].__id]) continue checkCurr;
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      if (this.edges[i].connectedTo(node)) {
-        return true
-      }
+      level++;
+      next = queue.shift();
     }
-    return false
+    return false;
   }
 
   connectedToVal(val) {
-    // TODO: refactor to breadth first search and make cache for circular edges
-    if (this.value === val) {
-      return true;
-    }
-    for (let i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].value === val) {
-        return true
+    let queue = [];
+    let next = this.edges;
+    let cache = {};
+    let level = 1;
+    if (this.value === val) return true;
+    cache[this.__id] = true;
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (next[i].value === val) return true;
+        if (cache[next[i].__id]) continue checkCurr;
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      if (this.edges[i].connectedToVal(val)) {
-        return true;
-      }
+      level++;
+      next = queue.shift();
     }
-    return false
+    return false;
   }
 
   getId(val) {
-    // TODO: refactor to breadth first search and make cache for circular edges
-    if (this.value === val) {
-      return this.__id;
-    }
-    for (let i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].value === val) {
-        return this.edges[i].__id;
+    let queue = [];
+    let next = this.edges;
+    let cache = {};
+    let level = 1;
+    if (this.value === val) return this.__id;
+    cache[this.__id] = true;
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (next[i].value === val) return next[i].__id;
+        if (cache[next[i].__id]) continue checkCurr;
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      if (this.edges[i].connectedToVal(val)) {
-        return this.edges[i].getId(val);
-      }
+      level++;
+      next = queue.shift();
     }
     return null;  
   }
 
   lookupId(id) {
-    // TODO: refactor to breadth first search and make cache for circular edges
-    if (this.__id === id) {
-      return this.value;
-    }
-    for (let i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].__id === id) {
-        return this.edges[i].value;
+    let queue = [];
+    let next = this.edges;
+    let cache = {};
+    let level = 1;
+    if (this.__id === id) return this.value;
+    cache[this.__id] = true;
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (next[i].__id === id) return next[i].value;
+        if (cache[next[i].__id]) continue checkCurr;
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      if (this.edges[i].lookupId(id)) {
-        return this.edges[i].lookupId(id);
-      }
+      level++;
+      next = queue.shift();
     }
-    return null;  
+    return null;    
   }
 
   hasEdge(toNode) {
@@ -110,18 +131,24 @@ class Graph {
 
 //-- UPDATE -----------------------------
   updateId(id, val) {
-    if (this.__id === id) {
-      return this.value = val;
-    }
-    for (let i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].__id === id) {
-        return this.edges[i].value = val;
+    let queue = [];
+    let next = this.edges;
+    let cache = {};
+    let level = 1;
+    if (this.__id === id) return this.value = val;
+    cache[this.__id] = 1;
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (next[i].__id === id) return next[i].value = val;
+        if (cache[next[i].__id]) continue checkCurr;
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      if (this.edges[i].lookupId(id)) {
-        return this.edges[i].updateId(id, val);
-      }
+      level++;
+      next = queue.shift();
     }
-    return null;  
+    return null; 
   }
 
   addEdge(toNode) {
@@ -158,120 +185,96 @@ class Graph {
 //-- HELPER -----------------------------
   mapValToArray(cb = null) {
     let results = [];
+    let queue = [];
+    let next = this.edges;
     let cache = {};
-    const implementCB = (value) => {
-      if (!cb) {
-        return results.push(value);
-      } else {
-        return results.push(cb(value));
-      }
-    }
+    let level = 1;
 
     cache[this.__id] = 1;
-    implementCB(this.value);
-    // TODO: add way to escape circular edges
-    const sub = (edges) => {
-      if (!edges.length) {
-        return
+    cb ? results.push(cb(this.value)) : results.push(this.value);
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (cache[next[i].__id]) continue checkCurr;
+        cb ? results.push(cb(next[i].value)) : results.push(next[i].value);
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      for (let i = 0; i < edges.length; i++) {
-        if (!cache[edges[i].__id]) {
-          cache[edges[i].__id] = 1;
-          implementCB(edges[i].value)
-          if (edges[i].edges.length) {
-            sub(edges[i].edges);
-          }
-        } else {
-          cache[edges[i].__id] += 1;
-        }
-      }
-    }
-    sub(this.edges)
+      level++;
+      next = queue.shift();
+    }    
     return results;
   }
 
   mapIdToArray() {
     let results = [];
+    let queue = [];
+    let next = this.edges;
     let cache = {};
+    let level = 1;
 
-    cache[this.__id] = 1;
+    cache[this.__id] = true;
     results.push(this.__id);
-    // TODO: add way to escape circular edges
-    const sub = (edges) => {
-      if (!edges.length) {
-        return
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (cache[next[i].__id]) continue checkCurr;
+        results.push(next[i].__id);
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      for (let i = 0; i < edges.length; i++) {
-        if (!cache[edges[i].__id]) {
-          cache[edges[i].__id] = 1;
-          results.push(edges[i].__id)
-          if (edges[i].edges.length) {
-            sub(edges[i].edges);
-          }
-        } else {
-          cache[edges[i].__id] += 1;
-        }
-      }
-    }
-    sub(this.edges)
+      level++;
+      next = queue.shift();
+    }   
     return results;
   }
 
   filterToArray(cb) {
     let results = [];
+    let queue = [];
+    let next = this.edges;
     let cache = {};
+    let level = 1;
 
-    cache[this.__id] = 1;
+    cache[this.__id] = true;
     if (cb(this.value)) {
       results.push(this.value);
     }
-    // TODO: add way to escape circular edges
-    const sub = (edges) => {
-      if (!edges.length) {
-        return
-      }
-      for (let i = 0; i < edges.length; i++) {
-        if (!cache[edges[i].__id]) {
-          cache[edges[i].__id] = 1;
-          if (cb(edges[i].value)) {
-            results.push(edges[i].value);
-          }
-          if (edges[i].edges.length) {
-            sub(edges[i].edges);
-          }
-        } else {
-          cache[edges[i].__id] += 1;
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (cache[next[i].__id]) continue checkCurr;
+        if (cb(next[i].value)) {
+          results.push(next[i].value);
         }
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-    }
-    sub(this.edges)
+      level++;
+      next = queue.shift();
+    }  
     return results;
   }
 
   countNodes() {
-    let count = 0;
+    let count = 1;
+    let queue = [];
+    let next = this.edges;
     let cache = {};
+    let level = 1;
 
-    cache[this.__id] = 1;
-    count ++;
-    // TODO: add way to escape circular edges && refactor recursion to while loop
-    const sub = (edges) => {
-      if (!edges.length) {
-        return
+    cache[this.__id] = true;
+
+    while (next.length) {
+      checkCurr: for (var i = 0; i < next.length; i++) {
+        if (cache[next[i].__id]) continue checkCurr;
+        count++;
+        cache[next[i].__id] = level;
+        queue.push(next[i].edges)
       }
-      for (let i = 0; i < edges.length; i++) {
-        if (!cache[edges[i].__id]) {
-          cache[edges[i].__id] = 1;
-          count ++;
-          if (edges[i].edges.length) {
-            sub(edges[i].edges);
-          }
-        } else {
-          cache[edges[i].__id] += 1;
-        }
-      }
-    }
-    sub(this.edges)
+      level++;
+      next = queue.shift();
+    }    
     return count;
   }
 
@@ -281,6 +284,10 @@ class Graph {
     let cache = {};
     let id = toNode.__id;
     let level = 1;
+
+    if (this.__id === id) return 0;
+
+    cache[this.__id] = 0;
 
     while (next.length) {
       checkCurr: for (var i = 0; i < next.length; i++) {
