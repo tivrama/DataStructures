@@ -118,10 +118,16 @@ describe('Graph', () => {
     let Graph3 = new Graph(3, [Graph2]);
    
     let resultsArray1 = Graph3.mapValToArray();
-    let resultsArray2 = Graph3.mapValToArray((val) => {return val * 2})
+    let resultsArray2 = Graph3.mapValToArray(null, 1);
+    let resultsArray3 = Graph3.mapValToArray((val) => {return val * 2})
     it('mapValToArray should return an array of values from connected nodes - with or without a cb', () => {
       assert.deepEqual(resultsArray1, [3, 2, 1], 'mapValToArray not working without callback')
-      assert.deepEqual(resultsArray2, [6, 4, 2], 'mapValToArray not working with callback')
+      assert.deepEqual(resultsArray3, [6, 4, 2], 'mapValToArray not working with callback')
+    });
+
+    it('mapValToArray should return an array of values from connected only as far as the generation param allows', () => {
+      console.log('mamp depth: ', resultsArray2);
+      assert.deepEqual(resultsArray2, [3, 2], 'mapValToArray not working with depth param')
     });
 
     let ids = [Graph3.__id, Graph2.__id, Graph1.__id];

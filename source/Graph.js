@@ -183,7 +183,7 @@ class Graph {
   }
 
 //-- HELPER -----------------------------
-  mapValToArray(cb = null) {
+  mapValToArray(cb = null, distance = null) {
     let results = [];
     let queue = [];
     let next = this.edges;
@@ -200,13 +200,14 @@ class Graph {
         cache[next[i].__id] = level;
         queue.push(next[i].edges)
       }
+      if (distance === level) break
       level++;
       next = queue.shift();
     }    
     return results;
   }
 
-  mapIdToArray() {
+  mapIdToArray(distance = null) {
     let results = [];
     let queue = [];
     let next = this.edges;
@@ -223,13 +224,14 @@ class Graph {
         cache[next[i].__id] = level;
         queue.push(next[i].edges)
       }
+      if (distance === level) break
       level++;
       next = queue.shift();
     }   
     return results;
   }
 
-  filterToArray(cb) {
+  filterToArray(cb, distance = null) {
     let results = [];
     let queue = [];
     let next = this.edges;
@@ -250,13 +252,14 @@ class Graph {
         cache[next[i].__id] = level;
         queue.push(next[i].edges)
       }
+      if (distance === level) break
       level++;
       next = queue.shift();
     }  
     return results;
   }
 
-  countNodes() {
+  countNodes(distance = null) {
     let count = 1;
     let queue = [];
     let next = this.edges;
@@ -272,13 +275,14 @@ class Graph {
         cache[next[i].__id] = level;
         queue.push(next[i].edges)
       }
+      if (distance === level) break
       level++;
       next = queue.shift();
     }    
     return count;
   }
 
-  closestDegreeOfSeperation(toNode) {
+  closestDegreeOfSeperation(toNode, distance = null) {
     let queue = [];
     let next = this.edges;
     let cache = {};
@@ -296,6 +300,7 @@ class Graph {
         cache[next[i].__id] = level;
         queue.push(next[i].edges)
       }
+      if (distance === level) break
       level++;
       next = queue.shift();
     }
