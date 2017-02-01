@@ -123,12 +123,12 @@ describe('Tree', () => {
       assert.isTrue(myTree.contains(4));
     });
 
-    it('deleteBranchWithChilden should find and delete a branch with input value', function(){
+    it('deleteBranchWithChildren should find and delete a branch with input value', function(){
       const myTree = new Tree(4);
       myTree.addChild(5);
       myTree.addChild(6);
       myTree.children[1].addChild(7);
-      myTree.deleteBranchWithChilden(6);
+      myTree.deleteBranchWithChildren(6);
       assert.isFalse(myTree.contains(6));
       assert.isFalse(myTree.contains(7));
     });
@@ -152,18 +152,18 @@ describe('Tree', () => {
       assert.isTrue(myTree.contains(7));
     });
 
-    it('deleteBranchWithChilden should find and delete a leaf with input value', function(){
+    it('deleteBranchWithChildren should find and delete a leaf with input value', function(){
       const myTree = new Tree(4);
       myTree.addChild(5);
       myTree.addChild(6);
       myTree.children[1].addChild(7);
-      myTree.deleteBranchWithChilden(7);
+      myTree.deleteBranchWithChildren(7);
       assert.isFalse(myTree.contains(7));
     });
 
-    it('deleteBranchWithChilden should not delete the root', function(){
+    it('deleteBranchWithChildren should not delete the root', function(){
       const myTree = new Tree(4);
-      myTree.deleteBranchWithChilden(4);
+      myTree.deleteBranchWithChildren(4);
       assert.isTrue(myTree.contains(4));
     });
 

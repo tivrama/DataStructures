@@ -158,14 +158,14 @@ describe('Graph', () => {
     Graph9.addEdge(Graph8)
     Graph9.addEdge(Graph10)
 
-    it('closestDegreeOfSeperation should return an int with the closest degree of seperation', () => {
-      assert.equal(Graph6.closestDegreeOfSeperation(Graph1), -1, 'closestDegreeOfSeperation not working when there is no connection')
-      assert.equal(Graph6.closestDegreeOfSeperation(Graph4), 2, 'closestDegreeOfSeperation not working')
-      assert.equal(Graph7.closestDegreeOfSeperation(Graph4), 1, 'closestDegreeOfSeperation not working')
+    it('degreeOfSeparation should return an int with the closest degree of seperation', () => {
+      assert.equal(Graph6.degreeOfSeparation(Graph1), -1, 'degreeOfSeparation not working when there is no connection')
+      assert.equal(Graph6.degreeOfSeparation(Graph4), 2, 'degreeOfSeparation not working')
+      assert.equal(Graph7.degreeOfSeparation(Graph4), 1, 'degreeOfSeparation not working')
     });
 
-    it('closestDegreeOfSeperation should not be tricked by a circular reference', () => {
-      assert.equal(Graph8.closestDegreeOfSeperation(Graph10), 2, 'closestDegreeOfSeperation not working')
+    it('degreeOfSeparation should not be tricked by a circular reference', () => {
+      assert.equal(Graph8.degreeOfSeparation(Graph10), 2, 'degreeOfSeparation not working')
     });
 
   });
