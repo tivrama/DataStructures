@@ -113,6 +113,8 @@ describe('Graph', () => {
 
   describe('Helper Functions', () => {
 
+    // Add tests for depth
+
     let Graph1 = new Graph(1);
     let Graph2 = new Graph(2, [Graph1]);
     let Graph3 = new Graph(3, [Graph2]);
