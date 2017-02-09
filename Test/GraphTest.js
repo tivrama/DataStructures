@@ -122,6 +122,7 @@ describe('Graph', () => {
     let resultsArray1 = Graph3.mapValToArray();
     let resultsArray2 = Graph3.mapValToArray(null, 1);
     let resultsArray3 = Graph3.mapValToArray((val) => {return val * 2})
+    
     it('mapValToArray should return an array of values from connected nodes - with or without a cb', () => {
       assert.deepEqual(resultsArray1, [3, 2, 1], 'mapValToArray not working without callback')
       assert.deepEqual(resultsArray3, [6, 4, 2], 'mapValToArray not working with callback')
