@@ -113,8 +113,6 @@ describe('Graph', () => {
 
   describe('Helper Functions', () => {
 
-    // Add tests for depth
-
     let Graph1 = new Graph(1);
     let Graph2 = new Graph(2, [Graph1]);
     let Graph3 = new Graph(3, [Graph2]);
@@ -163,6 +161,7 @@ describe('Graph', () => {
     it('degreeOfSeparation should return an int with the closest degree of seperation', () => {
       assert.equal(Graph6.closestDegreeOfSeperation(Graph1), -1, 'degreeOfSeparation not working when there is no connection')
       assert.equal(Graph6.closestDegreeOfSeperation(Graph4), 2, 'degreeOfSeparation not working')
+      assert.equal(Graph6.closestDegreeOfSeperation(Graph4, 1), -1, 'degreeOfSeparation not working')
       assert.equal(Graph7.closestDegreeOfSeperation(Graph4), 1, 'degreeOfSeparation not working')
     });
 
