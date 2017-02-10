@@ -31,7 +31,8 @@ Please checkout the [Wiki](https://github.com/tivrama/DataStructures/wiki) to se
 - [Tree](https://github.com/tivrama/DataStructures/wiki/Tree)
 
 ## Latest Update
-Graph helper functions now can take a second parameter which limits the depth of the query/request [(see the wiki)](https://github.com/tivrama/DataStructures/wiki).  
+All Graph helper functions can now take an optional parameter which limits the depth of the query/request [(see the wiki)](https://github.com/tivrama/DataStructures/wiki/Graph-(directed)).  
+
 
 ## Test
 ```run mocha```
