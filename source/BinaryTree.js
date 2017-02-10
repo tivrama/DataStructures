@@ -43,6 +43,7 @@ class BinaryTree {
     }
   }
 
+
 //-- LOOKUP -----------------------------
   containsVal(val) {
     if (this.value === val) {
