@@ -43,6 +43,21 @@ class BinaryTree {
     }
   }
 
+  // Non-recursive addChild - fails tests
+  // addChild(val) {
+  //   var id = this.makeId(false);
+  //   var stack = [this];
+  //   while (stack.length) {
+  //     var node = stack.pop()
+  //     let side = '';
+  //     node.__id < id ? side = 'right' : side = 'left';
+  //     if (!node[side]) {
+  //       return node[side] = new BinaryTree(val, id);
+  //     } else {
+  //       stack.push(node[side]);
+  //     }
+  //   }
+  // }
 
 //-- LOOKUP -----------------------------
   containsVal(val) {
