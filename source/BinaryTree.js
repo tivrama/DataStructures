@@ -30,22 +30,10 @@ class BinaryTree {
   }
 
 //-- CREATE -----------------------------
-  // addChild(val, id = null) {
-  //   if (!id) {
-  //     var id = this.makeId(false);
-  //   }
-  //   let side ='';
-  //   this.__id < id ? side = 'right' : side = 'left';
-  //   if (!this[side]) {
-  //     return this[side] = new BinaryTree(val, id);
-  //   } else {
-  //     return this[side].addChild(val, id)
-  //   }
-  // }
-
-  // Non-recursive addChild - fails tests
-  addChild(val) {
-    var id = this.makeId(false);
+  addChild(val, id = null) {
+    if (!id) {
+      var id = this.makeId(false);
+    }
     var queue = [this];
     while (queue.length) {
       var node = queue.pop()
