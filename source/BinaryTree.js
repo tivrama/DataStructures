@@ -31,12 +31,13 @@ class BinaryTree {
 
 //-- CREATE -----------------------------
   addChild(val, id = null) {
+    if (val === undefined) return null;
     if (!id) {
       var id = this.makeId(false);
     }
-    var queue = [this];
+    let queue = [this];
     while (queue.length) {
-      var node = queue.pop()
+      let node = queue.pop()
       let side = '';
       node.__id < id ? side = 'right' : side = 'left';
       if (!node[side]) {
@@ -49,85 +50,81 @@ class BinaryTree {
 
 //-- LOOKUP -----------------------------
   containsVal(val) {
-    if (this.value === val) {
-      return true;
+    if (val === undefined) return null;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
+      if (node.value === val) return true;
+      if (node.left) queue.unshift(node.left);
+      if (node.right) queue.unshift(node.right);
     }
-    if (this.left) {
-      if (this.left.containsVal(val)) {
-    return true
-      }
-    }
-    if (this.right) {
-      if (this.right.containsVal(val)) {
-        return true
-      }
-    }
-    return false
+    return false;
   }
 
   containsId(id) {
-    if (this.__id === id) {
-      return true;
-    }
-    let side ='';
-    this.__id < id ? side = 'right' : side = 'left';
-    if (this[side]) {
-      return this[side].containsId(id);
-    } else {
-      return false;
+    if (!id) return null;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop()
+      if (node.__id === id) return true;
+      let side = '';
+      node.__id < id ? side = 'right' : side = 'left';
+      if (!node[side]) {
+        return false;
+      } else {
+        queue.unshift(node[side]);
+      }
     }
   }
 
   getId(val) {
-    if (this.value === val) {
-      return this.__id;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop()
+      if (node.value === val) return node.__id;
+      if (node.left) queue.unshift(node.left);
+      if (node.right) queue.unshift(node.right);
     }
-    if (this.left) {
-      if (this.left.containsVal(val)) {
-        return this.left.getId(val)
-      }
-    }
-    if (this.right) {
-      if (this.right.containsVal(val)) {
-        return this.right.getId(val)
-      }
-    }
-    return null		
+    return null;
   }
 
   lookupId(id) {
-    if (this.__id === id) {
-      return this.value;
-    }
-    let side ='';
-    this.__id < id ? side = 'right' : side = 'left';
-
-    if (this[side]) {
-      return this[side].lookupId(id);
-    } else {
-      return null;
+    if (!id) return null;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop()
+      if (node.__id === id) return node.value;
+      let side = '';
+      node.__id < id ? side = 'right' : side = 'left';
+      if (!node[side]) {
+        return null;
+      } else {
+        queue.unshift(node[side]);
+      }
     }
   }
 
 //-- UPDATE -----------------------------
   updateId(id, val) {
-    if (this.__id === id) {
-      return this.value = val;
-    }
-    let side ='';
-    this.__id < id ? side = 'right' : side = 'left';
-
-    if (this[side]) {
-      return this[side].lookupId(id);
-    } else {
-      return null;
+    if (!id || val === undefined) return null;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
+      if (node.__id === id) return node.value = val;
+      let side ='';
+      node.__id < id ? side = 'right' : side = 'left';
+      if (node[side]) {
+        queue.unshift(node[side]);
+      } else {
+        return null;
+      }
     }
   }
 
 //-- DELETE -----------------------------
   deleteNode(id, parent = null, side = null, root = null) {
+    if (!id) return null;
     let idValue;
-    if (!id) null;
 
     if (!this.left && !this.right && parent === null) {
       if (this.__id !== id) {
@@ -151,7 +148,7 @@ class BinaryTree {
       if (node.right) saveChildren(node.right)
     }
     const addChildren = (originalRoot) => {
-      for (let i =0; i < children.length; i++) {
+      for (let i = 0; i < children.length; i++) {
         originalRoot.addChild(children[i].value, children[i].__id)
       }
     }
@@ -190,71 +187,73 @@ class BinaryTree {
   removeDuplicates() {
     let cache = {};
     let returnInfo = {};
-    const findAndRemoveDuplicates = (node, root = null) => {
-      if (!root) root = node;
+    let queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
       if (!cache[node.value]) {
         cache[node.value] = node.__id;
       } else {
-        returnInfo[node.__id] = node.value
-        root.deleteNode(node.__id)
+        returnInfo[node.__id] = node.value;
+        this.deleteNode(node.__id);
       }
-      if (!node.left && !node.right) return
-      if (node.left) findAndRemoveDuplicates(node.left, root)
-      if (node.right) findAndRemoveDuplicates(node.right, root)
+      if (node.left) queue.unshift(node.left);
+      if (node.right) queue.unshift(node.right);
     }
-    findAndRemoveDuplicates(this)
     return returnInfo;
   }
 
 //-- HELPER -----------------------------
   mapToArray(cb) {
-    var resultArray = [];
-    const sub = (node) => {
-      if (node.left) { sub(node.left) }
+    let resultArray = [];
+    let queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
+      if (node.left) queue.unshift(node.left);
       if (cb) {
         resultArray.push(cb(node.value));
       } else {
         resultArray.push(node.value);
       }
-      if (node.right) { sub(node.right) }
+      if (node.right) queue.unshift(node.right);
     }
-    sub(this);
     return resultArray;
   }
 
   mapIdToArray() {
-    var resultArray = [];
-    const sub = (node) => {
-      if (node.left) { sub(node.left) }
+    let resultArray = [];
+    let queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
+      if (node.left) queue.unshift(node.left);
       resultArray.push(node.__id);
-      if (node.right) { sub(node.right) }
+      if (node.right) queue.unshift(node.right);
     }
-    sub(this);
     return resultArray;
   }
 
   filterToArray(cb) {
-    var resultArray = [];
-    const sub = (node) => {
-      if (node.left) { sub(node.left) }
-      if (cb(node.value)) {
-        resultArray.push(node.value);
-      }
-      if (node.right) { sub(node.right) }
+    if (!cb) return null;
+    let resultArray = [];
+    let queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
+      if (node.left) queue.unshift(node.left);
+      if (cb(node.value)) resultArray.push(node.value);
+      if (node.right) queue.unshift(node.right);
     }
-    sub(this);
     return resultArray;
-  }
+  }  
 
 //-- DIGNOSTIC -----------------------------
   countNodes() {
     var count = 0;
-    const sub = (node) => {
-      if (node.left) { sub(node.left) }
-      count++;
-      if (node.right) { sub(node.right) }
+    var stack = [this];
+    while (stack.length) {
+      let node = stack.pop();
+      if (node.left) stack.push(node.left);
+      count++
+      if (node.right) stack.push(node.right)
     }
-    sub(this);
     return count;		
   }
 
