@@ -30,34 +30,34 @@ class BinaryTree {
   }
 
 //-- CREATE -----------------------------
-  addChild(val, id = null) {
-    if (!id) {
-      var id = this.makeId(false);
-    }
-    let side ='';
-    this.__id < id ? side = 'right' : side = 'left';
-    if (!this[side]) {
-      return this[side] = new BinaryTree(val, id);
-    } else {
-      return this[side].addChild(val, id)
-    }
-  }
-
-  // Non-recursive addChild - fails tests
-  // addChild(val) {
-  //   var id = this.makeId(false);
-  //   var stack = [this];
-  //   while (stack.length) {
-  //     var node = stack.pop()
-  //     let side = '';
-  //     node.__id < id ? side = 'right' : side = 'left';
-  //     if (!node[side]) {
-  //       return node[side] = new BinaryTree(val, id);
-  //     } else {
-  //       stack.push(node[side]);
-  //     }
+  // addChild(val, id = null) {
+  //   if (!id) {
+  //     var id = this.makeId(false);
+  //   }
+  //   let side ='';
+  //   this.__id < id ? side = 'right' : side = 'left';
+  //   if (!this[side]) {
+  //     return this[side] = new BinaryTree(val, id);
+  //   } else {
+  //     return this[side].addChild(val, id)
   //   }
   // }
+
+  // Non-recursive addChild - fails tests
+  addChild(val) {
+    var id = this.makeId(false);
+    var queue = [this];
+    while (queue.length) {
+      var node = queue.pop()
+      let side = '';
+      node.__id < id ? side = 'right' : side = 'left';
+      if (!node[side]) {
+        return node[side] = new BinaryTree(val, id);
+      } else {
+        queue.unshift(node[side]);
+      }
+    }
+  }
 
 //-- LOOKUP -----------------------------
   containsVal(val) {
