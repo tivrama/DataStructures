@@ -36,7 +36,7 @@ class BinaryTree {
     }
     var queue = [this];
     while (queue.length) {
-      var node = queue.pop()
+      let node = queue.pop()
       let side = '';
       node.__id < id ? side = 'right' : side = 'left';
       if (!node[side]) {
@@ -49,78 +49,88 @@ class BinaryTree {
 
 //-- LOOKUP -----------------------------
   containsVal(val) {
-    if (this.value === val) {
-      return true;
-    }
-    if (this.left) {
-      if (this.left.containsVal(val)) {
-    return true
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
+      if (node.value === val) {
+        return true;
+      }
+      if (node.left) {
+        queue.unshift(node.left);
+      }
+      if (node.right) {
+        queue.unshift(node.right);
       }
     }
-    if (this.right) {
-      if (this.right.containsVal(val)) {
-        return true
-      }
-    }
-    return false
+    return false;
   }
 
   containsId(id) {
-    if (this.__id === id) {
-      return true;
-    }
-    let side ='';
-    this.__id < id ? side = 'right' : side = 'left';
-    if (this[side]) {
-      return this[side].containsId(id);
-    } else {
-      return false;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop()
+      if (node.__id === id) {
+        return true;
+      }
+      let side = '';
+      node.__id < id ? side = 'right' : side = 'left';
+      if (!node[side]) {
+        return false;
+      } else {
+        queue.unshift(node[side]);
+      }
     }
   }
 
   getId(val) {
-    if (this.value === val) {
-      return this.__id;
-    }
-    if (this.left) {
-      if (this.left.containsVal(val)) {
-        return this.left.getId(val)
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop()
+      if (node.value === val) {
+        return node.__id;
+      }
+      if (node.left) {
+        queue.unshift(node.left);
+      }
+      if (node.right) {
+        queue.unshift(node.right);
       }
     }
-    if (this.right) {
-      if (this.right.containsVal(val)) {
-        return this.right.getId(val)
-      }
-    }
-    return null		
+    return null;
   }
 
   lookupId(id) {
-    if (this.__id === id) {
-      return this.value;
-    }
-    let side ='';
-    this.__id < id ? side = 'right' : side = 'left';
-
-    if (this[side]) {
-      return this[side].lookupId(id);
-    } else {
-      return null;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop()
+      if (node.__id === id) {
+        return node.value;
+      }
+      let side = '';
+      node.__id < id ? side = 'right' : side = 'left';
+      if (!node[side]) {
+        return null;
+      } else {
+        queue.unshift(node[side]);
+      }
     }
   }
 
 //-- UPDATE -----------------------------
   updateId(id, val) {
-    if (this.__id === id) {
-      return this.value = val;
-    }
-    let side ='';
-    this.__id < id ? side = 'right' : side = 'left';
-
-    if (this[side]) {
-      return this[side].lookupId(id);
-    } else {
-      return null;
+    var queue = [this];
+    while (queue.length) {
+      let node = queue.pop();
+      if (node.__id === id) {
+        return node.value = val;
+      }
+      let side ='';
+      node.__id < id ? side = 'right' : side = 'left';
+      if (node[side]) {
+        queue.unshift(node[side]);
+      } else {
+        return null;
+      }
     }
   }
 
