@@ -199,15 +199,18 @@ class BinaryTree {
       }
     }
 
-
     let children = [];
-    const saveChildren = (node) => { // Refactor to remove recursion
-      children.push({
-        value: node.value,
-        __id: node.__id
-      });
-      if (node.left) saveChildren(node.left)
-      if (node.right) saveChildren(node.right)
+    const saveChildren = (node) => {
+      let cStack = [node];
+      while (cStack.length) {
+        let cNode = cStack.pop();
+        children.push({
+          value: cNode.value,
+          __id: cNode.__id
+        });
+        if (cNode.left) cStack.push(cNode.left);
+        if (cNode.right) cStack.push(cNode.right);
+      }
     }
 
     const addChildren = (originalRoot) => {
