@@ -122,11 +122,73 @@ class BinaryTree {
   }
 
 //-- DELETE -----------------------------
-  deleteNode(id, parent = null, side = null, root = null) {
-    if (!id) return null;
-    let idValue;
+  // deleteNode(id, parent = null, side = null, root = null) {
+  //   if (!id) return null;
+  //   let idValue;
 
-    if (!this.left && !this.right && parent === null) {
+  //   if (!this.left && !this.right && parent === null) {
+  //     if (this.__id !== id) {
+  //       return null;
+  //     }
+  //     if (this.__id === id) {
+  //       idValue = this.value
+  //       this.value = null
+  //       return idValue;
+  //     }
+  //   }
+
+  //   if (!root) root = this;
+  //   let children = [];
+  //   const saveChildren = (node) => {
+  //     children.push({
+  //       value: node.value,
+  //       __id: node.__id
+  //     });
+  //     if (node.left) saveChildren(node.left)
+  //     if (node.right) saveChildren(node.right)
+  //   }
+  //   const addChildren = (originalRoot) => {
+  //     for (let i = 0; i < children.length; i++) {
+  //       originalRoot.addChild(children[i].value, children[i].__id)
+  //     }
+  //   }
+
+  //   if (this.__id === id) {
+  //       idValue = this.value;
+  //     if (!parent) {
+  //       if (this.right) saveChildren(this.right);
+  //       let newParent = children.shift();  // Optional: reset id for root value 'VVVV...'
+  //       if (this.left) saveChildren(this.left);
+  //       this.value = newParent.value;
+  //       this.__id = newParent.__id;
+  //       this.left = null;
+  //       this.right = null;
+  //       addChildren(this)
+  //       return idValue;
+  //     }
+  //     if(!this.left && !this.right && parent) {
+  //       parent[side] = null;
+  //       return idValue;
+  //     }
+  //     if (this.right) saveChildren(this.right)
+  //     if (this.left) saveChildren(this.left)
+  //     if (parent[side]) {
+  //       parent[side] = null;
+  //       addChildren(root);
+  //       return idValue;
+  //     }
+  //   }
+
+  //   if (this.left) this.left.deleteNode(id, this, 'left', root)
+  //   if (this.right) this.right.deleteNode(id, this, 'right', root)
+  //   return idValue;
+  // }
+
+  deleteNode(id) {
+    if (!id) return null;
+
+    let idValue;
+    if (!this.left && !this.right) {
       if (this.__id !== id) {
         return null;
       }
@@ -137,52 +199,70 @@ class BinaryTree {
       }
     }
 
-    if (!root) root = this;
     let children = [];
     const saveChildren = (node) => {
-      children.push({
-        value: node.value,
-        __id: node.__id
-      });
-      if (node.left) saveChildren(node.left)
-      if (node.right) saveChildren(node.right)
+      let cStack = [node];
+      while (cStack.length) {
+        let cNode = cStack.pop();
+        children.push({
+          value: cNode.value,
+          __id: cNode.__id
+        });
+        if (cNode.left) cStack.push(cNode.left);
+        if (cNode.right) cStack.push(cNode.right);
+      }
     }
+
     const addChildren = (originalRoot) => {
       for (let i = 0; i < children.length; i++) {
         originalRoot.addChild(children[i].value, children[i].__id)
       }
     }
 
+    // if found id is the root, then remove root.  
     if (this.__id === id) {
-        idValue = this.value;
-      if (!parent) {
-        if (this.right) saveChildren(this.right);
-        let newParent = children.shift();  // Optional: reset id for root value 'VVVV...'
-        if (this.left) saveChildren(this.left);
+      idValue = this.value;
+      if (this.right) saveChildren(this.right);
+      let newParent = children.shift();  // Optional: reset id for root value 'VVVV...'
+      if (this.left) saveChildren(this.left);
         this.value = newParent.value;
         this.__id = newParent.__id;
         this.left = null;
         this.right = null;
         addChildren(this)
         return idValue;
+    }
+
+    let stack = [null, null, this];
+    while (stack.length) {
+      let node = stack.pop();
+      let side = stack.pop();
+      let currentParent = stack.pop();
+      if (node.__id === id) {
+        idValue = node.value;
+        if (node.right) saveChildren(node.right);
+        if (node.left) saveChildren(node.left);
+        // delete the node
+        if (currentParent[side]) {
+          currentParent[side] = null;
+        }
+        if (children.length) {
+          addChildren(this);
+        }
+        return idValue;        
       }
-      if(!this.left && !this.right && parent) {
-        parent[side] = null;
-        return idValue;
-      }
-      if (this.right) saveChildren(this.right)
-      if (this.left) saveChildren(this.left)
-      if (parent[side]) {
-        parent[side] = null;
-        addChildren(root);
-        return idValue;
+      node.__id < id ? side = 'right' : side = 'left';
+      if (node[side]) {
+        stack.push(node);
+        stack.push(side);
+        stack.push(node[side]);
+      } else {
+        return null;
       }
     }
 
-    if (this.left) this.left.deleteNode(id, this, 'left', root)
-    if (this.right) this.right.deleteNode(id, this, 'right', root)
-    return idValue;
   }
+
 
   removeDuplicates() {
     let cache = {};
