@@ -122,68 +122,6 @@ class BinaryTree {
   }
 
 //-- DELETE -----------------------------
-  // deleteNode(id, parent = null, side = null, root = null) {
-  //   if (!id) return null;
-  //   let idValue;
-
-  //   if (!this.left && !this.right && parent === null) {
-  //     if (this.__id !== id) {
-  //       return null;
-  //     }
-  //     if (this.__id === id) {
-  //       idValue = this.value
-  //       this.value = null
-  //       return idValue;
-  //     }
-  //   }
-
-  //   if (!root) root = this;
-  //   let children = [];
-  //   const saveChildren = (node) => {
-  //     children.push({
-  //       value: node.value,
-  //       __id: node.__id
-  //     });
-  //     if (node.left) saveChildren(node.left)
-  //     if (node.right) saveChildren(node.right)
-  //   }
-  //   const addChildren = (originalRoot) => {
-  //     for (let i = 0; i < children.length; i++) {
-  //       originalRoot.addChild(children[i].value, children[i].__id)
-  //     }
-  //   }
-
-  //   if (this.__id === id) {
-  //       idValue = this.value;
-  //     if (!parent) {
-  //       if (this.right) saveChildren(this.right);
-  //       let newParent = children.shift();  // Optional: reset id for root value 'VVVV...'
-  //       if (this.left) saveChildren(this.left);
-  //       this.value = newParent.value;
-  //       this.__id = newParent.__id;
-  //       this.left = null;
-  //       this.right = null;
-  //       addChildren(this)
-  //       return idValue;
-  //     }
-  //     if(!this.left && !this.right && parent) {
-  //       parent[side] = null;
-  //       return idValue;
-  //     }
-  //     if (this.right) saveChildren(this.right)
-  //     if (this.left) saveChildren(this.left)
-  //     if (parent[side]) {
-  //       parent[side] = null;
-  //       addChildren(root);
-  //       return idValue;
-  //     }
-  //   }
-
-  //   if (this.left) this.left.deleteNode(id, this, 'left', root)
-  //   if (this.right) this.right.deleteNode(id, this, 'right', root)
-  //   return idValue;
-  // }
-
   deleteNode(id) {
     if (!id) return null;
 
