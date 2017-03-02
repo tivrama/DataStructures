@@ -74,7 +74,6 @@ class LinkedList {
     let currentNode = this.head;
     while (currentNode) {
       if (currentNode.value === lookupVal) {
-        //insert node;
         let breakList = currentNode.next;
         makeNode.next = breakList;
         currentNode.next = makeNode;
@@ -82,8 +81,7 @@ class LinkedList {
         return;
       }
       if (!currentNode.next) {
-        console.log('lookupVal not found: ', lookupVal);
-        return 'lookupVal not found';
+        return null;
       }
       currentNode = currentNode.next;
     }
@@ -99,7 +97,6 @@ class LinkedList {
     let currentNode = this.head;
     while (currentNode) {
       if (currentNode.__id === id) {
-        //insert node;
         let breakList = currentNode.next;
         makeNode.next = breakList;
         currentNode.next = makeNode;
@@ -107,8 +104,7 @@ class LinkedList {
         return;
       }
       if (!currentNode.next) {
-        console.log('id not found: ', id);
-        return 'id not found';
+        return null;
       }
       currentNode = currentNode.next;
     }
@@ -122,7 +118,6 @@ class LinkedList {
         return node.value;
       }
       if (!node.next) {
-        console.log('ID not found: ', id);
         return -1;
       }
       node = node.next;
@@ -136,7 +131,6 @@ class LinkedList {
         return true;
       }
       if (!node.next) {
-        console.log('Value not found: ', val);
         return false;
       }
       node = node.next;
@@ -150,7 +144,6 @@ class LinkedList {
         return true;
       }
       if (!node.next) {
-        console.log('id not found: ', id);
         return false;
       }
       node = node.next;
@@ -196,7 +189,6 @@ class LinkedList {
         return node.value;
       }
       if (!node.next) {
-        console.log('ID not found: ', id);
         return -1;
       }
       node = node.next;
@@ -252,8 +244,7 @@ class LinkedList {
       }
       // node not found
       if (!node.next) {
-        console.log('node not found: ', val);
-        return 'node not found';         
+        return null;         
       }
       // if node is not head
       if (node.next.value === val) {
@@ -281,8 +272,7 @@ class LinkedList {
       }
       // node not found
       if (!node.next) {
-        console.log('node not found: ', id);
-        return;         
+        return null;         
       }
       // if node is not head
       if (node.next.__id === id) {
@@ -321,9 +311,7 @@ class LinkedList {
       } else {
         resultsArray.push(node.value);
       }
-      if (!node.next) {
-        return resultsArray;
-      }
+      if (!node.next) return resultsArray;
       node = node.next;
     }
   }
@@ -346,15 +334,15 @@ class LinkedList {
  
   sortedListMerge (newNode, cb) {
     let mergedArray = [];
-    const sub = (node) => {
-      if (node) {
+    const sub1 = (node) => {
+      while (node) {
         mergedArray.push({value: node.value, __id: node.__id})
-        sub(node.next)
+        node = node.next;
       }
       return
     }
-    sub(this.head);
-    sub(newNode.head);
+    sub1(this.head);
+    sub1(newNode.head);
     if (cb) {
       mergedArray.sort(cb);
     } else {
@@ -364,25 +352,27 @@ class LinkedList {
     this.tail = null;
 
     const sub2 = (node) => {
-      const makeNode = {
-        value: node.value,
-        __id: node.__id,
-        next: this.head
-      }
-      if (!this.head) {
-        this.tail = makeNode;
-        this.head = makeNode;
-        this.length = 1;
-      } else {
-        let oldHead = this.head;
-        makeNode.next = oldHead;
-        this.head = makeNode;
-        this.length +=1;
-      }
-      if (mergedArray.length) {
-        sub2(mergedArray.pop())
-      } else {
-        return
+      while (node) {
+        const makeNode = {
+          value: node.value,
+          __id: node.__id,
+          next: this.head
+        }
+        if (!this.head) {
+          this.tail = makeNode;
+          this.head = makeNode;
+          this.length = 1;
+        } else {
+          let oldHead = this.head;
+          makeNode.next = oldHead;
+          this.head = makeNode;
+          this.length +=1;
+        }
+        if (mergedArray.length) {
+          node = mergedArray.pop();
+        } else {
+          return
+        }
       }
     }
     sub2(mergedArray.pop())
