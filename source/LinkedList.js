@@ -118,43 +118,48 @@ class LinkedList {
 
 //-- LOOKUP --------------------------------
   readValueAtId(id) { // Updated value at node with selected ID
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (node.__id === id) {
         return node.value;
       }
       if (!node.next) {
         console.log('ID not found: ', id);
+        node = false;
         return -1;
       }
-      return sub(node.next)
+      node = node.next;
     }
-    return sub(this.head);
   }
 
   containsValue(val) { // Returns a boolean indicating whether the input value is present
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (node.value === val) {
         return true;
       }
       if (!node.next) {
+        console.log('Value not found: ', val);
+        node = false;
         return false;
       }
-      return sub(node.next)
+      node = node.next;
     }
-    return sub(this.head);
   }
 
   containsId(id) { // Returns a boolean indicating whether the input ID is present
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (node.__id === id) {
         return true;
       }
       if (!node.next) {
+        console.log('id not found: ', id);
+        node = false;
         return false;
       }
-      return sub(node.next)
+      node = node.next;
     }
-    return sub(this.head);
   }
 
   indexOfValue(val) { // Returns the numerical order or "index" of the node with value. Returns -1 if not present
