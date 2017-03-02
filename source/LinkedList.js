@@ -118,12 +118,8 @@
     readValueAtId(id) { // Updated value at node with selected ID
       let node = this.head;
       while (node) {
-        if (node.__id === id) {
-          return node.value;
-        }
-        if (!node.next) {
-          return -1;
-        }
+        if (node.__id === id) return node.value;
+        if (!node.next) return -1;
         node = node.next;
       }
     }
@@ -131,12 +127,8 @@
     containsValue(val) { // Returns a boolean indicating whether the input value is present
       let node = this.head;
       while (node) {
-        if (node.value === val) {
-          return true;
-        }
-        if (!node.next) {
-          return false;
-        }
+        if (node.value === val) return true;
+        if (!node.next) return false;
         node = node.next;
       }
     }
@@ -144,12 +136,8 @@
     containsId(id) { // Returns a boolean indicating whether the input ID is present
       let node = this.head;
       while (node) {
-        if (node.__id === id) {
-          return true;
-        }
-        if (!node.next) {
-          return false;
-        }
+        if (node.__id === id) return true;
+        if (!node.next) return false;
         node = node.next;
       }
     }
@@ -158,13 +146,9 @@
       let index = 0;
       let node = this.head;
       while (node) {
-        if (node.value === val) {
-          return index;
-        }
-        if (!node.next) {
-          return -1;
-        }
-        index +=1;
+        if (node.value === val) return index;
+        if (!node.next) return -1;
+        index++;
         node = node.next;
       }
     }
@@ -173,13 +157,9 @@
       let index = 0;
       let node = this.head;
       while (node) {
-        if (node.__id === id) {
-          return index;
-        }
-        if (!node.next) {
-          return -1;
-        }
-        index +=1;
+        if (node.__id === id) return index;
+        if (!node.next) return -1;
+        index++;
         node = node.next;
       }
     }
@@ -192,28 +172,22 @@
           node.value = val;
           return node.value;
         }
-        if (!node.next) {
-          return -1;
-        }
+        if (!node.next) return -1;
         node = node.next;
       }
     }
 
   //-- DELETE --------------------------------
     deleteHead() {
-      if (!this.head) {
-        return
-      }
+      if (!this.head) return
       if (!this.head.next) {
         this.head = null;
         this.tail = null;
-        this.length = 0;
-        return
+        return this.length = 0;
       }
       let breakList = this.head.next;
       this.head = breakList
-      this.length -=1;
-      return this.length;
+      return this.length--;
     }
 
     deleteTail() {
@@ -223,16 +197,14 @@
       if (!this.head.next) {
         this.head = null;
         this.tail = null;
-        this.length = 0;
-        return
+        return this.length = 0;
       }
       let node = this.head;
       while (node) {
         if (!node.next.next) {
           node.next = null;
           this.tail = node;
-          this.length -=1;
-          return this.length;
+          return this.length--;
         }
         node = node.next;
       }
@@ -243,8 +215,7 @@
       while (node) {
         // if node is head
         if (node.value === val && node === this.head) {
-          this.deleteHead();
-          return
+          return this.deleteHead();
         }
         // node not found
         if (!node.next) {
@@ -271,14 +242,10 @@
       while (node) {
         // if node is head
         if (node.__id === id && node === this.head) {
-          this.deleteHead();
-          return
+          return this.deleteHead();
         }
         // node not found
-        if (!node.next) {
-          console.log('node not found: ', id);
-          return;         
-        }
+        if (!node.next) return -1;         
         // if node is not head
         if (node.next.__id === id) {
           // if node is tail
