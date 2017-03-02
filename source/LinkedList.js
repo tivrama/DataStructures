@@ -83,7 +83,6 @@ class LinkedList {
       }
       if (!currentNode.next) {
         console.log('lookupVal not found: ', lookupVal);
-        currentNode = false;
         return 'lookupVal not found';
       }
       currentNode = currentNode.next;
@@ -109,7 +108,6 @@ class LinkedList {
       }
       if (!currentNode.next) {
         console.log('id not found: ', id);
-        currentNode = false;
         return 'id not found';
       }
       currentNode = currentNode.next;
@@ -125,7 +123,6 @@ class LinkedList {
       }
       if (!node.next) {
         console.log('ID not found: ', id);
-        node = false;
         return -1;
       }
       node = node.next;
@@ -140,7 +137,6 @@ class LinkedList {
       }
       if (!node.next) {
         console.log('Value not found: ', val);
-        node = false;
         return false;
       }
       node = node.next;
@@ -155,7 +151,6 @@ class LinkedList {
       }
       if (!node.next) {
         console.log('id not found: ', id);
-        node = false;
         return false;
       }
       node = node.next;
@@ -164,7 +159,8 @@ class LinkedList {
 
   indexOfValue(val) { // Returns the numerical order or "index" of the node with value. Returns -1 if not present
     let index = 0;
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (node.value === val) {
         return index;
       }
@@ -172,14 +168,14 @@ class LinkedList {
         return -1;
       }
       index +=1;
-      return sub(node.next)
+      node = node.next;
     }
-    return sub(this.head);
   }
 
   indexOfId(id) { // Returns the numerical order or "index" of the node with ID. Returns -1 if not present
     let index = 0;
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (node.__id === id) {
         return index;
       }
@@ -187,14 +183,14 @@ class LinkedList {
         return -1;
       }
       index +=1;
-      return sub(node.next)
+      node = node.next;
     }
-    return sub(this.head);
   }
 
 //-- UPDATE --------------------------------
   updateValueAtId(id, val) { // Updated value at node with selected ID
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (node.__id === id) {
         node.value = val;
         return node.value;
@@ -203,9 +199,8 @@ class LinkedList {
         console.log('ID not found: ', id);
         return -1;
       }
-      return sub(node.next)
+      node = node.next;
     }
-    return sub(this.head);
   }
 
 //-- DELETE --------------------------------
@@ -235,22 +230,21 @@ class LinkedList {
       this.length = 0;
       return
     }
-    //recurse checking next.next
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (!node.next.next) {
         node.next = null;
         this.tail = node;
-        return
+        this.length -=1;
+        return this.length;
       }
-      sub(node.next)
+      node = node.next;
     }
-    sub(this.head)
-    this.length -=1;
-    return
   }
 
   deleteNodeValue(val) {
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       // if node is head
       if (node.value === val && node === this.head) {
         this.deleteHead();
@@ -273,13 +267,13 @@ class LinkedList {
         this.length -=1;
         return        
       }
-      sub(node.next)
+      node = node.next;
     }
-    sub(this.head);
   }
 
   deleteNodeId(id) {
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       // if node is head
       if (node.__id === id && node === this.head) {
         this.deleteHead();
@@ -300,64 +294,54 @@ class LinkedList {
         let breakList = node.next.next;
         node.next = breakList
         this.length -=1;
-        return        
+        return this.length;      
       }
-      sub(node.next)
+      node = node.next;
     }
-    sub(this.head);
   }
 
 //-- HELPER --------------------------------
   onEach(cb) {
-    if (!this.head) {
-      return
-    }
-    const sub = (node) => {
+    if (!this.head) return
+    let node = this.head;
+    while (node) {
       node.value = cb(node.value);
-      if (!node.next) {
-        return
-      }
-      sub(node.next);
+      if (!node.next) return
+      node = node.next;
     }
-    sub(this.head);
   }
 
   mapToArray(cb) {
-    if (!this.head) {
-      return [];
-    }
+    if (!this.head) return [];
     let resultsArray = [];
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (cb) {
         resultsArray.push(cb(node.value));
       } else {
         resultsArray.push(node.value);
       }
       if (!node.next) {
-        return [];
+        return resultsArray;
       }
-      sub(node.next);
+      node = node.next;
     }
-    sub(this.head);
-    return resultsArray;
   }
 
   filterToArray(cb) {
-    if (!this.head) {
-      return [];
-    }
+    if (!cb) return null;
+    if (!this.head) return [];
     let resultsArray = [];
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (cb(node.value)) {
         resultsArray.push(node.value);
       }
       if (!node.next) {
-        return [];
+        return resultsArray;
       }
-      sub(node.next)
+      node = node.next;
     }
-    sub(this.head);
-    return resultsArray;
   }
  
   sortedListMerge (newNode, cb) {
@@ -409,7 +393,8 @@ class LinkedList {
     let counter = 0;
     let lastId;
     let testHead = this.head;
-    const sub = (node) => {
+    let node = this.head;
+    while (node) {
       if (node.counter) {
         testHead = {};
         console.log('Node with circular ref at index: ', counter, ' Between ID ', lastId, ' and ID ', node.__id);
@@ -423,26 +408,22 @@ class LinkedList {
         node.counter = counter;
         counter +=1;
         lastId = node.__id
-        return sub(node.next);
+        node = node.next;
       }
     }
-    return sub(testHead);
   }
 
   reverseList() {
-    if (!this.head || !this.head.next) {
-      return
-    }
+    if (!this.head || !this.head.next) return;
 
     let temp = [];
-    const sub = (node) => {
-      if (node) {
-        temp.push({value: node.value, __id: node.__id})
-        sub(node.next)
+    let node1 = this.head;
+    while (node1) {
+      if (node1) {
+        temp.push({value: node1.value, __id: node1.__id})
+        node1 = node1.next;
       }
-      return
     }
-    sub(this.head)
 
     this.head = null;
     this.tail = null;
