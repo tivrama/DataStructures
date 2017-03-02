@@ -71,22 +71,23 @@ class LinkedList {
       __id: this.makeId(),
       next: null
     }
-    const sub = (currentNode) => {
+    let currentNode = this.head;
+    while (currentNode) {
       if (currentNode.value === lookupVal) {
         //insert node;
-      let breakList = currentNode.next;
-      makeNode.next = breakList;
-      currentNode.next = makeNode;
-      this.length +=1;
-      return;
+        let breakList = currentNode.next;
+        makeNode.next = breakList;
+        currentNode.next = makeNode;
+        this.length +=1;
+        return;
       }
       if (!currentNode.next) {
         console.log('lookupVal not found: ', lookupVal);
+        currentNode = false;
         return 'lookupVal not found';
       }
-      sub(currentNode.next)
+      currentNode = currentNode.next;
     }
-    sub(this.head);
   }
 
   insertAfterId(id, val) { 
@@ -96,22 +97,23 @@ class LinkedList {
       __id: this.makeId(),
       next: null
     }
-    const sub = (currentNode) => {
+    let currentNode = this.head;
+    while (currentNode) {
       if (currentNode.__id === id) {
         //insert node;
-      let breakList = currentNode.next;
-      makeNode.next = breakList;
-      currentNode.next = makeNode;
-      this.length +=1;
-      return;
+        let breakList = currentNode.next;
+        makeNode.next = breakList;
+        currentNode.next = makeNode;
+        this.length +=1;
+        return;
       }
       if (!currentNode.next) {
         console.log('id not found: ', id);
+        currentNode = false;
         return 'id not found';
       }
-      sub(currentNode.next)
+      currentNode = currentNode.next;
     }
-    sub(this.head);
   }
 
 //-- LOOKUP --------------------------------
