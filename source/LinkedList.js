@@ -214,14 +214,9 @@
       let node = this.head;
       while (node) {
         // if node is head
-        if (node.value === val && node === this.head) {
-          return this.deleteHead();
-        }
+        if (node.value === val && node === this.head) return this.deleteHead();
         // node not found
-        if (!node.next) {
-          console.log('node not found: ', val);
-          return 'node not found';         
-        }
+        if (!node.next) return -1;         
         // if node is not head
         if (node.next.value === val) {
           // if node is tail
@@ -230,8 +225,7 @@
           }    
           let breakList = node.next.next;
           node.next = breakList
-          this.length -=1;
-          return this.length;      
+          return this.length--;     
         }
         node = node.next;
       }
@@ -254,8 +248,7 @@
           }    
           let breakList = node.next.next;
           node.next = breakList
-          this.length -=1;
-          return this.length;      
+          return this.length--;      
         }
         node = node.next;
       }
@@ -282,9 +275,7 @@
         } else {
           resultsArray.push(node.value);
         }
-        if (!node.next) {
-          return resultsArray;
-        }
+        if (!node.next) return resultsArray;
         node = node.next;
       }
     }
@@ -298,24 +289,22 @@
         if (cb(node.value)) {
           resultsArray.push(node.value);
         }
-        if (!node.next) {
-          return resultsArray;
-        }
+        if (!node.next) return resultsArray;
         node = node.next;
       }
     }
    
     sortedListMerge (newNode, cb) {
       this.mergedArray = [];
-      const sub = (node) => {
-        if (node) {
+      const sub1 = (node) => {
+        while (node) {
           this.mergedArray.push({value: node.value, __id: node.__id})
-          sub(node.next)
+          node = node.next;
         }
         return
       }
-      sub(this.head);
-      sub(newNode.head);
+      sub1(this.head);
+      sub1(newNode.head);
       if (cb) {
         this.mergedArray.sort(cb);
       } else {
