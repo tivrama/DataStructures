@@ -11,6 +11,14 @@
       this.allIds = [];
     }
 
+    makeNode(val) {
+      return {
+        value: val,
+        __id: this.makeId(),
+        next: null  
+      };
+    }
+
     makeId() {
       let text = "";
       let possible = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -30,92 +38,67 @@
     }
 
   //-- CREATE --------------------------------
-    addToHead(val) { // Adds a node to head
-      const makeNode = {
-        value: val,
-        __id: this.makeId(),
-        next: this.head
-      }
+    addToHead(val) {
+      let makeNode = this.makeNode(val);
+      makeNode.next = this.head;
       if (!this.head) {
         this.tail = makeNode;
         this.head = makeNode;
-        this.length = 1;
+        return this.length = 1;
       } else {
         let oldHead = this.head;
         makeNode.next = oldHead;
         this.head = makeNode;
-        this.length +=1;
+        return this.length++;
       }
     }
 
-
-    addToTail(val) { // Adds a node to tail
-      const makeNode = {
-        value: val,
-        __id: this.makeId(),
-        next: null
-      }
+    addToTail(val) {
+      let makeNode = this.makeNode(val);
       if (!this.tail) {
         this.tail = makeNode;
         this.head = makeNode;
-        this.length = 1;
+        return this.length = 1;
       } else {
         this.tail.next = makeNode;
         this.tail = makeNode;
-        this.length +=1;
+        return this.length++;
       }
     }
 
     insertAfterValue(lookupVal, val) { 
-      // Given a lookupVal and value, it acts similar to addToTail, except it creates a node after the input node
-      const makeNode = {
-        value: val,
-        __id: this.makeId(),
-        next: null
-      }
-      let currentNode = this.head;
-      while (currentNode) {
-        if (currentNode.value === lookupVal) {
-          //insert node;
-          let breakList = currentNode.next;
+      let makeNode = this.makeNode(val);
+      let node = this.head;
+      while (node) {
+        if (node.value === lookupVal) {
+          let breakList = node.next;
           makeNode.next = breakList;
-          currentNode.next = makeNode;
-          this.length +=1;
-          return this.length;
+          node.next = makeNode;
+          return this.length++;
         }
-        if (!currentNode.next) {
-          return null;
-        }
-        currentNode = currentNode.next;
+        if (!node.next) return null;
+        node = node.next;
       }
     }
 
     insertAfterId(id, val) { 
-      // Given an ID and value, it acts similar to addToTail, except it creates a node after the input node
-      const makeNode = {
-        value: val,
-        __id: this.makeId(),
-        next: null
-      }
+      let makeNode = this.makeNode(val);
       let currentNode = this.head;
       while (currentNode) {
         if (currentNode.__id === id) {
-          //insert node;
           let breakList = currentNode.next;
           makeNode.next = breakList;
           currentNode.next = makeNode;
           this.length +=1;
           return this.length;
         }
-        if (!currentNode.next) {
-          return null;
-        }
+        if (!currentNode.next) return null;
         currentNode = currentNode.next;
       }
     }
 
   //-- LOOKUP --------------------------------
-    readValueAtId(id) { // Updated value at node with selected ID
+    readValueAtId(id) {
       let node = this.head;
       while (node) {
         if (node.__id === id) return node.value;
@@ -124,7 +107,7 @@
       }
     }
 
-    containsValue(val) { // Returns a boolean indicating whether the input value is present
+    containsValue(val) {
       let node = this.head;
       while (node) {
         if (node.value === val) return true;
@@ -133,7 +116,7 @@
       }
     }
 
-    containsId(id) { // Returns a boolean indicating whether the input ID is present
+    containsId(id) {
       let node = this.head;
       while (node) {
         if (node.__id === id) return true;
@@ -142,7 +125,7 @@
       }
     }
 
-    indexOfValue(val) { // Returns the numerical order or "index" of the node with value. Returns -1 if not present
+    indexOfValue(val) {
       let index = 0;
       let node = this.head;
       while (node) {
@@ -153,7 +136,7 @@
       }
     }
 
-    indexOfId(id) { // Returns the numerical order or "index" of the node with ID. Returns -1 if not present
+    indexOfId(id) {
       let index = 0;
       let node = this.head;
       while (node) {
@@ -165,14 +148,14 @@
     }
 
   //-- UPDATE --------------------------------
-    updateValueAtId(id, val) { // Updated value at node with selected ID
+    updateValueAtId(id, val) {
       let node = this.head;
       while (node) {
         if (node.__id === id) {
           node.value = val;
           return node.value;
         }
-        if (!node.next) return -1;
+        if (!node.next) return null;
         node = node.next;
       }
     }
@@ -191,9 +174,7 @@
     }
 
     deleteTail() {
-      if (!this.tail) {
-        return
-      }
+      if (!this.tail) return;
       if (!this.head.next) {
         this.head = null;
         this.tail = null;
@@ -213,13 +194,9 @@
     deleteNodeValue(val) {
       let node = this.head;
       while (node) {
-        // if node is head
         if (node.value === val && node === this.head) return this.deleteHead();
-        // node not found
         if (!node.next) return -1;         
-        // if node is not head
         if (node.next.value === val) {
-          // if node is tail
           if (!node.next.next) {
             return this.deleteTail();
           }    
@@ -234,15 +211,11 @@
     deleteNodeId(id) {
       let node = this.head;
       while (node) {
-        // if node is head
         if (node.__id === id && node === this.head) {
           return this.deleteHead();
         }
-        // node not found
         if (!node.next) return -1;         
-        // if node is not head
         if (node.next.__id === id) {
-          // if node is tail
           if (!node.next.next) {
             return this.deleteTail();
           }    
@@ -301,8 +274,7 @@
           this.mergedArray.push({value: node.value, __id: node.__id})
           node = node.next;
         }
-        return
-      }
+      };
       sub1(this.head);
       sub1(newNode.head);
       if (cb) {
@@ -313,7 +285,7 @@
       this.head = null;
       this.tail = null;
 
-      const sub2 = (node) => {
+      const sub2 = (node) => {  // TODO: Remove this recursive function
         const makeNode = {
           value: node.value,
           __id: node.__id,
@@ -346,7 +318,6 @@
       let counter = 0;
       while (node) {
         if (this.cache[node.__id]) {
-          // return true and log which nodes
           console.log('Node with circular ref at index: ', counter, ' Between ID ', lastId, ' and ID ', node.__id)
           delete this.cache;
           return true;
@@ -376,7 +347,7 @@
       this.head = null;
       this.tail = null;
 
-      const sub2 = (node) => {
+      const sub2 = (node) => {  // TODO: Remove this recursive function
         const makeNode = {
           value: node.value,
           __id: node.__id,
@@ -423,7 +394,7 @@
       this.head = null;
       this.tail = null;
 
-      const sub2 = (node) => {
+      const sub2 = (node) => {  // TODO: Remove this recursive function
         const makeNode = {
           value: node.value,
           __id: node.__id,
@@ -456,7 +427,7 @@
       if (!id) {
         const start = new Date().getTime();
         let count = 0;
-        const sub = (node) => {
+        const sub = (node) => {  // TODO: Remove this recursive function
           if (count === this.length-1) {
             const end = new Date().getTime();
             return (end - start) + 'ms';
@@ -467,7 +438,7 @@
         return sub(this.head);
       } else {
         const start = new Date().getTime();
-        const sub = (node) => {
+        const sub = (node) => {  // TODO: Remove this recursive function
           if (node.__id === id) {
             const end = new Date().getTime();
             return (end - start) + 'ms';
