@@ -16,38 +16,75 @@
     }
 
   //-- LOOKUP --------------------------------
+    // contains(val) {
+    //   if (this.value === val) {
+    //     return true
+    //   }
+    //   if (this.children.length) {
+    //     for (var i = 0; i < this.children.length; i++) {
+    //       if (this.children[i].contains(val)) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    //   return false
+    // }
+
     contains(val) {
-      if (this.value === val) {
-        return true
-      }
-      if (this.children.length > 0) {
-        for (var i = 0; i < this.children.length; i++) {
-          if (this.children[i].contains(val)) {
-            return true;
+      if (this.value === val) return true;
+
+      this.queue = this.children.slice();
+      while (this.queue.length) {
+        let node = this.queue.shift();
+        if (node.value === val) {
+          delete this.queue;
+          return true;
+        }
+        if (node.children.length) {
+          for (let i = 0; i < node.children.length; i++) {
+            // console.log('node.children: ', node.children[i]);
+            this.queue.push(node.children[i]);
           }
         }
       }
-      return false
+      return false;
     }
+
+    // countLeaves() {
+    //   let counter = 0;
+    //   const sub = (node) => {
+    //     if (node.children.length === 0) {
+    //       return counter++;
+    //     }
+    //     for (var i = 0; i < node.children.length; i++) {
+    //       sub(node.children[i]);
+    //     }
+    //   }
+    //   sub(this);
+    //   return counter;
+    // }
 
     countLeaves() {
       let counter = 0;
-      const sub = (node) => {
+      if (!this.children.length) return 1;
+      this.queue = this.children.slice();
+      while (this.queue.length) {
+        let node = this.queue.shift();
         if (node.children.length === 0) {
-          return counter += 1;
-        }
-        for (var i = 0; i < node.children.length; i++) {
-          sub(node.children[i]);
+          counter++
+        } else {
+          for (var i = 0; i < node.children.length; i++) {
+            this.queue.push(node.children[i]);
+          }
         }
       }
-      sub(this);
       return counter;
     }
 
     countNodes() {
       let counter = 0;
       const sub = (node) => {
-        counter += 1;
+        counter++;
         if (node.children.length > 0) {
           for (var i = 0; i < node.children.length; i++) {
             sub(node.children[i]);
@@ -63,9 +100,17 @@
       if(this.value === val) {
         this.value = newValue;
       }
-      if (this.children.length > 0) {
-        for (var i = 0; i < this.children.length; i++) {
-          this.children[i].updateValue(val, newValue);
+      let queue = this.children.slice();
+      while (queue.length) {
+        let node = queue.shift();
+        if (node.value === val) {
+          node.value = newValue;
+          return;
+        }
+        if (node.children.length) {
+          for (let i = 0; i < node.children.length; i++) {
+            queue.push(node.children[i]);
+          }
         }
       }
     }

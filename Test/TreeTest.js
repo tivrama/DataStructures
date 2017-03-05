@@ -76,13 +76,13 @@ describe('Tree', () => {
   describe('Tree Update', () => {  
 
     it('updateValue should find value and replace with new value', () => {
-      const myTree = new Tree(4);
-      myTree.addChild(5);
-      myTree.addChild(6);
-      myTree.children[1].addChild(7);
-      myTree.updateValue(7, 8);
-      assert.isFalse(myTree.contains(7));
-      assert.isTrue(myTree.contains(8));
+      const myTree = new Tree(1);
+      myTree.addChild(2);
+      myTree.addChild(3);
+      myTree.children[1].addChild(4);
+      myTree.updateValue(4, 'Hello');
+      assert.isFalse(myTree.contains(4));
+      assert.isTrue(myTree.contains('Hello'));
     });
 
     it('updateValue should not do anything if value is not found', () => {

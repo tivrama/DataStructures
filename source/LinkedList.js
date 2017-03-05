@@ -390,7 +390,8 @@
       this.head = null;
       this.tail = null;
 
-      const sub2 = (node) => {  // TODO: Remove this recursive function
+      let node = temp.pop();
+      while (node) {
         const makeNode = {
           value: node.value,
           __id: node.__id,
@@ -406,42 +407,34 @@
           this.head = makeNode;
           this.length +=1;
         }
-        if (temp.length) {
-          sub2(temp.pop())
-        } else {
-          return
-        }
+        node = temp.pop();
       }
-      sub2(temp.pop())
-
     }
 
     lookupTime(id) {
       if (!this.head || !this.head.next) {
         return '0ms';
       }
+      const start = new Date().getTime();
+      let node = this.head;
       if (!id) {
-        const start = new Date().getTime();
         let count = 0;
-        const sub = (node) => {  // TODO: Remove this recursive function
+        while (node) {
           if (count === this.length-1) {
             const end = new Date().getTime();
             return (end - start) + 'ms';
           }
           count++;
-          return sub(node.next)
+          node = node.next;
         }
-        return sub(this.head);
       } else {
-        const start = new Date().getTime();
-        const sub = (node) => {  // TODO: Remove this recursive function
+        while (node) {
           if (node.__id === id) {
             const end = new Date().getTime();
             return (end - start) + 'ms';
           }
-          return sub(node.next)
+          node = node.next;
         }
-        return sub(this.head);
       }
     }
 
