@@ -279,7 +279,7 @@
 
     deepestGeneration() {
       let generation = 1;
-      const sub = (node, gen = 1) => {
+      const sub = (node, gen = 1) => {  // TODO: Remove this recursive function
         if (node.left) { sub(node.left, gen + 1) }
         if (gen > generation) {
           generation = gen;
