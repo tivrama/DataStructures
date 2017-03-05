@@ -347,7 +347,8 @@
       this.head = null;
       this.tail = null;
 
-      const sub2 = (node) => {  // TODO: Remove this recursive function
+      let node = temp.shift();
+      while (node) {
         const makeNode = {
           value: node.value,
           __id: node.__id,
@@ -363,13 +364,8 @@
           this.head = makeNode;
           this.length +=1;
         }
-        if (temp.length) {
-          sub2(temp.shift())
-        } else {
-          return
-        }
+        node = temp.shift();
       }
-      sub2(temp.shift())
     }
 
     sortList(callback) {
