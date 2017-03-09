@@ -16,20 +16,6 @@
     }
 
   //-- LOOKUP --------------------------------
-    // contains(val) {
-    //   if (this.value === val) {
-    //     return true
-    //   }
-    //   if (this.children.length) {
-    //     for (var i = 0; i < this.children.length; i++) {
-    //       if (this.children[i].contains(val)) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    //   return false
-    // }
-
     contains(val) {
       if (this.value === val) return true;
 
@@ -42,27 +28,12 @@
         }
         if (node.children.length) {
           for (let i = 0; i < node.children.length; i++) {
-            // console.log('node.children: ', node.children[i]);
             this.queue.push(node.children[i]);
           }
         }
       }
       return false;
     }
-
-    // countLeaves() {
-    //   let counter = 0;
-    //   const sub = (node) => {
-    //     if (node.children.length === 0) {
-    //       return counter++;
-    //     }
-    //     for (var i = 0; i < node.children.length; i++) {
-    //       sub(node.children[i]);
-    //     }
-    //   }
-    //   sub(this);
-    //   return counter;
-    // }
 
     countLeaves() {
       let counter = 0;
@@ -82,16 +53,17 @@
     }
 
     countNodes() {
-      let counter = 0;
-      const sub = (node) => {
+      let counter = 1;
+      this.queue = this.children.slice();
+      while (this.queue.length) {
+        let node = this.queue.shift()
         counter++;
         if (node.children.length > 0) {
           for (var i = 0; i < node.children.length; i++) {
-            sub(node.children[i]);
+            this.queue.push(node.children[i]);
           }
         }
       }
-      sub(this);
       return counter;
     }
 

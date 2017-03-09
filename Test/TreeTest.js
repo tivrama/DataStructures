@@ -71,6 +71,26 @@ describe('Tree', () => {
       assert.equal(myTree.countLeaves(), 4);
     });
 
+    let addNodes = (number, tree) => {
+      for (let i = 0; i < number; i++) {
+        tree.addChild(i);
+      }
+    }
+
+    it('should return the number of nodes', function(){
+      const myTree = new Tree(1);
+      addNodes(2, myTree);
+      addNodes(2, myTree.children[0]);
+      addNodes(2, myTree.children[1]);
+      addNodes(2, myTree.children[0].children[0]);
+      addNodes(2, myTree.children[0].children[1]);
+      addNodes(2, myTree.children[1].children[0]);
+      addNodes(2, myTree.children[1].children[1]);
+      addNodes(2, myTree.children[0].children[0].children[0]);
+      addNodes(2, myTree.children[0].children[0].children[1]);
+      assert.equal(myTree.countNodes(), 19)
+    });
+
   });
 
   describe('Tree Update', () => {  
